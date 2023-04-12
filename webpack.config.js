@@ -11,6 +11,39 @@ module.exports = {
           loader: "babel-loader",
         },
       },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: "style-loader",
+          },
+          {
+            loader: "css-loader",
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              sassOptions: {
+                includePaths: [
+                  "./node_modules/@uswds/uswds/packages",
+                  "./src/uswds/uswds.scss",
+                ],
+              },
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg|woff2?|ttf)$/i,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].[ext]",
+            },
+          },
+        ],
+      },
     ],
   },
   resolve: {

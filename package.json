@@ -19,14 +19,23 @@
     "@types/react-dom": "^18.0.11",
     "babel-loader": "^9.1.2",
     "core-js": "^3.30.0",
+    "css-loader": "^6.7.3",
+    "file-loader": "^6.2.0",
+    "node-sass": "^8.0.0",
     "regenerator-runtime": "^0.13.11",
+    "sass-loader": "^13.2.2",
+    "style-loader": "^3.3.2",
     "typescript": "^5.0.4",
     "webpack": "^5.78.0",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.13.2"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@metrostar/warpspeed": "1.2.1",
+    "@uswds/uswds": "3.4.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router-dom": "^6.10.0",
+    "recoil": "^0.7.7"
   }
 }
