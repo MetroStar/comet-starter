@@ -20,7 +20,7 @@ export const SignIn = (): React.ReactElement => {
   const [hasLoginError, setHasLoginError] = useState(false);
   const [usernameErrors, setUsernameErrors] = useState([] as string[]);
   const [passwordErrors, setPasswordErrors] = useState([] as string[]);
-  const { signIn, isSignedIn } = useAuth();
+  const { signIn, isSignedIn, error } = useAuth();
 
   useEffect(() => {
     if (isSignedIn) {
@@ -28,6 +28,12 @@ export const SignIn = (): React.ReactElement => {
       navigate("/");
     }
   }, [isSignedIn]);
+
+  useEffect(() => {
+    if (error) {
+      setHasLoginError(true);
+    }
+  }, [error]);
 
   const handleLogin = (event: FormEvent) => {
     event.preventDefault();
