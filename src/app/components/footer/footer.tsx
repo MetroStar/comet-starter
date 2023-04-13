@@ -7,10 +7,7 @@ import instagramIcon from "@uswds/uswds/img/usa-icons/instagram.svg";
 import rssIcon from "@uswds/uswds/img/usa-icons/rss_feed.svg";
 import { APP_TITLE } from "../../constants";
 
-/* eslint-disable-next-line */
-export interface FooterProps {}
-
-export function Footer(props: FooterProps) {
+export const Footer = (): React.ReactElement => {
   const scrollToTop = (event: React.MouseEvent<HTMLAnchorElement>): void => {
     event.preventDefault();
     window.scrollTo(0, 0);
@@ -185,5 +182,3 @@ export function Footer(props: FooterProps) {
     </footer>
   );
 }
-
-export default Footer;

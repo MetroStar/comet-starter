@@ -97,5 +97,3 @@ export const Header = (): React.ReactElement => {
     </header>
   );
 };
-
-export default Header;
