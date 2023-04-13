@@ -1,5 +1,5 @@
-@use "uswds-core" with (
+@use 'uswds-core' with (
   $theme-show-notifications: false,
-  $theme-font-path: "public/fonts/",
-  $theme-image-path: "pubic/img/"
+  $theme-font-path: 'public/fonts/',
+  $theme-image-path: 'pubic/img/'
 );
