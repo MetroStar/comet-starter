@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../../../dist/assets/img/logo.png";
+import logo from "../../../../public/img/logo.png";
 import facebookIcon from "@uswds/uswds/img/usa-icons/facebook.svg";
 import twitterIcon from "@uswds/uswds/img/usa-icons/twitter.svg";
 import youtubeIcon from "@uswds/uswds/img/usa-icons/youtube.svg";

@@ -34,13 +34,10 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpe?g|gif|svg|woff2?|ttf)$/i,
+        test: /\.(png|jpe?g|gif|svg|woff2)$/i,
         use: [
           {
             loader: "file-loader",
-            options: {
-              name: "[name].[ext]",
-            },
           },
         ],
       },
@@ -50,12 +47,12 @@ module.exports = {
     extensions: [".tsx", ".ts", ".jsx", ".js"],
   },
   output: {
-    path: path.resolve(__dirname, "./dist"),
+    path: path.resolve(__dirname, "./public"),
     filename: "bundle.js",
   },
   devServer: {
     static: {
-      directory: path.resolve(__dirname, "./dist"),
+      directory: path.resolve(__dirname, "./public"),
     },
   },
 };

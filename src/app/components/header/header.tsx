@@ -1,6 +1,6 @@
 import React, { useState, useEffect, SyntheticEvent } from "react";
 import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
-import logo from "../../../../dist/assets/img/header-logo.svg";
+import logo from "../../../../public/img/header-logo.svg";
 import { Banner, Icon, Search } from "@metrostar/warpspeed";
 import styles from "./header.module.scss";
 import useAuth from "../../hooks/useAuth";
