@@ -1,5 +1,5 @@
-import React, { FormEvent, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { type FormEvent, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Form,
   FormGroup,
@@ -9,14 +9,14 @@ import {
   Alert,
   ErrorMessages,
   ButtonGroup,
-} from "@metrostar/warpspeed";
-import { REQUIRED_FIELD_MESSAGE } from "../../constants";
-import useAuth from "../../hooks/useAuth";
+} from '@metrostar/warpspeed';
+import { REQUIRED_FIELD_MESSAGE } from '../../constants';
+import useAuth from '../../hooks/useAuth';
 
 export const SignIn = (): React.ReactElement => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [hasLoginError, setHasLoginError] = useState(false);
   const [usernameErrors, setUsernameErrors] = useState([] as string[]);
   const [passwordErrors, setPasswordErrors] = useState([] as string[]);
@@ -25,7 +25,7 @@ export const SignIn = (): React.ReactElement => {
   useEffect(() => {
     if (isSignedIn) {
       setHasLoginError(false);
-      navigate("/");
+      navigate('/');
     }
   }, [isSignedIn]);
 
@@ -35,25 +35,21 @@ export const SignIn = (): React.ReactElement => {
     }
   }, [error]);
 
-  const handleLogin = (event: FormEvent) => {
+  const handleLogin = (event: FormEvent): void => {
     event.preventDefault();
-    username === ""
-      ? setUsernameErrors([REQUIRED_FIELD_MESSAGE])
-      : setUsernameErrors([]);
-    password === ""
-      ? setPasswordErrors([REQUIRED_FIELD_MESSAGE])
-      : setPasswordErrors([]);
+    username === '' ? setUsernameErrors([REQUIRED_FIELD_MESSAGE]) : setUsernameErrors([]);
+    password === '' ? setPasswordErrors([REQUIRED_FIELD_MESSAGE]) : setPasswordErrors([]);
 
     if (username.length === 0 || password.length === 0) {
-      return;
+      setHasLoginError(true);
     } else {
       signIn();
     }
   };
 
-  const handleCancel = (event: FormEvent) => {
+  const handleCancel = (event: FormEvent): void => {
     event.preventDefault();
-    navigate("/");
+    navigate('/');
   };
 
   return (
@@ -74,7 +70,9 @@ export const SignIn = (): React.ReactElement => {
                 id="username"
                 name="username"
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
                 autoFocus
               />
             </FormGroup>
@@ -86,7 +84,9 @@ export const SignIn = (): React.ReactElement => {
                 type="password"
                 name="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
               />
             </FormGroup>
 
@@ -94,12 +94,7 @@ export const SignIn = (): React.ReactElement => {
               <Button id="submit" type="submit">
                 Sign In
               </Button>
-              <Button
-                id="submit"
-                type="button"
-                variant="secondary"
-                onClick={handleCancel}
-              >
+              <Button id="submit" type="button" variant="secondary" onClick={handleCancel}>
                 Cancel
               </Button>
             </ButtonGroup>

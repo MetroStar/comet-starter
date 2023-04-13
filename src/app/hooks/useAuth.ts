@@ -1,14 +1,14 @@
-import { useRecoilState } from "recoil";
-import { signedIn, currentUser } from "../store";
-import { User } from "../auth/types";
-import { mockUser } from "../auth/__mocks__/user";
-import { useState } from "react";
+import { useRecoilState } from 'recoil';
+import { signedIn, currentUser } from '../store';
+import { type User } from '../auth/types';
+import { mockUser } from '../auth/__mocks__/user';
+import { useState } from 'react';
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const useAuth = () => {
   const [isSignedIn, setIsSignedIn] = useRecoilState<boolean>(signedIn);
-  const [error, setError] = useState<string | null>();
-  const [currentUserData, setCurrentUserDate] =
-    useRecoilState<User>(currentUser);
+  const [error] = useState<string | null>();
+  const [currentUserData, setCurrentUserDate] = useRecoilState<User>(currentUser);
 
   const signIn = (): void => {
     setIsSignedIn(true);

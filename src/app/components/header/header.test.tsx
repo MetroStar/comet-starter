@@ -1,14 +1,14 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
-import userEvent from "@testing-library/user-event";
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
 
-import { Header } from "./header";
-import { RecoilRoot } from "recoil";
-import * as useAuthMock from "../../hooks/useAuth";
-import { User } from "../../auth/types";
+import { Header } from './header';
+import { RecoilRoot } from 'recoil';
+import * as useAuthMock from '../../hooks/useAuth';
+import { type User } from '../../auth/types';
 
-describe("Header", () => {
+describe('Header', () => {
   const headerComponent = (
     <RecoilRoot>
       <BrowserRouter>
@@ -17,21 +17,21 @@ describe("Header", () => {
     </RecoilRoot>
   );
 
-  it("should render successfully", () => {
+  it('should render successfully', () => {
     const { baseElement } = render(headerComponent);
     expect(baseElement).toBeTruthy();
   });
 
-  it("should display menu when button is clicked", async () => {
+  it('should display menu when button is clicked', async () => {
     render(headerComponent);
     global.scrollTo = jest.fn();
 
-    await userEvent.click(screen.getByText("Menu"));
-    expect(screen.getByText("Close")).toBeTruthy();
+    await userEvent.click(screen.getByText('Menu'));
+    expect(screen.getByText('Close')).toBeTruthy();
   });
 
-  it("should navigate away from home", async () => {
-    jest.spyOn(useAuthMock, "default").mockReturnValue({
+  it('should navigate away from home', async () => {
+    jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       currentUserData: {} as User,
       error: null,
@@ -41,18 +41,18 @@ describe("Header", () => {
 
     render(headerComponent);
 
-    await userEvent.click(screen.getByText("Dashboard", { selector: "a" }));
-    expect(window.location.pathname).toBe("/dashboard");
+    await userEvent.click(screen.getByText('Dashboard', { selector: 'a' }));
+    expect(window.location.pathname).toBe('/dashboard');
   });
 
-  it("should Sign In", async () => {
-    Object.defineProperty(window, "location", {
+  it('should Sign In', async () => {
+    Object.defineProperty(window, 'location', {
       configurable: true,
       enumerable: true,
       value: new URL(window.location.href),
     });
 
-    jest.spyOn(useAuthMock, "default").mockReturnValue({
+    jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: false,
       currentUserData: {} as User,
       error: null,
@@ -61,18 +61,18 @@ describe("Header", () => {
     });
 
     render(headerComponent);
-    await userEvent.click(screen.getByText("Sign In", { selector: "a" }));
+    await userEvent.click(screen.getByText('Sign In', { selector: 'a' }));
     expect(window.location.href).toBeTruthy();
   });
 
-  it("should Sign Out", async () => {
-    Object.defineProperty(window, "location", {
+  it('should Sign Out', async () => {
+    Object.defineProperty(window, 'location', {
       configurable: true,
       enumerable: true,
       value: new URL(window.location.href),
     });
 
-    jest.spyOn(useAuthMock, "default").mockReturnValue({
+    jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       currentUserData: {} as User,
       error: null,
@@ -82,7 +82,7 @@ describe("Header", () => {
 
     render(headerComponent);
 
-    await userEvent.click(screen.getByText("Sign Out", { selector: "a" }));
+    await userEvent.click(screen.getByText('Sign Out', { selector: 'a' }));
     expect(window.location.href).toBeTruthy();
   });
 });

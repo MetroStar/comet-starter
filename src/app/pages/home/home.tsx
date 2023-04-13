@@ -1,6 +1,6 @@
-import React from "react";
-import useAuth from "../../hooks/useAuth";
-import { Alert } from "@metrostar/warpspeed";
+import React from 'react';
+import useAuth from '../../hooks/useAuth';
+import { Alert } from '@metrostar/warpspeed';
 
 export const Home = (): React.ReactElement => {
   const { isSignedIn, currentUserData } = useAuth();
@@ -15,8 +15,7 @@ export const Home = (): React.ReactElement => {
         <div className="grid-row">
           <div className="grid-col">
             <Alert id="sign-in-alert" type="info">
-              You are not currently signed in. Please Sign In to access the
-              Dashboard.
+              You are not currently signed in. Please Sign In to access the Dashboard.
             </Alert>
           </div>
         </div>

@@ -1,9 +1,9 @@
-import React, { useState, useEffect, SyntheticEvent } from "react";
-import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
-import logo from "../../../../public/img/header-logo.svg";
-import { Banner, Icon, Search } from "@metrostar/warpspeed";
-import styles from "./header.module.scss";
-import useAuth from "../../hooks/useAuth";
+import React, { useState, useEffect, type SyntheticEvent } from 'react';
+import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
+import logo from '../../../../public/img/header-logo.svg';
+import { Banner, Icon, Search } from '@metrostar/warpspeed';
+import styles from './header.module.scss';
+import useAuth from '../../hooks/useAuth';
 
 export const Header = (): React.ReactElement => {
   const [showMenu, setShowMenu] = useState(false);
@@ -12,67 +12,58 @@ export const Header = (): React.ReactElement => {
   const location = useLocation();
   const { isSignedIn, signOut } = useAuth();
 
-  const handleMenuClick = () => {
+  const handleMenuClick = (): void => {
     window.scrollTo({ top: 0 });
     setShowMenu(!showMenu);
   };
 
   useEffect(() => {
     const ref = document.body.classList;
-    showMenu ? ref.add(styles["no-scroll"]) : ref.remove(styles["no-scroll"]);
+    showMenu ? ref.add(styles['no-scroll']) : ref.remove(styles['no-scroll']);
   }, [showMenu]);
 
   useEffect(() => {
     setShowMenu(false);
   }, [location]);
 
-  const handleAuth = (event: SyntheticEvent) => {
+  const handleAuth = (event: SyntheticEvent): void => {
     event.preventDefault();
     if (isSignedIn) {
       signOut();
-      navigate("/");
+      navigate('/');
     } else {
-      navigate("/signin");
+      navigate('/signin');
     }
   };
 
   return (
-    <header
-      className={`${styles["header"]} ${
-        showMenu ? styles["header-active"] : ""
-      }`}
-    >
+    <header className={`${styles.header} ${showMenu ? styles['header-active'] : ''}`}>
       <Banner id="banner" />
       <div className="usa-nav-container">
         <div>
-          <Link to="/" className={styles["header-logo"]}>
+          <Link to="/" className={styles['header-logo']}>
             <img src={logo} alt="Logo" />
           </Link>
-          <button
-            className={styles["header-menu-button"]}
-            onClick={handleMenuClick}
-          >
-            <Icon id="menu-icon" type={!showMenu ? "menu" : "close"} />
-            {!showMenu ? "Menu" : "Close"}
+          <button className={styles['header-menu-button']} onClick={handleMenuClick}>
+            <Icon id="menu-icon" type={!showMenu ? 'menu' : 'close'} />
+            {!showMenu ? 'Menu' : 'Close'}
           </button>
         </div>
-        <div className={styles["header-content"]}>
-          <div className={styles["header-search"]}>
+        <div className={styles['header-content']}>
+          <div className={styles['header-search']}>
             <Search id="search" type="small" placeholder="Search our Site" />
-            <div className={styles["header-search-divider"]} />
+            <div className={styles['header-search-divider']} />
             <Link id="auth-link" to="/signin" onClick={handleAuth}>
-              {isSignedIn ? "Sign Out" : "Sign In"}
+              {isSignedIn ? 'Sign Out' : 'Sign In'}
             </Link>
           </div>
-          <nav className={styles["header-nav"]}>
+          <nav className={styles['header-nav']}>
             <ul>
               <li className="usa-nav__primary-item">
                 <NavLink
                   id="home-link"
                   to="/"
-                  className={`usa-nav__link ${
-                    location.pathname === "/" ? "usa-current" : ""
-                  }`}
+                  className={`usa-nav__link ${location.pathname === '/' ? 'usa-current' : ''}`}
                 >
                   Home
                 </NavLink>
@@ -82,9 +73,7 @@ export const Header = (): React.ReactElement => {
                   <NavLink
                     id="dashboard-link"
                     to="/dashboard"
-                    className={`usa-nav__link ${
-                      location.pathname === "/" ? "usa-current" : ""
-                    }`}
+                    className={`usa-nav__link ${location.pathname === '/' ? 'usa-current' : ''}`}
                   >
                     Dashboard
                   </NavLink>

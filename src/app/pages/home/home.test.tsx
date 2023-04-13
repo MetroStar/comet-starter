@@ -1,18 +1,18 @@
-import React from "react";
-import { render } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
+import React from 'react';
+import { render } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 
-import { Home } from "./home";
-import { RecoilRoot } from "recoil";
+import { Home } from './home';
+import { RecoilRoot } from 'recoil';
 
-describe("Home", () => {
-  it("should render successfully", () => {
+describe('Home', () => {
+  it('should render successfully', () => {
     const { baseElement } = render(
       <RecoilRoot>
         <BrowserRouter>
           <Home />
         </BrowserRouter>
-      </RecoilRoot>
+      </RecoilRoot>,
     );
     expect(baseElement).toBeTruthy();
   });
