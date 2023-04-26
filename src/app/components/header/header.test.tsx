@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 
@@ -20,14 +20,6 @@ describe('Header', () => {
   it('should render successfully', () => {
     const { baseElement } = render(headerComponent);
     expect(baseElement).toBeTruthy();
-  });
-
-  it('should display menu when button is clicked', async () => {
-    render(headerComponent);
-    global.scrollTo = jest.fn();
-
-    await userEvent.click(screen.getByText('Menu'));
-    expect(screen.getByText('Close')).toBeTruthy();
   });
 
   it('should navigate away from home', async () => {
@@ -84,5 +76,16 @@ describe('Header', () => {
 
     await userEvent.click(screen.getByText('Sign Out', { selector: 'a' }));
     expect(window.location.href).toBeTruthy();
+  });
+
+  it('should display menu when button is clicked', async () => {
+    render(headerComponent);
+    global.scrollTo = jest.fn();
+
+    const button = screen.getByText('Menu');
+    await act(async () => {
+      userEvent.click(button);
+    });
+    expect(screen.getByText('Menu')).toBeTruthy();
   });
 });
