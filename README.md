@@ -1,22 +1,59 @@
-# Welcome to Project Starship!
+# Welcome to the Comet Starter App!
 
-The goal of this project is to provide a USWDS 3.0 based, React with TypeScript, starter application, which comes pre-configured with all of the tools you need to get started. Some of these tools are as follows:
+The goal of this project is to provide a React with TypeScript starter application, which comes pre-configured with the USWDS-based Comet Component Library as well as other tools to accelerate development. Some of these tools are as follows:
 
 - Platform: React with TypeScript
-- Component Library: USWDS as well as some additional Open Source components to fill the gaps.
+- Component Library: Comet Component Library
 - Data Visualization: Victory Charts
 - State Management: Recoil
 - Code Testing/Quality: Jest with React Testing Library, ES Lint, Prettier
-- API support (coming soon): Axios
-- Authentication support (coming soon): Keycloak
+- API support (coming soon): TBD
+- Authentication support (coming soon): TBD
 
-## Getting Started
+## Table of Contents
 
-- `npm install` to install all project dependencies.
-- `npm run start` to load up the sample application.
+1. [Running the Project Locally](#running-the-project-locally)
+2. [Running Unit Tests](#running-unit-tests)
+3. [Running Code Quality Checks](#running-code-quality-checks)
+4. [Contributing](#contributing)
 
-## Other Useful Commands
+## Running the Project Locally
 
-- `npm run test` to run unit tests and coverage reporting on the application.
-- `npm run lint` to run linting checks and fixes on the application.
-- `npm run format` to run code formatting checks and fixes on the application.
+1. To install dependencies, run the following:
+
+```sh
+npm install
+```
+
+2. To start the app, run the following:
+
+```sh
+npm run start
+```
+
+## Running Unit Tests
+
+To make sure your changes do not break any unit tests, run the following:
+
+```sh
+npm run test
+```
+
+Ensure to review the coverage directory for code coverage details.
+
+## Running Code Quality Checks
+
+To make sure your changes adhere to additional code quality standards, run the following:
+
+```sh
+npm run lint
+npm run format
+```
+
+## Contributing
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature_a`)
+3. Commit your Changes (`git commit -m 'Added new feature_a'`)
+4. Push to the Branch (`git push origin feature_a`)
+5. Open a Pull Request

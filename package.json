@@ -1,8 +1,16 @@
 {
-  "name": "starship",
+  "name": "comet-starter",
   "version": "1.0.0",
-  "description": "",
+  "description": "React and TypeScript starter app, pre-configured with the Comet component library and other tools.",
+  "license": "Apache-2.0",
   "main": "index.js",
+  "keywords": [
+    "uswds",
+    "react",
+    "components",
+    "comet",
+    "open source"
+  ],
   "scripts": {
     "start": "webpack serve --mode=development",
     "build": "webpack --mode production --progress --hide-modules",
@@ -11,7 +19,6 @@
     "format": "npx prettier src --write"
   },
   "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.21.4",
     "@babel/preset-env": "^7.21.4",
