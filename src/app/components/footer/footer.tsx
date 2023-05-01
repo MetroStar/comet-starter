@@ -105,9 +105,7 @@ export const Footer = (): React.ReactElement => {
                 <img className="usa-footer__logo-img" src={logo} alt="" />
               </div>
               <div className="mobile-lg:grid-col-auto">
-                <p className="usa-footer__logo-heading">
-                  {APP_TITLE}
-                </p>
+                <p className="usa-footer__logo-heading">{APP_TITLE}</p>
               </div>
             </div>
             <div className="usa-footer__contact-links mobile-lg:grid-col-6">

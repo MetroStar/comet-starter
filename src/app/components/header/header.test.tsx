@@ -84,7 +84,14 @@ describe('Header', () => {
 
     const button = screen.getByText('Menu');
     await act(async () => {
-      userEvent.click(button);
+      userEvent
+        .click(button)
+        .then(() => {
+          // Handle click
+        })
+        .catch(() => {
+          // Handle error
+        });
     });
     expect(screen.getByText('Menu')).toBeTruthy();
   });

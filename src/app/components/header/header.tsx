@@ -1,4 +1,4 @@
-import React, { useState, useEffect, SyntheticEvent } from 'react';
+import React, { useState, useEffect, type SyntheticEvent } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { Banner, Icon, Search } from '@metrostar/warpspeed';
 import navigation from '@uswds/uswds/js/usa-header';
