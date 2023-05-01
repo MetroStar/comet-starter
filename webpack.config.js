@@ -1,33 +1,30 @@
 // webpack.config.js
-const path = require("path");
+const path = require('path');
 module.exports = {
-  entry: "./src/main.tsx",
+  entry: './src/main.tsx',
   module: {
     rules: [
       {
         test: /\.(js|ts)x?$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
         },
       },
       {
         test: /\.scss$/,
         use: [
           {
-            loader: "style-loader",
+            loader: 'style-loader',
           },
           {
-            loader: "css-loader",
+            loader: 'css-loader',
           },
           {
-            loader: "sass-loader",
+            loader: 'sass-loader',
             options: {
               sassOptions: {
-                includePaths: [
-                  "./node_modules/@uswds/uswds/packages",
-                  "./src/uswds/uswds.scss",
-                ],
+                includePaths: ['./src/styles.scss', './node_modules/@uswds/uswds/packages'],
               },
             },
           },
@@ -37,22 +34,22 @@ module.exports = {
         test: /\.(png|jpe?g|gif|svg|woff2)$/i,
         use: [
           {
-            loader: "file-loader",
+            loader: 'file-loader',
           },
         ],
       },
     ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".jsx", ".js"],
+    extensions: ['.tsx', '.ts', '.jsx', '.js'],
   },
   output: {
-    path: path.resolve(__dirname, "./public"),
-    filename: "bundle.js",
+    path: path.resolve(__dirname, './public'),
+    filename: 'bundle.js',
   },
   devServer: {
     static: {
-      directory: path.resolve(__dirname, "./public"),
+      directory: path.resolve(__dirname, './public'),
     },
   },
 };
