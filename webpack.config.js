@@ -24,7 +24,7 @@ module.exports = {
             loader: 'sass-loader',
             options: {
               sassOptions: {
-                includePaths: ['./src/styles.scss', './node_modules/@uswds/uswds/packages'],
+                includePaths: ['./node_modules/@uswds/uswds/packages'],
               },
             },
           },
