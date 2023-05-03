@@ -9,7 +9,7 @@ import {
   Alert,
   ErrorMessages,
   ButtonGroup,
-} from '@metrostar/warpspeed';
+} from '@metrostar/comet';
 import { REQUIRED_FIELD_MESSAGE } from '../../constants';
 import useAuth from '../../hooks/useAuth';
 
