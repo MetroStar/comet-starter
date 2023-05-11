@@ -48,6 +48,7 @@ module.exports = {
     filename: 'bundle.js',
   },
   devServer: {
+    historyApiFallback: true,
     static: {
       directory: path.resolve(__dirname, './public'),
     },
