@@ -1,9 +1,9 @@
 # Welcome to the Comet Starter App!
 
-The goal of this project is to provide a React with TypeScript starter application, which comes pre-configured with the USWDS-based Comet Component Library as well as other tools to accelerate development. Some of these tools are as follows:
+The goal of this project is to provide a React with TypeScript starter application, which comes pre-configured with the USWDS-based [Comet Component Library](https://github.com/MetroStar/comet) as well as other tools to accelerate development. Some of these tools are as follows:
 
 - Platform: React with TypeScript
-- Component Library: Comet Component Library
+- Component Library: [Comet Component Library](https://github.com/MetroStar/comet)
 - Data Visualization: Victory Charts
 - State Management: Recoil
 - Code Testing/Quality: Jest with React Testing Library, ES Lint, Prettier
