@@ -1,6 +1,6 @@
 import React from 'react';
 import useAuth from '../../hooks/useAuth';
-import { Alert } from '@metrostar/comet';
+import { Alert } from '@metrostar/comet-uswds';
 
 export const Home = (): React.ReactElement => {
   const { isSignedIn, currentUserData } = useAuth();

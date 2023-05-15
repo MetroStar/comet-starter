@@ -9,7 +9,7 @@ import {
   Alert,
   ErrorMessages,
   ButtonGroup,
-} from '@metrostar/comet';
+} from '@metrostar/comet-uswds';
 import { REQUIRED_FIELD_MESSAGE } from '../../constants';
 import useAuth from '../../hooks/useAuth';
 

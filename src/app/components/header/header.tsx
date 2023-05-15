@@ -1,6 +1,6 @@
 import React, { useState, useEffect, type SyntheticEvent } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { Banner, Icon, Search } from '@metrostar/comet';
+import { Banner, Icon, Search } from '@metrostar/comet-uswds';
 import navigation from '@uswds/uswds/js/usa-header';
 import useAuth from '../../hooks/useAuth';
 import { APP_TITLE } from '../../constants';
