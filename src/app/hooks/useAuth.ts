@@ -1,6 +1,6 @@
 import { useRecoilState } from 'recoil';
 import { signedIn, currentUser } from '../store';
-import { type User } from '../auth/types';
+import { User } from '../auth/types';
 import { mockUser } from '../auth/__mocks__/user';
 import { useState } from 'react';
 

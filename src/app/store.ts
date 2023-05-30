@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { type User } from './auth/types';
+import { User } from './auth/types';
 
 const signedIn = atom({
   key: 'signedIn',
