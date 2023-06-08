@@ -54,7 +54,7 @@
     "webpack-dev-server": "^4.13.2"
   },
   "dependencies": {
-    "@metrostar/comet-uswds": "1.1.0",
+    "@metrostar/comet-uswds": "1.2.0",
     "@uswds/uswds": "3.4.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
