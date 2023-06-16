@@ -7,9 +7,20 @@ describe('signin spec', () => {
   it('navigates to home and signs in', () => {
     // Navigate to Homepage
     cy.visit(Cypress.env('base_url'));
+
+    // Setup Accessibility Testing
+    cy.injectAxe();
+
+    // Verify Homepage
     cy.get('h1').should('contain', 'Welcome Guest');
 
-    // Sign In
+    // Navigate to Sign-in page
+    cy.get('#auth-link').click();
+
+    // Verify no accessibility violations
+    cy.checkA11y();
+
+    // Login
     cy.signIn('test', 'test');
 
     // Verify Homepage after signin
