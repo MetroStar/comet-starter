@@ -6,6 +6,7 @@ import { SignIn } from './pages/sign-in/sign-in';
 import { Dashboard } from './pages/dashboard/dashboard';
 import { Home } from './pages/home/home';
 import { RecoilRoot } from 'recoil';
+import Details from './pages/details/details';
 
 export const App = (): React.ReactElement => (
   <RecoilRoot>
@@ -15,6 +16,7 @@ export const App = (): React.ReactElement => (
         <Routes>
           <Route path="/signin" element={<SignIn />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/details/:id" element={<Details />} />
           <Route path="/" element={<Home />} />
         </Routes>
       </section>

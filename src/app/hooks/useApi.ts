@@ -9,27 +9,33 @@ const useApi = () => {
 
   const getItems = async (): Promise<void> => {
     setLoading(true);
-    const url = '/api/launch/?format=json';
-    await fetch(url)
+    await fetch(`/api/?format=json`)
       .then(async (response) => {
         return await response.json();
       })
       .then((json) => {
         setLoading(false);
         setItems(json.results);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
       });
   };
 
   const getItem = async (id: string): Promise<void> => {
     setLoading(true);
-    const url = `/api/launch/${id}?format=json`;
-    await fetch(url)
+    await fetch(`/api/${id}/?format=json`)
       .then(async (response) => {
         return await response.json();
       })
       .then((json) => {
         setLoading(false);
         setItem(json);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
       });
   };
 
