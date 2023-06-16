@@ -19,7 +19,8 @@ The goal of this project is to provide a React with TypeScript starter applicati
 1. [Running the Project Locally](#running-the-project-locally)
 2. [Running Unit Tests](#running-unit-tests)
 3. [Running Code Quality Checks](#running-code-quality-checks)
-4. [Contributing](#contributing)
+4. [Running End-to-End (E2E) Tests](#running-end-to-end-e2e-tests)
+5. [Contributing](#contributing)
 
 ## Running the Project Locally
 
