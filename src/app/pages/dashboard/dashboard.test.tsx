@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { Dashboard } from './dashboard';
 import { RecoilRoot } from 'recoil';
@@ -26,8 +26,8 @@ describe('Dashboard', () => {
     expect(baseElement).toBeTruthy();
   });
 
-  it('should render with mock data', () => {
-    mock.onGet('/api').reply(200, launchData);
+  it('should render with mock data', async () => {
+    mock.onGet().reply(200, { results: launchData });
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       currentUserData: {} as User,
@@ -36,13 +36,15 @@ describe('Dashboard', () => {
       signOut: jest.fn(),
     });
 
-    const { baseElement } = render(
-      <RecoilRoot>
-        <BrowserRouter>
-          <Dashboard />
-        </BrowserRouter>
-      </RecoilRoot>,
-    );
-    expect(baseElement).toBeTruthy();
+    await act(async () => {
+      const { baseElement } = render(
+        <RecoilRoot>
+          <BrowserRouter>
+            <Dashboard />
+          </BrowserRouter>
+        </RecoilRoot>,
+      );
+      expect(baseElement).toBeTruthy();
+    });
   });
 });

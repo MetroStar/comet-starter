@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { Details } from './details';
 import { RecoilRoot } from 'recoil';
@@ -8,6 +8,11 @@ import * as useAuthMock from '../../hooks/useAuth';
 import axios from '../../api/axios';
 import { launchData } from '../../api/__mocks__/launch';
 import { User } from '../../auth/types';
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useParams: jest.fn().mockReturnValue({ id: '1' }),
+}));
 
 describe('Details', () => {
   const mock = new MockAdapter(axios);
@@ -26,8 +31,8 @@ describe('Details', () => {
     expect(baseElement).toBeTruthy();
   });
 
-  it('should render with mock data', () => {
-    mock.onGet('/api').reply(200, launchData[0]);
+  it('should render with mock data', async () => {
+    mock.onGet().reply(200, launchData[0]);
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       currentUserData: {} as User,
@@ -36,13 +41,15 @@ describe('Details', () => {
       signOut: jest.fn(),
     });
 
-    const { baseElement } = render(
-      <RecoilRoot>
-        <BrowserRouter>
-          <Details />
-        </BrowserRouter>
-      </RecoilRoot>,
-    );
-    expect(baseElement).toBeTruthy();
+    await act(async () => {
+      const { baseElement } = render(
+        <RecoilRoot>
+          <BrowserRouter>
+            <Details />
+          </BrowserRouter>
+        </RecoilRoot>,
+      );
+      expect(baseElement).toBeTruthy();
+    });
   });
 });
