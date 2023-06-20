@@ -1,0 +1,10 @@
+{
+  "include": ["../node_modules/cypress", "**/*.ts"],
+  "compilerOptions": {
+    "noEmit": false,
+    "sourceMap": false,
+    "target": "es5",
+    "lib": ["es5", "dom"],
+    "types": ["cypress", "node"]
+  }
+}

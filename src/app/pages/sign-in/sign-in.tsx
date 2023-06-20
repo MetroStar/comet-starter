@@ -94,7 +94,7 @@ export const SignIn = (): React.ReactElement => {
               <Button id="submit" type="submit">
                 Sign In
               </Button>
-              <Button id="submit" type="button" variant="secondary" onClick={handleCancel}>
+              <Button id="cancel" type="button" variant="secondary" onClick={handleCancel}>
                 Cancel
               </Button>
             </ButtonGroup>

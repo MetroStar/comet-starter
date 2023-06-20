@@ -2,11 +2,15 @@
 
 The goal of this project is to provide a React with TypeScript starter application, which comes pre-configured with the USWDS-based [Comet Component Library](https://github.com/MetroStar/comet) as well as other tools to accelerate development. Some of these tools are as follows:
 
-- Platform: React with TypeScript
+- Platform: [React](https://react.dev/) with [TypeScript](https://www.typescriptlang.org/)
 - Component Library: [Comet Component Library](https://github.com/MetroStar/comet)
 - Data Visualization: [Victory Charts](https://formidable.com/open-source/victory/)
 - State Management: [Recoil](https://recoiljs.org/)
-- Code Testing/Quality: Jest with React Testing Library, ES Lint, Prettier
+- Unit Testing: [Jest](https://jestjs.io/) with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- Code Analysis: [ES Lint](https://eslint.org/)
+- Code Formatting: [Prettier](https://prettier.io/)
+- End-to-End (E2E) Testing: [Cypress](https://www.cypress.io/)
+- Accessibility Testing: [cypress-axe](https://www.npmjs.com/package/cypress-axe)
 - API support (coming soon): TBD
 - Authentication support (coming soon): TBD
 
@@ -15,7 +19,8 @@ The goal of this project is to provide a React with TypeScript starter applicati
 1. [Running the Project Locally](#running-the-project-locally)
 2. [Running Unit Tests](#running-unit-tests)
 3. [Running Code Quality Checks](#running-code-quality-checks)
-4. [Contributing](#contributing)
+4. [Running End-to-End (E2E) Tests](#running-end-to-end-e2e-tests)
+5. [Contributing](#contributing)
 
 ## Running the Project Locally
 
@@ -48,6 +53,14 @@ To make sure your changes adhere to additional code quality standards, run the f
 ```sh
 npm run lint
 npm run format
+```
+
+## Running End-to-End (E2E) Tests
+
+Note: running E2E tests requires the app to be running as well, run the following:
+
+```sh
+npm run e2e
 ```
 
 ## Contributing
