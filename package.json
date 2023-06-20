@@ -55,7 +55,7 @@
     "webpack-dev-server": "^4.13.2"
   },
   "dependencies": {
-    "@metrostar/comet-data-viz": "1.0.0",
+    "@metrostar/comet-data-viz": "1.1.1",
     "@metrostar/comet-extras": "^1.1.0",
     "@metrostar/comet-uswds": "1.2.0",
     "@uswds/uswds": "3.4.1",

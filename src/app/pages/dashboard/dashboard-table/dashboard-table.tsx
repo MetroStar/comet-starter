@@ -4,7 +4,7 @@ import { Table, TableColumn } from '@metrostar/comet-uswds';
 import { Launch } from '../../../api/types';
 
 interface LaunchData {
-  id: SortableDataCell;
+  provider: SortableDataCell;
   name: SortableDataCell;
   status: SortableDataCell;
   last_updated: SortableDataCell;
@@ -34,7 +34,10 @@ export const DashboardTable = ({ items }: DashboardTableProps): React.ReactEleme
             ),
             sortValue: item.status.name,
           },
-          id: { value: item.id, sortValue: item.id },
+          provider: {
+            value: item.launch_service_provider.name,
+            sortValue: item.launch_service_provider.name,
+          },
           status: { value: item.status.name, sortValue: item.status.name },
           last_updated: { value: item.last_updated, sortValue: item.last_updated },
         });
@@ -45,7 +48,7 @@ export const DashboardTable = ({ items }: DashboardTableProps): React.ReactEleme
 
   const columns: TableColumn[] = [
     { id: 'name', name: 'Name' },
-    { id: 'id', name: 'ID' },
+    { id: 'provider', name: 'Service Provider' },
     { id: 'status', name: 'Status' },
     { id: 'last_updated', name: 'Last Updated' },
   ];
