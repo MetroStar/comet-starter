@@ -11,7 +11,7 @@ The goal of this project is to provide a React with TypeScript starter applicati
 - Code Formatting: [Prettier](https://prettier.io/)
 - End-to-End (E2E) Testing: [Cypress](https://www.cypress.io/)
 - Accessibility Testing: [cypress-axe](https://www.npmjs.com/package/cypress-axe)
-- API support (coming soon): TBD
+- API support: [axios](https://axios-http.com/)
 - Authentication support (coming soon): TBD
 
 ## Table of Contents
