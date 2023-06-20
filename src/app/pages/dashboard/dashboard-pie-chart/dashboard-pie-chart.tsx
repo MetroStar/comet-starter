@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { PieChart } from '@metrostar/comet-data-viz';
 import { Launch } from '../../../api/types';
-
-interface ChartData {
-  x: string;
-  y: number;
-}
+import { ChartData } from '../types';
 
 interface DashboardPieChartProps {
   items: Launch[] | undefined;
@@ -16,17 +12,15 @@ export const DashboardPieChart = ({ items }: DashboardPieChartProps): React.Reac
   useEffect(() => {
     if (items) {
       const newData: ChartData[] = [];
-      let status3 = 0;
-      let status4 = 0;
+      const set = new Set<string>();
       items.forEach((item: Launch) => {
-        if (item.status.id === 3) {
-          status3++;
-        } else if (item.status.id === 4) {
-          status4++;
-        }
+        set.add(item.status.name);
       });
-      newData.push({ x: 'Success', y: status3 });
-      newData.push({ x: 'Failure', y: status4 });
+
+      set.forEach((name: string) => {
+        const total = items.filter((item: Launch) => item.status.name === name).length;
+        newData.push({ x: name.replace('Launch ', ''), y: total });
+      });
       setData(newData);
     }
   }, [items]);

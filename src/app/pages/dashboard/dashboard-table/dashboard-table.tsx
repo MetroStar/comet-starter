@@ -2,18 +2,7 @@ import React, { ReactNode, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Table, TableColumn } from '@metrostar/comet-uswds';
 import { Launch } from '../../../api/types';
-
-interface LaunchData {
-  provider: SortableDataCell;
-  name: SortableDataCell;
-  status: SortableDataCell;
-  last_updated: SortableDataCell;
-}
-
-interface SortableDataCell {
-  value: string | ReactNode;
-  sortValue: string;
-}
+import { LaunchData } from '../types';
 
 interface DashboardTableProps {
   items: Launch[] | undefined;
