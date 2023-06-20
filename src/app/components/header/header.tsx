@@ -59,9 +59,9 @@ export const Header = (): React.ReactElement => {
           <div className="usa-navbar">
             <div className="usa-logo" id="-logo">
               <em className="usa-logo__text">
-                <a href="/" title="<Project title>">
+                <NavLink id="logo-link" to="/">
                   {APP_TITLE}
-                </a>
+                </NavLink>
               </em>
             </div>
             <button type="button" className="usa-menu-btn" onClick={handleMenuClick}>

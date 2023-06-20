@@ -140,7 +140,7 @@ export const Footer = (): React.ReactElement => {
                   </a>
                 </div>
               </div>
-              <h3 className="usa-footer__contact-heading">&lt;Agency Contact Center&gt;</h3>
+              <h2 className="usa-footer__contact-heading">&lt;Agency Contact Center&gt;</h2>
               <address className="usa-footer__address">
                 <div className="usa-footer__contact-info grid-row grid-gap">
                   <div className="grid-col-auto">

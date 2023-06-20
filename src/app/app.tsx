@@ -12,14 +12,14 @@ export const App = (): React.ReactElement => (
   <RecoilRoot>
     <div>
       <Header />
-      <section id="mainSection" className="usa-section">
+      <main id="mainSection" className="usa-section">
         <Routes>
           <Route path="/signin" element={<SignIn />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/details/:id" element={<Details />} />
           <Route path="/" element={<Home />} />
         </Routes>
-      </section>
+      </main>
       <Footer />
     </div>
   </RecoilRoot>

@@ -32,6 +32,7 @@ yarn-error.log
 testem.log
 /typings
 .env
+cypress/videos
 
 # System Files
 .DS_Store
