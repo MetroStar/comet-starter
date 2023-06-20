@@ -6,10 +6,11 @@ import useApi from '../../hooks/useApi';
 import { DashboardTable } from './dashboard-table/dashboard-table';
 import { DashboardPieChart } from './dashboard-pie-chart/dashboard-pie-chart';
 import { DashboardBarChart } from './dashboard-bar-chart/dashboard-bar-chart';
+import ErrorNotification from '../../components/error-notification/error-notification';
 
 export const Dashboard = (): React.ReactElement => {
   const { isSignedIn } = useAuth();
-  const { getItems, items, loading } = useApi();
+  const { getItems, items, loading, error } = useApi();
 
   useEffect(() => {
     if (isSignedIn) {
@@ -24,6 +25,13 @@ export const Dashboard = (): React.ReactElement => {
           <h1>My Dashboard</h1>
         </div>
       </div>
+      {error && (
+        <div className="grid-row padding-bottom-2">
+          <div className="grid-col">
+            <ErrorNotification error={error} />
+          </div>
+        </div>
+      )}
       <div className="grid-row">
         <div className="tablet:grid-col-6">
           <Card id="pie-chart-card">

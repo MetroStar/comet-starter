@@ -5,11 +5,12 @@ import { Spinner } from '@metrostar/comet-extras';
 import { Launch } from '../../api/types';
 import useApi from '../../hooks/useApi';
 import useAuth from '../../hooks/useAuth';
+import ErrorNotification from '../../components/error-notification/error-notification';
 
 export const Details = (): React.ReactElement => {
   const { id } = useParams();
   const { isSignedIn } = useAuth();
-  const { getItem, item, loading } = useApi();
+  const { getItem, item, loading, error } = useApi();
   const [data, setData] = useState<Launch | null>(null);
 
   useEffect(() => {
@@ -32,6 +33,13 @@ export const Details = (): React.ReactElement => {
             <h1>Launch Details</h1>
           </div>
         </div>
+        {error && (
+          <div className="grid-row padding-bottom-2">
+            <div className="grid-col">
+              <ErrorNotification error={error} />
+            </div>
+          </div>
+        )}
         <div className="grid-row">
           <div className="grid-col">
             {loading ? (

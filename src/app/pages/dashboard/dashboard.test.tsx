@@ -51,4 +51,21 @@ describe('Dashboard', () => {
     expect(baseElement.querySelector('.usa-table')).toBeDefined();
     expect(baseElement.querySelectorAll('.usa-table > tbody > tr')).toHaveLength(0);
   });
+
+  test('should render with error', async () => {
+    mock.onGet().networkError();
+    const { baseElement } = render(
+      <RecoilRoot>
+        <BrowserRouter>
+          <Dashboard />
+        </BrowserRouter>
+      </RecoilRoot>,
+    );
+    await act(async () => {
+      expect(baseElement).toBeTruthy();
+    });
+    expect(baseElement.querySelector('h1')?.textContent).toEqual('My Dashboard');
+    expect(baseElement.querySelector('.usa-alert')).toBeDefined();
+    expect(baseElement.querySelector('.usa-alert--error')).toBeDefined();
+  });
 });

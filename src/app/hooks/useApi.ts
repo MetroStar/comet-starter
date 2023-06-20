@@ -7,6 +7,7 @@ const useApi = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [items, setItems] = useState<Launch[]>();
   const [item, setItem] = useState<Launch>();
+  const [error, setError] = useState<string | null>(null);
 
   const getItems = (): void => {
     setLoading(true);
@@ -16,11 +17,12 @@ const useApi = () => {
         return response.data;
       })
       .then((data) => {
-        setLoading(false);
         setItems(data.results);
       })
       .catch((error) => {
-        console.log(error);
+        setError(error.message);
+      })
+      .finally(() => {
         setLoading(false);
       });
   };
@@ -33,11 +35,12 @@ const useApi = () => {
         return response.data;
       })
       .then((data) => {
-        setLoading(false);
         setItem(data);
       })
       .catch((error) => {
-        console.log(error);
+        setError(error.message);
+      })
+      .finally(() => {
         setLoading(false);
       });
   };
@@ -46,6 +49,7 @@ const useApi = () => {
     loading,
     items,
     item,
+    error,
     getItems,
     getItem,
   };

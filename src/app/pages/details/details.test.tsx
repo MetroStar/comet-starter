@@ -53,4 +53,21 @@ describe('Details', () => {
     expect(baseElement.querySelector('h1')?.textContent).toEqual('Launch Details');
     expect(baseElement.querySelectorAll('#details-card li')).toHaveLength(5);
   });
+
+  test('should render with error', async () => {
+    mock.onGet().networkError();
+    const { baseElement } = render(
+      <RecoilRoot>
+        <BrowserRouter>
+          <Details />
+        </BrowserRouter>
+      </RecoilRoot>,
+    );
+    await act(async () => {
+      expect(baseElement).toBeTruthy();
+    });
+    expect(baseElement.querySelector('h1')?.textContent).toEqual('Launch Details');
+    expect(baseElement.querySelector('.usa-alert')).toBeDefined();
+    expect(baseElement.querySelector('.usa-alert--error')).toBeDefined();
+  });
 });
