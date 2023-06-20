@@ -12,8 +12,8 @@ const useApi = () => {
     setLoading(true);
     await axios
       .get(`/?format=json`)
-      .then(async (response) => {
-        return await response.data;
+      .then((response) => {
+        return response.data;
       })
       .then((data) => {
         setLoading(false);
@@ -29,8 +29,8 @@ const useApi = () => {
     setLoading(true);
     await axios
       .get(`/${id}/?format=json`)
-      .then(async (response) => {
-        return await response.data;
+      .then((response) => {
+        return response.data;
       })
       .then((data) => {
         setLoading(false);
