@@ -1,3 +1,5 @@
+import { launchData } from '../fixtures/data';
+
 describe('dashboard spec', () => {
   beforeEach(() => {
     // Test Setup
@@ -18,9 +20,26 @@ describe('dashboard spec', () => {
     cy.get('#auth-link').click();
     cy.signIn('test', 'test');
 
+    // Mock launch data
+    cy.intercept('GET', '/api/*', {
+      statusCode: 200,
+      body: {
+        results: launchData,
+      },
+    });
+
     // Navigate to Dashboard
     cy.get('#dashboard-link').click();
     cy.get('h1').should('contain', 'My Dashboard');
+
+    cy.intercept('GET', '/api/*', {
+      statusCode: 200,
+      body: launchData[0],
+    });
+
+    // Click on table item and verify details
+    cy.get('[id*="details-link-"]:first').click();
+    cy.get('h1').should('contain', 'Launch Details');
 
     // Verify no accessibility violations
     cy.checkA11y();
