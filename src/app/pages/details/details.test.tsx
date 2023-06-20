@@ -40,16 +40,17 @@ describe('Details', () => {
       signIn: jest.fn(),
       signOut: jest.fn(),
     });
-
+    const { baseElement } = render(
+      <RecoilRoot>
+        <BrowserRouter>
+          <Details />
+        </BrowserRouter>
+      </RecoilRoot>,
+    );
     await act(async () => {
-      const { baseElement } = render(
-        <RecoilRoot>
-          <BrowserRouter>
-            <Details />
-          </BrowserRouter>
-        </RecoilRoot>,
-      );
       expect(baseElement).toBeTruthy();
     });
+    expect(baseElement.querySelector('h1')?.textContent).toEqual('Launch Details');
+    expect(baseElement.querySelectorAll('#details-card li')).toHaveLength(5);
   });
 });

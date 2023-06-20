@@ -6,7 +6,6 @@ import { RecoilRoot } from 'recoil';
 import MockAdapter from 'axios-mock-adapter';
 import * as useAuthMock from '../../hooks/useAuth';
 import axios from '../../api/axios';
-import { launchData } from '../../api/__mocks__/launch';
 import { User } from '../../auth/types';
 
 describe('Dashboard', () => {
@@ -24,10 +23,11 @@ describe('Dashboard', () => {
       </RecoilRoot>,
     );
     expect(baseElement).toBeTruthy();
+    expect(baseElement.querySelector('h1')?.textContent).toEqual('My Dashboard');
   });
 
   it('should render with mock data', async () => {
-    mock.onGet().reply(200, { results: launchData });
+    mock.onGet().reply(200, { results: [] });
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       currentUserData: {} as User,
@@ -36,15 +36,19 @@ describe('Dashboard', () => {
       signOut: jest.fn(),
     });
 
+    const { baseElement } = render(
+      <RecoilRoot>
+        <BrowserRouter>
+          <Dashboard />
+        </BrowserRouter>
+      </RecoilRoot>,
+    );
     await act(async () => {
-      const { baseElement } = render(
-        <RecoilRoot>
-          <BrowserRouter>
-            <Dashboard />
-          </BrowserRouter>
-        </RecoilRoot>,
-      );
       expect(baseElement).toBeTruthy();
     });
+    expect(baseElement.querySelector('h1')?.textContent).toEqual('My Dashboard');
+    expect(baseElement.querySelectorAll('.VictoryContainer')).toHaveLength(2);
+    expect(baseElement.querySelector('.usa-table')).toBeDefined();
+    expect(baseElement.querySelectorAll('.usa-table > tbody > tr')).toHaveLength(0);
   });
 });

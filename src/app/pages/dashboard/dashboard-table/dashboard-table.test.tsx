@@ -18,15 +18,17 @@ describe('DashboardTable', () => {
   });
 
   it('should render with mock data', async () => {
+    const { baseElement } = render(
+      <RecoilRoot>
+        <BrowserRouter>
+          <DashboardTable items={launchData} />
+        </BrowserRouter>
+      </RecoilRoot>,
+    );
     await act(async () => {
-      const { baseElement } = render(
-        <RecoilRoot>
-          <BrowserRouter>
-            <DashboardTable items={launchData} />
-          </BrowserRouter>
-        </RecoilRoot>,
-      );
       expect(baseElement).toBeTruthy();
     });
+    expect(baseElement.querySelector('.usa-table')).toBeDefined();
+    expect(baseElement.querySelectorAll('.usa-table > tbody > tr')).toHaveLength(5);
   });
 });
