@@ -87,7 +87,14 @@ describe('Header', () => {
     const button = screen.getByText('Menu');
     await act(async () => {
       expect(screen.getByText('Menu')).toBeTruthy();
-      userEvent.click(button);
+      userEvent
+        .click(button)
+        .then(() => {
+          // Handle click
+        })
+        .catch(() => {
+          // Handle error
+        });
     });
     expect(baseElement.querySelector('.usa-nav')).toBeDefined();
   });
