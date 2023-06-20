@@ -8,9 +8,9 @@ const useApi = () => {
   const [items, setItems] = useState<Launch[]>();
   const [item, setItem] = useState<Launch>();
 
-  const getItems = async (): Promise<void> => {
+  const getItems = (): void => {
     setLoading(true);
-    await axios
+    axios
       .get(`/?format=json`)
       .then((response) => {
         return response.data;
@@ -25,9 +25,9 @@ const useApi = () => {
       });
   };
 
-  const getItem = async (id: string): Promise<void> => {
+  const getItem = (id: string): void => {
     setLoading(true);
-    await axios
+    axios
       .get(`/${id}/?format=json`)
       .then((response) => {
         return response.data;
