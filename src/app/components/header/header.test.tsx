@@ -17,12 +17,12 @@ describe('Header', () => {
     </RecoilRoot>
   );
 
-  it('should render successfully', () => {
+  test('should render successfully', () => {
     const { baseElement } = render(headerComponent);
     expect(baseElement).toBeTruthy();
   });
 
-  it('should navigate away from home', async () => {
+  test('should navigate away from home', async () => {
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       currentUserData: {} as User,
@@ -37,7 +37,7 @@ describe('Header', () => {
     expect(window.location.pathname).toBe('/dashboard');
   });
 
-  it('should Sign In', async () => {
+  test('should Sign In', async () => {
     Object.defineProperty(window, 'location', {
       configurable: true,
       enumerable: true,
@@ -57,7 +57,7 @@ describe('Header', () => {
     expect(window.location.href).toBeTruthy();
   });
 
-  it('should Sign Out', async () => {
+  test('should Sign Out', async () => {
     Object.defineProperty(window, 'location', {
       configurable: true,
       enumerable: true,
@@ -78,21 +78,17 @@ describe('Header', () => {
     expect(window.location.href).toBeTruthy();
   });
 
-  it('should display menu when button is clicked', async () => {
-    render(headerComponent);
+  test('should display menu when button is clicked', async () => {
+    const { baseElement } = render(headerComponent);
     global.scrollTo = jest.fn();
+    global.innerWidth = 500;
+    window.dispatchEvent(new Event('resize'));
 
     const button = screen.getByText('Menu');
     await act(async () => {
-      userEvent
-        .click(button)
-        .then(() => {
-          // Handle click
-        })
-        .catch(() => {
-          // Handle error
-        });
+      expect(screen.getByText('Menu')).toBeTruthy();
+      userEvent.click(button);
     });
-    expect(screen.getByText('Menu')).toBeTruthy();
+    expect(baseElement.querySelector('.usa-nav')).toBeDefined();
   });
 });

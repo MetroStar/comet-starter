@@ -14,7 +14,7 @@ describe('Dashboard', () => {
     mock.reset();
   });
 
-  it('should render successfully', () => {
+  test('should render successfully', () => {
     const { baseElement } = render(
       <RecoilRoot>
         <BrowserRouter>
@@ -26,7 +26,7 @@ describe('Dashboard', () => {
     expect(baseElement.querySelector('h1')?.textContent).toEqual('My Dashboard');
   });
 
-  it('should render with mock data', async () => {
+  test('should render with mock data', async () => {
     mock.onGet().reply(200, { results: [] });
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,

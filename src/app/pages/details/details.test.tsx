@@ -20,7 +20,7 @@ describe('Details', () => {
     mock.reset();
   });
 
-  it('should render successfully', () => {
+  test('should render successfully', () => {
     const { baseElement } = render(
       <RecoilRoot>
         <BrowserRouter>
@@ -31,7 +31,7 @@ describe('Details', () => {
     expect(baseElement).toBeTruthy();
   });
 
-  it('should render with mock data', async () => {
+  test('should render with mock data', async () => {
     mock.onGet().reply(200, launchData[0]);
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,

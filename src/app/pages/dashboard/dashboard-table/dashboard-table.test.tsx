@@ -6,7 +6,7 @@ import { RecoilRoot } from 'recoil';
 import { launchData } from '../../../api/__mocks__/launch';
 
 describe('DashboardTable', () => {
-  it('should render successfully', () => {
+  test('should render successfully', () => {
     const { baseElement } = render(
       <RecoilRoot>
         <BrowserRouter>
@@ -17,7 +17,7 @@ describe('DashboardTable', () => {
     expect(baseElement).toBeTruthy();
   });
 
-  it('should render with mock data', async () => {
+  test('should render with mock data', async () => {
     const { baseElement } = render(
       <RecoilRoot>
         <BrowserRouter>

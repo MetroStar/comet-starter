@@ -7,7 +7,7 @@ import { RecoilRoot } from 'recoil';
 import { User } from '../../auth/types';
 
 describe('Home', () => {
-  it('should render successfully', () => {
+  test('should render successfully', () => {
     const { baseElement } = render(
       <RecoilRoot>
         <BrowserRouter>
@@ -19,7 +19,7 @@ describe('Home', () => {
     expect(baseElement.querySelector('h1')?.textContent).toEqual('Welcome Guest');
   });
 
-  it('should render with mock data', async () => {
+  test('should render with mock data', async () => {
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       currentUserData: { displayName: 'John Doe' } as User,

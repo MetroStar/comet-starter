@@ -11,7 +11,7 @@ describe('useApi', () => {
     mock.reset();
   });
 
-  it('should call getItems successfully', async () => {
+  test('should call getItems successfully', async () => {
     mock.onGet().reply(200, { results: [] });
     const { result } = renderHook(() => useApi(), {
       wrapper: RecoilRoot,
@@ -23,7 +23,7 @@ describe('useApi', () => {
     expect(result.current.getItems).toBeTruthy();
   });
 
-  it('should call getItems with mock data', async () => {
+  test('should call getItems with mock data', async () => {
     mock.onGet().reply(200, { results: launchData });
     const { result } = renderHook(() => useApi(), {
       wrapper: RecoilRoot,
@@ -35,7 +35,7 @@ describe('useApi', () => {
     expect(result.current.getItems).toBeTruthy();
   });
 
-  it('should call getItems with error', async () => {
+  test('should call getItems with error', async () => {
     mock.onGet().reply(500, { error: 'error' });
     const { result } = renderHook(() => useApi(), {
       wrapper: RecoilRoot,
@@ -47,7 +47,7 @@ describe('useApi', () => {
     expect(result.current.getItems).toBeTruthy();
   });
 
-  it('should call getItem successfully', async () => {
+  test('should call getItem successfully', async () => {
     mock.onGet().reply(200, null);
     const { result } = renderHook(() => useApi(), {
       wrapper: RecoilRoot,
@@ -59,7 +59,7 @@ describe('useApi', () => {
     expect(result.current.getItem).toBeTruthy();
   });
 
-  it('should call getItem with mock data', async () => {
+  test('should call getItem with mock data', async () => {
     mock.onGet().reply(200, launchData[0]);
     const { result } = renderHook(() => useApi(), {
       wrapper: RecoilRoot,
@@ -71,7 +71,7 @@ describe('useApi', () => {
     expect(result.current.getItem).toBeTruthy();
   });
 
-  it('should call getItem with error', async () => {
+  test('should call getItem with error', async () => {
     mock.onGet().reply(500, { error: 'error' });
     const { result } = renderHook(() => useApi(), {
       wrapper: RecoilRoot,
