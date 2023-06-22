@@ -18,9 +18,8 @@
     "lint": "eslint --ext .tsx --ext .ts src/ --fix --config .eslintrc.json",
     "format": "npx prettier src --write",
     "e2e": "npx cypress open",
-    "e2e:ci": "rm cypress/reports/* || true && npx cypress run --reporter mochawesome",
-    "merge:reports": "mochawesome-merge cypress/reports/*.json > cypress/reports/report.json",
-    "create:html:report": "npm run merge:reports && marge --reportDir cypress/reports cypress/reports/report.json"
+    "e2e:ci": "rm reports/* || true && npx cypress run --reporter mochawesome",
+    "e2e:report": "mochawesome-merge reports/*.json > reports/report.json && marge --reportDir reports reports/report.json"
   },
   "author": "",
   "devDependencies": {

@@ -32,8 +32,8 @@ yarn-error.log
 testem.log
 /typings
 .env
+reports
 cypress/videos
-cypress/reports
 cypress/screenshots
 
 # System Files
