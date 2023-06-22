@@ -33,6 +33,8 @@ testem.log
 /typings
 .env
 cypress/videos
+cypress/reports
+cypress/screenshots
 
 # System Files
 .DS_Store

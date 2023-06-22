@@ -9,4 +9,11 @@ export default defineConfig({
   env: {
     base_url: 'http://localhost:8080',
   },
+  reporter: 'mochawesome',
+  reporterOptions: {
+    reportDir: 'cypress/reports',
+    overwrite: false,
+    html: false,
+    json: true,
+  },
 });
