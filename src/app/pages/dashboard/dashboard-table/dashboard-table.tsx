@@ -9,7 +9,7 @@ interface DashboardTableProps {
 }
 
 export const DashboardTable = ({ items }: DashboardTableProps): React.ReactElement => {
-  const [data, setData] = useState<LaunchData[]>([]);
+  const [data, setData] = useState<LaunchData[]>();
   useEffect(() => {
     if (items) {
       const newData: LaunchData[] = [];
@@ -42,5 +42,9 @@ export const DashboardTable = ({ items }: DashboardTableProps): React.ReactEleme
     { id: 'last_updated', name: 'Last Updated' },
   ];
 
-  return <Table id="launch-table" className="width-full" columns={columns} data={data} sortable />;
+  return data ? (
+    <Table id="launch-table" className="width-full" columns={columns} data={data} sortable />
+  ) : (
+    <></>
+  );
 };

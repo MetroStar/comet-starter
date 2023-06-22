@@ -8,7 +8,7 @@ interface DashboardPieChartProps {
 }
 
 export const DashboardPieChart = ({ items }: DashboardPieChartProps): React.ReactElement => {
-  const [data, setData] = useState<ChartData[]>([]);
+  const [data, setData] = useState<ChartData[]>();
   useEffect(() => {
     if (items) {
       const newData: ChartData[] = [];
@@ -25,7 +25,7 @@ export const DashboardPieChart = ({ items }: DashboardPieChartProps): React.Reac
     }
   }, [items]);
 
-  return (
+  return data ? (
     <div
       style={{
         height: '300px',
@@ -41,5 +41,7 @@ export const DashboardPieChart = ({ items }: DashboardPieChartProps): React.Reac
         colors={['#0d7ea2', '#cd425b']}
       />
     </div>
+  ) : (
+    <></>
   );
 };

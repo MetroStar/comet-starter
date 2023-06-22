@@ -8,7 +8,7 @@ interface DashboardBarChartProps {
 }
 
 export const DashboardBarChart = ({ items }: DashboardBarChartProps): React.ReactElement => {
-  const [data, setData] = useState<ChartData[]>([]);
+  const [data, setData] = useState<ChartData[]>();
   useEffect(() => {
     if (items) {
       const newData: ChartData[] = [];
@@ -27,7 +27,7 @@ export const DashboardBarChart = ({ items }: DashboardBarChartProps): React.Reac
     }
   }, [items]);
 
-  return (
+  return data ? (
     <div
       style={{
         height: '300px',
@@ -45,5 +45,7 @@ export const DashboardBarChart = ({ items }: DashboardBarChartProps): React.Reac
         color="#0d7ea2"
       />
     </div>
+  ) : (
+    <></>
   );
 };
