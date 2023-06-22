@@ -6,7 +6,7 @@ import { App } from './app';
 import { RecoilRoot } from 'recoil';
 
 describe('App', () => {
-  it('should render successfully', () => {
+  test('should render successfully', () => {
     const { baseElement } = render(
       <RecoilRoot>
         <BrowserRouter>

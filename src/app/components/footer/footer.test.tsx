@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { Footer } from './footer';
 
 describe('Footer', () => {
-  it('should render successfully', () => {
+  test('should render successfully', () => {
     const { baseElement } = render(<Footer />);
     const primarySection = baseElement.querySelector('.usa-footer__primary-section');
     const secondarySection = baseElement.querySelector('.usa-footer__secondary-section');
@@ -15,7 +15,7 @@ describe('Footer', () => {
     expect(secondarySection).toBeTruthy();
   });
 
-  it('should scroll to top', async () => {
+  test('should scroll to top', async () => {
     window.scrollTo = jest.fn();
     render(<Footer />);
 

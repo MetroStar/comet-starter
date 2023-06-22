@@ -52,5 +52,12 @@ module.exports = {
     static: {
       directory: path.resolve(__dirname, './public'),
     },
+    proxy: {
+      '/api': {
+        target: 'https://ll.thespacedevs.com/2.2.0/launch/',
+        changeOrigin: true,
+        pathRewrite: { '^/api': '' },
+      },
+    },
   },
 };

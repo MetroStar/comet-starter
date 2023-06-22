@@ -3,7 +3,7 @@ import useAuth from '../hooks/useAuth';
 import { RecoilRoot } from 'recoil';
 
 describe('useAuth', () => {
-  it('should call signIn successfully', () => {
+  test('should call signIn successfully', () => {
     const { result } = renderHook(() => useAuth(), {
       wrapper: RecoilRoot,
     });
@@ -14,7 +14,7 @@ describe('useAuth', () => {
     expect(result.current.signIn).toBeTruthy();
   });
 
-  it('should call signOut successfully', () => {
+  test('should call signOut successfully', () => {
     const { result } = renderHook(() => useAuth(), {
       wrapper: RecoilRoot,
     });

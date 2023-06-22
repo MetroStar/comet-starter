@@ -1,42 +1,34 @@
 import React from 'react';
 import { render, act } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import * as useAuthMock from '../../hooks/useAuth';
-import { Home } from './home';
+import { DashboardTable } from './dashboard-table';
 import { RecoilRoot } from 'recoil';
-import { User } from '../../auth/types';
+import { launchData } from '../../../api/__mocks__/launch';
 
-describe('Home', () => {
+describe('DashboardTable', () => {
   test('should render successfully', () => {
     const { baseElement } = render(
       <RecoilRoot>
         <BrowserRouter>
-          <Home />
+          <DashboardTable items={[]} />
         </BrowserRouter>
       </RecoilRoot>,
     );
     expect(baseElement).toBeTruthy();
-    expect(baseElement.querySelector('h1')?.textContent).toEqual('Welcome Guest');
   });
 
   test('should render with mock data', async () => {
-    jest.spyOn(useAuthMock, 'default').mockReturnValue({
-      isSignedIn: true,
-      currentUserData: { displayName: 'John Doe' } as User,
-      error: null,
-      signIn: jest.fn(),
-      signOut: jest.fn(),
-    });
     const { baseElement } = render(
       <RecoilRoot>
         <BrowserRouter>
-          <Home />
+          <DashboardTable items={launchData} />
         </BrowserRouter>
       </RecoilRoot>,
     );
     await act(async () => {
       expect(baseElement).toBeTruthy();
     });
-    expect(baseElement.querySelector('h1')?.textContent).toEqual('Welcome John Doe');
+    expect(baseElement.querySelector('.usa-table')).toBeDefined();
+    expect(baseElement.querySelectorAll('.usa-table > tbody > tr')).toHaveLength(5);
   });
 });
