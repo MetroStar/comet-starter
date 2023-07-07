@@ -1,7 +1,27 @@
-// webpack.config.js
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+
+const ROOT_DIRECTORY = path.join(__dirname, '../')
+const SRC_DIRECTORY = path.join(ROOT_DIRECTORY, 'public')
+const DIST_DIRECTORY = path.join(ROOT_DIRECTORY, 'dist')
+
 module.exports = {
   entry: './src/main.tsx',
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.join(SRC_DIRECTORY, 'index.html')
+    }),
+    new CopyWebpackPlugin(
+      {
+        patterns: [
+          { from: path.join(SRC_DIRECTORY, 'img'), to: path.join(DIST_DIRECTORY, 'img') },
+          { from: path.join(SRC_DIRECTORY, 'fonts'), to: path.join(DIST_DIRECTORY, 'fonts') },
+          { from: path.join(SRC_DIRECTORY, 'favicon.png'), to: path.join(DIST_DIRECTORY, 'favicon.png') },
+        ]
+      }
+    )
+  ],
   module: {
     rules: [
       {
@@ -42,22 +62,5 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
-  },
-  output: {
-    path: path.resolve(__dirname, './public'),
-    filename: 'bundle.js',
-  },
-  devServer: {
-    historyApiFallback: true,
-    static: {
-      directory: path.resolve(__dirname, './public'),
-    },
-    proxy: {
-      '/api': {
-        target: 'https://ll.thespacedevs.com/2.2.0/launch/',
-        changeOrigin: true,
-        pathRewrite: { '^/api': '' },
-      },
-    },
   },
 };
