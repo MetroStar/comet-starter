@@ -4,7 +4,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const ROOT_DIRECTORY = path.join(__dirname, '../')
 const SRC_DIRECTORY = path.join(ROOT_DIRECTORY, 'public')
-const DIST_DIRECTORY = path.join(ROOT_DIRECTORY, 'dist')
 
 module.exports = {
   entry: './src/main.tsx',
@@ -15,9 +14,12 @@ module.exports = {
     new CopyWebpackPlugin(
       {
         patterns: [
-          { from: path.join(SRC_DIRECTORY, 'img'), to: path.join(DIST_DIRECTORY, 'img') },
-          { from: path.join(SRC_DIRECTORY, 'fonts'), to: path.join(DIST_DIRECTORY, 'fonts') },
-          { from: path.join(SRC_DIRECTORY, 'favicon.png'), to: path.join(DIST_DIRECTORY, 'favicon.png') },
+          { 
+            from: path.resolve(SRC_DIRECTORY),
+            globOptions: {
+              ignore: ["index.html"],
+            },
+          },
         ]
       }
     )
