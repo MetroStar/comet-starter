@@ -8,6 +8,7 @@ module.exports = merge(common, {
     static: {
       directory: path.resolve(__dirname, './public'),
     },
+    open: true,
     proxy: {
       '/api': {
         target: 'https://ll.thespacedevs.com/2.2.0/launch/',
