@@ -1,6 +1,6 @@
-import { User } from '../types';
+import { User } from '../types/user';
 
-export const mockUser: User = {
+export const userData: User = {
   firstName: 'John',
   lastName: 'Doe',
   displayName: 'John Doe',

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Card } from '@metrostar/comet-uswds';
 import { Spinner } from '@metrostar/comet-extras';
-import { Launch } from '../../api/types';
+import { Launch } from '../../types/launch';
 import useApi from '../../hooks/useApi';
 import useAuth from '../../hooks/useAuth';
 import ErrorNotification from '../../components/error-notification/error-notification';

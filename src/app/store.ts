@@ -1,14 +1,14 @@
 import { atom } from 'recoil';
-import { User } from './auth/types';
+import { User } from './types/user';
 
 const signedIn = atom({
   key: 'signedIn',
   default: false,
 });
 
-const currentUser = atom({
+const currentUser = atom<User | undefined>({
   key: 'currentUser',
-  default: { displayName: 'Guest' } as User,
+  default: undefined,
 });
 
 export { signedIn, currentUser };

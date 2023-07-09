@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event';
 import { Header } from './header';
 import { RecoilRoot } from 'recoil';
 import * as useAuthMock from '../../hooks/useAuth';
-import { User } from '../../auth/types';
+import { User } from '../../types/user';
 
 describe('Header', () => {
   const headerComponent = (

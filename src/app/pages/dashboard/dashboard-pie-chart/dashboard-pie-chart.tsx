@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { PieChart } from '@metrostar/comet-data-viz';
-import { Launch } from '../../../api/types';
+import { Launch } from '../../../types/launch';
 import { ChartData } from '../types';
 
 interface DashboardPieChartProps {

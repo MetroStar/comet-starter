@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { SignIn } from './sign-in';
 import { RecoilRoot } from 'recoil';
 import * as useAuthMock from '../../hooks/useAuth';
-import { User } from '../../auth/types';
+import { User } from '../../types/user';
 
 describe('SignIn', () => {
   const signInComponent = (

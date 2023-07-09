@@ -1,6 +1,7 @@
 import React from 'react';
 import useAuth from '../../hooks/useAuth';
 import { Alert } from '@metrostar/comet-uswds';
+import { getDisplayName } from '../../helpers/auth';
 
 export const Home = (): React.ReactElement => {
   const { isSignedIn, currentUserData } = useAuth();
@@ -8,7 +9,7 @@ export const Home = (): React.ReactElement => {
     <div className="grid-container">
       <div className="grid-row">
         <div className="grid-col">
-          <h1>Welcome {currentUserData.displayName}</h1>
+          <h1>Welcome {currentUserData ? getDisplayName(currentUserData) : 'Guest'}</h1>
         </div>
       </div>
       {!isSignedIn && (

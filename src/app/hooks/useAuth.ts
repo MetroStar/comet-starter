@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
 import { signedIn, currentUser } from '../store';
-import { User } from '../auth/types';
-import { mockUser } from '../auth/__mocks__/user';
+import { User } from '../types/user';
+import { userData } from '../data/user';
 import { useState } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -12,7 +12,7 @@ const useAuth = () => {
 
   const signIn = (): void => {
     setIsSignedIn(true);
-    setCurrentUserDate(mockUser);
+    setCurrentUserDate(userData);
   };
 
   const signOut = (): void => {
