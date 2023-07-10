@@ -4,10 +4,10 @@ import { BrowserRouter } from 'react-router-dom';
 import { Details } from './details';
 import { RecoilRoot } from 'recoil';
 import MockAdapter from 'axios-mock-adapter';
-import * as useAuthMock from '../../hooks/useAuth';
-import axios from '../../api/axios';
-import { launchData } from '../../api/__mocks__/launch';
-import { User } from '../../auth/types';
+import * as useAuthMock from '../../hooks/use-auth';
+import axios from '../../axios';
+import { launchData } from '../../data/launch';
+import { User } from '../../types/user';
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),

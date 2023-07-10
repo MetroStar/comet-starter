@@ -1,6 +1,6 @@
-import { Launch } from '../types';
+import { Launch } from '../types/launch';
 
-export const launchData = [
+export const launchData: Launch[] = [
   {
     id: 'b8741d6a-bf47-44eb-b740-f091b5fd3c62',
     name: 'Falcon 1 | FalconSAT-2',
@@ -172,4 +172,4 @@ export const launchData = [
     },
     mission: null,
   },
-] as Launch[];
+];

@@ -3,7 +3,7 @@ import { render, act } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { DashboardTable } from './dashboard-table';
 import { RecoilRoot } from 'recoil';
-import { launchData } from '../../../api/__mocks__/launch';
+import { launchData } from '../../../data/launch';
 
 describe('DashboardTable', () => {
   test('should render successfully', () => {

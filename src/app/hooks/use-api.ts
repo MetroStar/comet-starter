@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Launch } from '../api/types';
-import axios from '../api/axios';
+import { Launch } from '../types/launch';
+import axios from '../axios';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const useApi = () => {

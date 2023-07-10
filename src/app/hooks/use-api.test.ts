@@ -1,9 +1,9 @@
 import { act, renderHook } from '@testing-library/react';
-import useApi from '../hooks/useApi';
+import useApi from './use-api';
 import { RecoilRoot } from 'recoil';
 import MockAdapter from 'axios-mock-adapter';
-import axios from '../api/axios';
-import { launchData } from '../api/__mocks__/launch';
+import axios from '../axios';
+import { launchData } from '../data/launch';
 
 describe('useApi', () => {
   const mock = new MockAdapter(axios);
