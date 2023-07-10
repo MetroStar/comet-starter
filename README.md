@@ -12,7 +12,7 @@ The goal of this project is to provide a React with TypeScript starter applicati
 - End-to-End (E2E) Testing: [Cypress](https://www.cypress.io/)
 - Accessibility Testing: [cypress-axe](https://www.npmjs.com/package/cypress-axe)
 - API support: [axios](https://axios-http.com/)
-- Authentication support (coming soon): TBD
+- Authentication support: [Keycloak](https://www.keycloak.org/)
 
 ## Table of Contents
 
@@ -30,7 +30,14 @@ The goal of this project is to provide a React with TypeScript starter applicati
 npm install
 ```
 
-2. To start the app, run the following:
+2. Add .env file to root of project and set the following variables:
+```
+SSO_ISSUER_URL=[SOME_URL]
+SSO_KEYCLOAK_REALM=[SOME_REALM_NAME]
+SSO_CLIENT_ID=[SOME_CLIENT_ID]
+```
+
+3. To start the app, run the following:
 
 ```sh
 npm run start
