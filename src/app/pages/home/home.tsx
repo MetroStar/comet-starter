@@ -1,5 +1,5 @@
 import React from 'react';
-import useAuth from '../../hooks/useAuth';
+import useAuth from '../../hooks/use-auth';
 import { Alert } from '@metrostar/comet-uswds';
 import { getDisplayName } from '../../helpers/auth';
 

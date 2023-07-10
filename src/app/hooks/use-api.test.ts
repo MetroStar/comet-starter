@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react';
-import useApi from '../hooks/useApi';
+import useApi from './use-api';
 import { RecoilRoot } from 'recoil';
 import MockAdapter from 'axios-mock-adapter';
 import axios from '../axios';

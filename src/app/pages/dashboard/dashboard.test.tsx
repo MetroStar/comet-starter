@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Dashboard } from './dashboard';
 import { RecoilRoot } from 'recoil';
 import MockAdapter from 'axios-mock-adapter';
-import * as useAuthMock from '../../hooks/useAuth';
+import * as useAuthMock from '../../hooks/use-auth';
 import axios from '../../axios';
 import { User } from '../../types/user';
 

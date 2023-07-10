@@ -11,7 +11,7 @@ import {
   ButtonGroup,
 } from '@metrostar/comet-uswds';
 import { REQUIRED_FIELD_MESSAGE } from '../../constants';
-import useAuth from '../../hooks/useAuth';
+import useAuth from '../../hooks/use-auth';
 
 export const SignIn = (): React.ReactElement => {
   const navigate = useNavigate();

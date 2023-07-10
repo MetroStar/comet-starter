@@ -2,7 +2,7 @@ import React, { useState, useEffect, SyntheticEvent } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { Banner, Icon, Search } from '@metrostar/comet-uswds';
 import navigation from '@uswds/uswds/js/usa-header';
-import useAuth from '../../hooks/useAuth';
+import useAuth from '../../hooks/use-auth';
 import { APP_TITLE } from '../../constants';
 
 export const Header = (): React.ReactElement => {

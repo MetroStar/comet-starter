@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react';
-import useAuth from '../hooks/useAuth';
+import useAuth from './use-auth';
 import { RecoilRoot } from 'recoil';
 
 describe('useAuth', () => {

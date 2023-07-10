@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Card, CardBody } from '@metrostar/comet-uswds';
 import { Spinner } from '@metrostar/comet-extras';
-import useAuth from '../../hooks/useAuth';
-import useApi from '../../hooks/useApi';
+import useAuth from '../../hooks/use-auth';
+import useApi from '../../hooks/use-api';
 import { DashboardTable } from './dashboard-table/dashboard-table';
 import { DashboardPieChart } from './dashboard-pie-chart/dashboard-pie-chart';
 import { DashboardBarChart } from './dashboard-bar-chart/dashboard-bar-chart';
