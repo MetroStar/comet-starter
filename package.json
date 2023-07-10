@@ -75,6 +75,7 @@
   },
   "overrides": {
     "optionator": "0.9.3",
-    "semver": "7.5.3"
+    "semver": "7.5.3",
+    "tough-cookie": "4.1.3"
   }
 }
