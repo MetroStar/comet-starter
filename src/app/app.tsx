@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactKeycloakProvider } from "@react-keycloak/web";
+import { AuthProvider } from "react-oidc-context";
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
 import { Route, Routes } from 'react-router';
@@ -11,7 +11,7 @@ import Details from './pages/details/details';
 import keycloak from "./keycloak";
 
 export const App = (): React.ReactElement => (
-  <ReactKeycloakProvider authClient={keycloak}>
+  <AuthProvider {...keycloak}>
     <RecoilRoot>
       <div>
         <Header />
@@ -26,6 +26,6 @@ export const App = (): React.ReactElement => (
         <Footer />
       </div>
     </RecoilRoot>
-  </ReactKeycloakProvider>
+  </AuthProvider>
   
 );

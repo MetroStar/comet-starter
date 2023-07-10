@@ -32,8 +32,8 @@ npm install
 
 2. Add .env file to root of project and set the following variables:
 ```
-SSO_ISSUER_URL=[SOME_URL]
-SSO_KEYCLOAK_REALM=[SOME_REALM_NAME]
+SSO_AUTHORITY=[SOME_KEYCLOAK_REALM_URL]
+SSO_REDIRECT_URI=[SOME_REDIRECT_URI]
 SSO_CLIENT_ID=[SOME_CLIENT_ID]
 ```
 

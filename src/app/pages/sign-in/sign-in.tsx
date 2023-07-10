@@ -1,5 +1,6 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth as useKeycloakAuth } from "react-oidc-context";
 import {
   Form,
   FormGroup,
@@ -15,12 +16,13 @@ import useAuth from '../../hooks/use-auth';
 
 export const SignIn = (): React.ReactElement => {
   const navigate = useNavigate();
+  const auth = useKeycloakAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [hasLoginError, setHasLoginError] = useState(false);
   const [usernameErrors, setUsernameErrors] = useState([] as string[]);
   const [passwordErrors, setPasswordErrors] = useState([] as string[]);
-  const { signIn, isSignedIn, error } = useAuth();
+  const { signIn, isSignedIn, setIsSignedIn, error } = useAuth();
 
   useEffect(() => {
     if (isSignedIn) {
@@ -50,6 +52,10 @@ export const SignIn = (): React.ReactElement => {
   const handleCancel = (event: FormEvent): void => {
     event.preventDefault();
     navigate('/');
+  };
+
+  const handleSsoSignIn = () => {
+    auth.signinRedirect();
   };
 
   return (
@@ -97,6 +103,7 @@ export const SignIn = (): React.ReactElement => {
               <Button id="cancel" type="button" variant="secondary" onClick={handleCancel}>
                 Cancel
               </Button>
+              <Button id="sign-in-sso" type='button' variant='outline' onClick={handleSsoSignIn}>Sign In with SSO</Button>
             </ButtonGroup>
           </Form>
         </div>

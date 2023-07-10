@@ -20,7 +20,7 @@ const useAuth = () => {
     setCurrentUserDate({} as User);
   };
 
-  return { isSignedIn, currentUserData, error, signIn, signOut };
+  return { isSignedIn, setIsSignedIn, currentUserData, error, signIn, signOut };
 };
 
 export default useAuth;
