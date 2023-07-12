@@ -21,7 +21,7 @@ export const SignIn = (): React.ReactElement => {
   const [hasLoginError, setHasLoginError] = useState(false);
   const [usernameErrors, setUsernameErrors] = useState([] as string[]);
   const [passwordErrors, setPasswordErrors] = useState([] as string[]);
-  const { signIn, isSignedIn, setIsSignedIn, error } = useAuth();
+  const { signIn, isSignedIn, error } = useAuth();
 
   useEffect(() => {
     if (isSignedIn) {
@@ -53,7 +53,7 @@ export const SignIn = (): React.ReactElement => {
     navigate('/');
   };
 
-  const handleSsoSignIn = () => {
+  const handleSsoSignIn = (): void => {
     signIn(true);
   };
 

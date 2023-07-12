@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 const useAuth = () => {
   const auth = useKeycloakAuth();
   const [isSignedIn, setIsSignedIn] = useRecoilState<boolean>(signedIn);
-  const [error] = useState<string | null>();
+  const [error, setError] = useState<string | null>();
   const [currentUserData, setCurrentUserDate] = useRecoilState<User | undefined>(currentUser);
 
   /* TODO: Uncomment for interacting with own API, no need to send tokens to external public API */
@@ -43,7 +43,9 @@ const useAuth = () => {
 
   const signIn = (isSso: boolean): void => {
     if (isSso) {
-      auth.signinRedirect();
+      auth.signinRedirect().catch((err) => {
+        setError(err);
+      });
     } else {
       setIsSignedIn(true);
       setCurrentUserDate(userData);
@@ -52,14 +54,16 @@ const useAuth = () => {
 
   const signOut = (): void => {
     if (auth.isAuthenticated) {
-      auth.signoutRedirect();
+      auth.signoutRedirect().catch((err) => {
+        setError(err);
+      });
     } else {
       setIsSignedIn(false);
       setCurrentUserDate({} as User);
     }
   };
 
-  return { isSignedIn, setIsSignedIn, currentUserData, error, signIn, signOut };
+  return { isSignedIn, currentUserData, error, signIn, signOut };
 };
 
 export default useAuth;
