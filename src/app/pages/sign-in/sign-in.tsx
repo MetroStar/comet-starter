@@ -1,6 +1,5 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth as useKeycloakAuth } from "react-oidc-context";
 import {
   Form,
   FormGroup,
@@ -16,7 +15,7 @@ import useAuth from '../../hooks/use-auth';
 
 export const SignIn = (): React.ReactElement => {
   const navigate = useNavigate();
-  const auth = useKeycloakAuth();
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [hasLoginError, setHasLoginError] = useState(false);
@@ -45,7 +44,7 @@ export const SignIn = (): React.ReactElement => {
     if (username.length === 0 || password.length === 0) {
       setHasLoginError(true);
     } else {
-      signIn();
+      signIn(false);
     }
   };
 
@@ -55,7 +54,7 @@ export const SignIn = (): React.ReactElement => {
   };
 
   const handleSsoSignIn = () => {
-    auth.signinRedirect();
+    signIn(true);
   };
 
   return (
@@ -103,7 +102,9 @@ export const SignIn = (): React.ReactElement => {
               <Button id="cancel" type="button" variant="secondary" onClick={handleCancel}>
                 Cancel
               </Button>
-              <Button id="sign-in-sso" type='button' variant='outline' onClick={handleSsoSignIn}>Sign In with SSO</Button>
+              <Button id="sign-in-sso" type="button" variant="outline" onClick={handleSsoSignIn}>
+                Sign In with SSO
+              </Button>
             </ButtonGroup>
           </Form>
         </div>

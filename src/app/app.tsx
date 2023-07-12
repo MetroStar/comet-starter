@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthProvider } from "react-oidc-context";
+import { AuthProvider } from 'react-oidc-context';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
 import { Route, Routes } from 'react-router';
@@ -8,7 +8,7 @@ import { Dashboard } from './pages/dashboard/dashboard';
 import { Home } from './pages/home/home';
 import { RecoilRoot } from 'recoil';
 import Details from './pages/details/details';
-import keycloak from "./keycloak";
+import keycloak from './keycloak';
 
 export const App = (): React.ReactElement => (
   <AuthProvider {...keycloak}>
@@ -27,5 +27,4 @@ export const App = (): React.ReactElement => (
       </div>
     </RecoilRoot>
   </AuthProvider>
-  
 );
