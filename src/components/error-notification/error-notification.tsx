@@ -1,5 +1,5 @@
 import { Alert } from "@metrostar/comet-uswds";
-import { ReactElement } from "react";
+import React from "react";
 
 interface ErrorNotificationProps {
   error: string;
@@ -7,7 +7,7 @@ interface ErrorNotificationProps {
 
 export const ErrorNotification = (
   props: ErrorNotificationProps,
-): ReactElement => {
+): React.ReactElement => {
   return (
     <Alert id="error-alert" type="error">
       An error has occurred: {props.error}

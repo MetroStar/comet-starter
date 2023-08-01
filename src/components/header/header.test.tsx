@@ -2,9 +2,9 @@ import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 
-import * as useAuthMock from "@src/hooks/use-auth";
-import { User } from "@src/types/user";
 import { RecoilRoot } from "recoil";
+import * as useAuthMock from "../../hooks/use-auth";
+import { User } from "../../types/user";
 import { Header } from "./header";
 
 describe("Header", () => {
@@ -22,7 +22,7 @@ describe("Header", () => {
   });
 
   test("should navigate away from home", async () => {
-    jest.spyOn(useAuthMock, "useAuth").mockReturnValue({
+    jest.spyOn(useAuthMock, "default").mockReturnValue({
       isSignedIn: true,
       currentUserData: {} as User,
       error: null,
@@ -43,7 +43,7 @@ describe("Header", () => {
       value: new URL(window.location.href),
     });
 
-    jest.spyOn(useAuthMock, "useAuth").mockReturnValue({
+    jest.spyOn(useAuthMock, "default").mockReturnValue({
       isSignedIn: false,
       currentUserData: {} as User,
       error: null,
@@ -63,7 +63,7 @@ describe("Header", () => {
       value: new URL(window.location.href),
     });
 
-    jest.spyOn(useAuthMock, "useAuth").mockReturnValue({
+    jest.spyOn(useAuthMock, "default").mockReturnValue({
       isSignedIn: true,
       currentUserData: {} as User,
       error: null,

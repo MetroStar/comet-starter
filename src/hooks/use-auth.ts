@@ -1,10 +1,11 @@
-import { userData } from "@src/data/user";
-import { User } from "@src/types/user";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
+import { userData } from "../data/user";
 import { currentUser, signedIn } from "../store";
+import { User } from "../types/user";
 
-export const useAuth = () => {
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+const useAuth = () => {
   const [isSignedIn, setIsSignedIn] = useRecoilState<boolean>(signedIn);
   const [error] = useState<string | null>();
   const [currentUserData, setCurrentUserDate] =
@@ -22,3 +23,5 @@ export const useAuth = () => {
 
   return { isSignedIn, currentUserData, error, signIn, signOut };
 };
+
+export default useAuth;

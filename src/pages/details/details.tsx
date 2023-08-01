@@ -1,22 +1,29 @@
 import { Spinner } from "@metrostar/comet-extras";
 import { Card } from "@metrostar/comet-uswds";
-import ErrorNotification from "@src/components/error-notification/error-notification";
-import { useAuth } from "@src/hooks/use-auth";
-import { Launch } from "@src/types/launch";
-import axios from "@src/utils/axios";
-import { useQuery } from "@tanstack/react-query";
-import { ReactElement } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import ErrorNotification from "../../components/error-notification/error-notification";
+import useApi from "../../hooks/use-api";
+import useAuth from "../../hooks/use-auth";
+import { Launch } from "../../types/launch";
 
-export const Details = (): ReactElement => {
+export const Details = (): React.ReactElement => {
   const { id } = useParams();
   const { isSignedIn } = useAuth();
-  const { isLoading, error, data } = useQuery<Launch, { message: string }>({
-    queryKey: ["item", id],
-    queryFn: () =>
-      axios.get(`/${id}/?format=json`).then((response) => response.data),
-    enabled: isSignedIn,
-  });
+  const { getItem, item, loading, error } = useApi();
+  const [data, setData] = useState<Launch | null>(null);
+
+  useEffect(() => {
+    if (isSignedIn && id) {
+      getItem(id);
+    }
+  }, [isSignedIn, id]);
+
+  useEffect(() => {
+    if (item) {
+      setData(item);
+    }
+  }, [item]);
 
   return (
     <div className="grid-container">
@@ -29,13 +36,13 @@ export const Details = (): ReactElement => {
         {error && (
           <div className="grid-row padding-bottom-2">
             <div className="grid-col">
-              <ErrorNotification error={error.message} />
+              <ErrorNotification error={error} />
             </div>
           </div>
         )}
         <div className="grid-row">
           <div className="grid-col">
-            {isLoading ? (
+            {loading ? (
               <Spinner
                 id="spinner"
                 type="small"

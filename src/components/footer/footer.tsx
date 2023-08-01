@@ -4,11 +4,11 @@ import instagramIcon from "@uswds/uswds/img/usa-icons/instagram.svg";
 import rssIcon from "@uswds/uswds/img/usa-icons/rss_feed.svg";
 import twitterIcon from "@uswds/uswds/img/usa-icons/twitter.svg";
 import youtubeIcon from "@uswds/uswds/img/usa-icons/youtube.svg";
-import { MouseEvent, ReactElement } from "react";
+import React from "react";
 import logo from "/img/logo.png";
 
-export const Footer = (): ReactElement => {
-  const scrollToTop = (event: MouseEvent<HTMLAnchorElement>): void => {
+export const Footer = (): React.ReactElement => {
+  const scrollToTop = (event: React.MouseEvent<HTMLAnchorElement>): void => {
     event.preventDefault();
     window.scrollTo(0, 0);
   };

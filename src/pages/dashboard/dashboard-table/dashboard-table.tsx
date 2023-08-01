@@ -1,7 +1,7 @@
 import { Table, TableColumn } from "@metrostar/comet-uswds";
-import { Launch } from "@src/types/launch";
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { Launch } from "../../../types/launch";
 import { LaunchData } from "../types";
 
 interface DashboardTableProps {

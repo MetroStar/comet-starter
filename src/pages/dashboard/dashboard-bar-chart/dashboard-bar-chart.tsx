@@ -1,6 +1,6 @@
 import { BarGraph } from "@metrostar/comet-data-viz";
-import { Launch } from "@src/types/launch";
 import React, { useEffect, useState } from "react";
+import { Launch } from "../../../types/launch";
 import { ChartData } from "../types";
 
 interface DashboardBarChartProps {

@@ -1,9 +1,9 @@
 import { Alert } from "@metrostar/comet-uswds";
-import { useAuth } from "@src/hooks/use-auth";
 import { getDisplayName } from "@src/utils/auth";
-import { ReactElement } from "react";
+import React from "react";
+import useAuth from "../../hooks/use-auth";
 
-export const Home = (): ReactElement => {
+export const Home = (): React.ReactElement => {
   const { isSignedIn, currentUserData } = useAuth();
   return (
     <div className="grid-container">

@@ -1,7 +1,7 @@
-import { launchData } from "@src/data/launch";
 import { act, render } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
+import { launchData } from "../../../data/launch";
 import { DashboardBarChart } from "./dashboard-bar-chart";
 
 describe("DashboardBarChart", () => {

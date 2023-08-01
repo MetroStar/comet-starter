@@ -1,6 +1,6 @@
 import { act, renderHook } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
-import { useAuth } from "./use-auth";
+import useAuth from "./use-auth";
 
 describe("useAuth", () => {
   test("should call signIn successfully", () => {

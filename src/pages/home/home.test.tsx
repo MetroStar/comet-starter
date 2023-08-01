@@ -1,8 +1,8 @@
-import * as useAuthMock from "@src/hooks/use-auth";
-import { User } from "@src/types/user";
 import { act, render } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
+import * as useAuthMock from "../../hooks/use-auth";
+import { User } from "../../types/user";
 import { Home } from "./home";
 
 describe("Home", () => {
@@ -21,7 +21,7 @@ describe("Home", () => {
   });
 
   test("should render with mock data", async () => {
-    jest.spyOn(useAuthMock, "useAuth").mockReturnValue({
+    jest.spyOn(useAuthMock, "default").mockReturnValue({
       isSignedIn: true,
       currentUserData: { firstName: "John", lastName: "Doe" } as User,
       error: null,

@@ -8,44 +8,47 @@ import {
   Label,
   TextInput,
 } from "@metrostar/comet-uswds";
-import { useAuth } from "@src/hooks/use-auth";
-import { REQUIRED_FORM_FIELDS_RULES } from "@src/utils/constants";
-import React, { FormEvent, useEffect } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { REQUIRED_FIELD_MESSAGE } from "@src/utils/constants";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-//#region Password Rules
-const MIN_PASSWORD_LENGTH = 8;
-const PASSWORD_LENGTH_MESSAGE = `Password must be at least ${MIN_PASSWORD_LENGTH} characters long`;
-const PASSWORD_RULES = {
-  ...REQUIRED_FORM_FIELDS_RULES,
-  minLength: { value: MIN_PASSWORD_LENGTH, message: PASSWORD_LENGTH_MESSAGE },
-};
-//#endregion Password Rules
-
-interface FormInput {
-  username: string;
-  password: string;
-}
+import useAuth from "../../hooks/use-auth";
 
 export const SignIn = (): React.ReactElement => {
-  const { signIn, error, isSignedIn } = useAuth();
   const navigate = useNavigate();
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormInput>({
-    defaultValues: {
-      username: "",
-      password: "",
-    },
-  });
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [hasLoginError, setHasLoginError] = useState(false);
+  const [usernameErrors, setUsernameErrors] = useState([] as string[]);
+  const [passwordErrors, setPasswordErrors] = useState([] as string[]);
+  const { signIn, isSignedIn, error } = useAuth();
 
-  const onSubmit: SubmitHandler<FormInput> = ({ username, password }) => {
-    console.log(username);
-    console.log(password);
-    signIn();
+  useEffect(() => {
+    if (isSignedIn) {
+      setHasLoginError(false);
+      navigate("/");
+    }
+  }, [isSignedIn]);
+
+  useEffect(() => {
+    if (error) {
+      setHasLoginError(true);
+    }
+  }, [error]);
+
+  const handleLogin = (event: FormEvent): void => {
+    event.preventDefault();
+    username === ""
+      ? setUsernameErrors([REQUIRED_FIELD_MESSAGE])
+      : setUsernameErrors([]);
+    password === ""
+      ? setPasswordErrors([REQUIRED_FIELD_MESSAGE])
+      : setPasswordErrors([]);
+
+    if (username.length === 0 || password.length === 0) {
+      setHasLoginError(true);
+    } else {
+      signIn();
+    }
   };
 
   const handleCancel = (event: FormEvent): void => {
@@ -53,62 +56,46 @@ export const SignIn = (): React.ReactElement => {
     navigate("/");
   };
 
-  useEffect(() => {
-    if (isSignedIn) {
-      navigate("/dashboard");
-    }
-  }, [isSignedIn, navigate]);
-
   return (
     <div className="grid-container">
       <div className="grid-row">
         <div className="grid-col-6">
           <h1>Sign In</h1>
-          {error && (
+          {hasLoginError && (
             <Alert id="loginAlert" type="error" heading="Error">
               Incorrect email or password was entered.
             </Alert>
           )}
-          <Form id="login-form" onSubmit={handleSubmit(onSubmit)}>
+          <Form id="login-form" onSubmit={handleLogin}>
             <FormGroup>
               <Label htmlFor="username">Username</Label>
-              {errors.username?.message && (
-                <ErrorMessages errors={[errors.username.message]} />
-              )}
-              <Controller
+              <ErrorMessages errors={usernameErrors} />
+              <TextInput
+                id="username"
                 name="username"
-                control={control}
-                rules={REQUIRED_FORM_FIELDS_RULES}
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                render={({ field: { ref: _, ...rest } }) => (
-                  <TextInput {...rest} id="username" autoFocus />
-                )}
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+                autoFocus
               />
             </FormGroup>
             <FormGroup>
               <Label htmlFor="password">Password</Label>
-              {errors.password?.message && (
-                <ErrorMessages errors={[errors.password.message]} />
-              )}
-              <Controller
+              <ErrorMessages errors={passwordErrors} />
+              <TextInput
+                id="password"
+                type="password"
                 name="password"
-                control={control}
-                rules={PASSWORD_RULES}
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                render={({ field: { ref: _, ...rest } }) => (
-                  <TextInput {...rest} id="password" autoFocus />
-                )}
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
               />
             </FormGroup>
 
             <ButtonGroup>
-              <Button
-                id="submit"
-                type="submit"
-                disabled={
-                  !!errors.username?.message || !!errors.password?.message
-                }
-              >
+              <Button id="submit" type="submit">
                 Sign In
               </Button>
               <Button
