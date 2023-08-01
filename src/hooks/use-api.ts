@@ -2,7 +2,6 @@ import axios from "@src/utils/axios";
 import { useCallback, useState } from "react";
 import { Launch } from "../types/launch";
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const useApi = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [items, setItems] = useState<Launch[]>();

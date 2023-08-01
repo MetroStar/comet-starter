@@ -4,7 +4,6 @@ import { userData } from "../data/user";
 import { currentUser, signedIn } from "../store";
 import { User } from "../types/user";
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const useAuth = () => {
   const [isSignedIn, setIsSignedIn] = useRecoilState<boolean>(signedIn);
   const [error] = useState<string | null>();
