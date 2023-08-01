@@ -27,7 +27,7 @@ export const SignIn = (): React.ReactElement => {
       setHasLoginError(false);
       navigate("/");
     }
-  }, [isSignedIn]);
+  }, [isSignedIn, navigate]);
 
   useEffect(() => {
     if (error) {

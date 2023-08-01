@@ -16,7 +16,7 @@ export const Dashboard = (): React.ReactElement => {
     if (isSignedIn) {
       getItems();
     }
-  }, [isSignedIn]);
+  }, [getItems, isSignedIn]);
 
   return (
     <div className="grid-container">

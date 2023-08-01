@@ -17,7 +17,7 @@ export const Details = (): React.ReactElement => {
     if (isSignedIn && id) {
       getItem(id);
     }
-  }, [isSignedIn, id]);
+  }, [isSignedIn, id, getItem]);
 
   useEffect(() => {
     if (item) {

@@ -1,5 +1,5 @@
 import axios from "@src/utils/axios";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Launch } from "../types/launch";
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -9,7 +9,7 @@ const useApi = () => {
   const [item, setItem] = useState<Launch>();
   const [error, setError] = useState<string | null>(null);
 
-  const getItems = (): void => {
+  const getItems = useCallback((): void => {
     setLoading(true);
     axios
       .get(`/?format=json`)
@@ -25,9 +25,9 @@ const useApi = () => {
       .finally(() => {
         setLoading(false);
       });
-  };
+  }, []);
 
-  const getItem = (id: string): void => {
+  const getItem = useCallback((id: string): void => {
     setLoading(true);
     axios
       .get(`/${id}/?format=json`)
@@ -43,7 +43,7 @@ const useApi = () => {
       .finally(() => {
         setLoading(false);
       });
-  };
+  }, []);
 
   return {
     loading,
