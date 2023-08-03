@@ -7,10 +7,7 @@
     "dbaeumer.vscode-eslint",
     "wix.vscode-import-cost",
     "esbenp.prettier-vscode",
-    "ofhumanbondage.react-proptypes-intellisense",
     "pflannery.vscode-versionlens",
-    "orta.vscode-jest",
-    "streetsidesoftware.code-spell-checker",
-    "davidanson.vscode-markdownlint"
+    "orta.vscode-jest"
   ]
 }

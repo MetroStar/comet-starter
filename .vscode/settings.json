@@ -12,11 +12,9 @@
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+
   // Code highlighting
   "files.associations": {
     "*.env.*": "env"
-  },
-
-  // Code Spell Checker
-  "cSpell.words": ["macbook", "metrostar", "tanstack", "uswds"]
+  }
 }
