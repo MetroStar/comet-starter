@@ -1,6 +1,5 @@
 {
   "recommendations": [
-    "ms-vscode.vscode-typescript-next",
     "mgmcdermott.vscode-language-babel",
     "editorconfig.editorconfig",
     "irongeek.vscode-env",
