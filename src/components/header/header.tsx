@@ -1,9 +1,9 @@
-import { Banner, Icon, Search } from "@metrostar/comet-uswds";
-import { APP_TITLE } from "@src/utils/constants";
-import navigation from "@uswds/uswds/js/usa-header";
-import React, { SyntheticEvent, useEffect, useState } from "react";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/use-auth";
+import { Banner, Icon, Search } from '@metrostar/comet-uswds';
+import { APP_TITLE } from '@src/utils/constants';
+import navigation from '@uswds/uswds/js/usa-header';
+import React, { SyntheticEvent, useEffect, useState } from 'react';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import useAuth from '../../hooks/use-auth';
 
 export const Header = (): React.ReactElement => {
   const [showMenu, setShowMenu] = useState(false);
@@ -30,7 +30,7 @@ export const Header = (): React.ReactElement => {
 
   useEffect(() => {
     const ref = document.body.style;
-    showMenu ? (ref.overflow = "hidden") : (ref.overflow = "visible");
+    showMenu ? (ref.overflow = 'hidden') : (ref.overflow = 'visible');
   }, [showMenu]);
 
   useEffect(() => {
@@ -41,9 +41,9 @@ export const Header = (): React.ReactElement => {
     event.preventDefault();
     if (isSignedIn) {
       signOut();
-      navigate("/");
+      navigate('/');
     } else {
-      navigate("/signin");
+      navigate('/signin');
     }
   };
 
@@ -82,7 +82,7 @@ export const Header = (): React.ReactElement => {
                   id="home-link"
                   to="/"
                   className={`usa-nav__link ${
-                    location.pathname === "/" ? "usa-current" : ""
+                    location.pathname === '/' ? 'usa-current' : ''
                   }`}
                 >
                   Home
@@ -94,7 +94,7 @@ export const Header = (): React.ReactElement => {
                     id="dashboard-link"
                     to="/dashboard"
                     className={`usa-nav__link ${
-                      location.pathname === "/dashboard" ? "usa-current" : ""
+                      location.pathname === '/dashboard' ? 'usa-current' : ''
                     }`}
                   >
                     Dashboard
@@ -106,11 +106,11 @@ export const Header = (): React.ReactElement => {
                   id="auth-link"
                   to="/signin"
                   className={`usa-nav__link ${
-                    location.pathname === "/signin" ? "usa-current" : ""
+                    location.pathname === '/signin' ? 'usa-current' : ''
                   }`}
                   onClick={handleAuth}
                 >
-                  {isSignedIn ? "Sign Out" : "Sign In"}
+                  {isSignedIn ? 'Sign Out' : 'Sign In'}
                 </Link>
               </li>
             </ul>

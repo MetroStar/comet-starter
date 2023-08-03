@@ -1,14 +1,14 @@
-import { userData } from "@src/data/user";
-import { User } from "@src/types/user";
-import { getDisplayName } from "./auth";
+import { userData } from '@src/data/user';
+import { User } from '@src/types/user';
+import { getDisplayName } from './auth';
 
-describe("Auth Helpers", () => {
-  test("should get display name with display name", () => {
+describe('Auth Helpers', () => {
+  test('should get display name with display name', () => {
     const displayName = getDisplayName(userData);
     expect(displayName).toEqual(userData.displayName);
   });
 
-  test("should get display name with first and last", () => {
+  test('should get display name with first and last', () => {
     const newUser: User = {
       ...userData,
       displayName: undefined,
@@ -18,7 +18,7 @@ describe("Auth Helpers", () => {
     expect(displayName).toEqual(userData.displayName);
   });
 
-  test("should get display name with just first name", () => {
+  test('should get display name with just first name', () => {
     const newUser: User = {
       ...userData,
       displayName: undefined,
@@ -28,7 +28,7 @@ describe("Auth Helpers", () => {
     expect(displayName).toEqual(userData.firstName);
   });
 
-  test("should get empty display name", () => {
+  test('should get empty display name', () => {
     const newUser: User = {
       ...userData,
       displayName: undefined,
@@ -37,6 +37,6 @@ describe("Auth Helpers", () => {
     };
 
     const displayName = getDisplayName(newUser);
-    expect(displayName).toEqual("");
+    expect(displayName).toEqual('');
   });
 });

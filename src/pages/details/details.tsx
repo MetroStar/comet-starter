@@ -1,11 +1,11 @@
-import { Spinner } from "@metrostar/comet-extras";
-import { Card } from "@metrostar/comet-uswds";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import ErrorNotification from "../../components/error-notification/error-notification";
-import useApi from "../../hooks/use-api";
-import useAuth from "../../hooks/use-auth";
-import { Launch } from "../../types/launch";
+import { Spinner } from '@metrostar/comet-extras';
+import { Card } from '@metrostar/comet-uswds';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import ErrorNotification from '../../components/error-notification/error-notification';
+import useApi from '../../hooks/use-api';
+import useAuth from '../../hooks/use-auth';
+import { Launch } from '../../types/launch';
 
 export const Details = (): React.ReactElement => {
   const { id } = useParams();

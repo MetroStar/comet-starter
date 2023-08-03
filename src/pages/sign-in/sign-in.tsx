@@ -7,16 +7,16 @@ import {
   FormGroup,
   Label,
   TextInput,
-} from "@metrostar/comet-uswds";
-import { REQUIRED_FIELD_MESSAGE } from "@src/utils/constants";
-import React, { FormEvent, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/use-auth";
+} from '@metrostar/comet-uswds';
+import { REQUIRED_FIELD_MESSAGE } from '@src/utils/constants';
+import React, { FormEvent, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import useAuth from '../../hooks/use-auth';
 
 export const SignIn = (): React.ReactElement => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [hasLoginError, setHasLoginError] = useState(false);
   const [usernameErrors, setUsernameErrors] = useState([] as string[]);
   const [passwordErrors, setPasswordErrors] = useState([] as string[]);
@@ -25,7 +25,7 @@ export const SignIn = (): React.ReactElement => {
   useEffect(() => {
     if (isSignedIn) {
       setHasLoginError(false);
-      navigate("/");
+      navigate('/');
     }
   }, [isSignedIn, navigate]);
 
@@ -37,10 +37,10 @@ export const SignIn = (): React.ReactElement => {
 
   const handleLogin = (event: FormEvent): void => {
     event.preventDefault();
-    username === ""
+    username === ''
       ? setUsernameErrors([REQUIRED_FIELD_MESSAGE])
       : setUsernameErrors([]);
-    password === ""
+    password === ''
       ? setPasswordErrors([REQUIRED_FIELD_MESSAGE])
       : setPasswordErrors([]);
 
@@ -53,7 +53,7 @@ export const SignIn = (): React.ReactElement => {
 
   const handleCancel = (event: FormEvent): void => {
     event.preventDefault();
-    navigate("/");
+    navigate('/');
   };
 
   return (

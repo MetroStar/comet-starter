@@ -1,7 +1,7 @@
-import { Alert } from "@metrostar/comet-uswds";
-import { getDisplayName } from "@src/utils/auth";
-import React from "react";
-import useAuth from "../../hooks/use-auth";
+import { Alert } from '@metrostar/comet-uswds';
+import { getDisplayName } from '@src/utils/auth';
+import React from 'react';
+import useAuth from '../../hooks/use-auth';
 
 export const Home = (): React.ReactElement => {
   const { isSignedIn, currentUserData } = useAuth();
@@ -10,8 +10,8 @@ export const Home = (): React.ReactElement => {
       <div className="grid-row">
         <div className="grid-col">
           <h1>
-            Welcome{" "}
-            {currentUserData ? getDisplayName(currentUserData) : "Guest"}
+            Welcome{' '}
+            {currentUserData ? getDisplayName(currentUserData) : 'Guest'}
           </h1>
         </div>
       </div>

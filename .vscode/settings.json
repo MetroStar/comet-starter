@@ -1,7 +1,6 @@
 {
   // Formatting
-  // Uncomment the following 2 lines below to allow Prettier to auto format your code on save 👇
-  // "notebook.formatOnSave.enabled": true,
+  // Uncomment the following line to allow Prettier to auto format your code on save 👇
   // "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[javascript]": {

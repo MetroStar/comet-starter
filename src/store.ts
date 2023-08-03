@@ -1,13 +1,13 @@
-import { User } from "@src/types/user";
-import { atom } from "recoil";
+import { User } from '@src/types/user';
+import { atom } from 'recoil';
 
 const signedIn = atom({
-  key: "signedIn",
+  key: 'signedIn',
   default: false,
 });
 
 const currentUser = atom<User>({
-  key: "currentUser",
+  key: 'currentUser',
   default: undefined,
 });
 

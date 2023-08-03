@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { useRecoilState } from "recoil";
-import { userData } from "../data/user";
-import { currentUser, signedIn } from "../store";
-import { User } from "../types/user";
+import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { userData } from '../data/user';
+import { currentUser, signedIn } from '../store';
+import { User } from '../types/user';
 
 const useAuth = () => {
   const [isSignedIn, setIsSignedIn] = useRecoilState<boolean>(signedIn);

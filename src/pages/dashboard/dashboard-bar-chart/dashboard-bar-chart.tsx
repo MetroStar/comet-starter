@@ -1,7 +1,7 @@
-import { BarGraph } from "@metrostar/comet-data-viz";
-import React, { useEffect, useState } from "react";
-import { Launch } from "../../../types/launch";
-import { ChartData } from "../types";
+import { BarGraph } from '@metrostar/comet-data-viz';
+import React, { useEffect, useState } from 'react';
+import { Launch } from '../../../types/launch';
+import { ChartData } from '../types';
 
 interface DashboardBarChartProps {
   items: Launch[] | undefined;
@@ -32,14 +32,14 @@ export const DashboardBarChart = ({
   return data ? (
     <div
       style={{
-        height: "300px",
-        width: "400px",
+        height: '300px',
+        width: '400px',
       }}
     >
       <BarGraph
         chart={{
           height: 300,
-          title: "Service Provider Bar Graph",
+          title: 'Service Provider Bar Graph',
           width: 375,
         }}
         alignment="start"

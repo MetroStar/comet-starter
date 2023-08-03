@@ -1,8 +1,8 @@
-import { Table, TableColumn } from "@metrostar/comet-uswds";
-import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { Launch } from "../../../types/launch";
-import { LaunchData } from "../types";
+import { Table, TableColumn } from '@metrostar/comet-uswds';
+import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { Launch } from '../../../types/launch';
+import { LaunchData } from '../types';
 
 interface DashboardTableProps {
   items: Launch[] | undefined;
@@ -44,10 +44,10 @@ export const DashboardTable = ({
   }, [items]);
 
   const columns: TableColumn[] = [
-    { id: "name", name: "Name" },
-    { id: "provider", name: "Service Provider" },
-    { id: "status", name: "Status" },
-    { id: "last_updated", name: "Last Updated" },
+    { id: 'name', name: 'Name' },
+    { id: 'provider', name: 'Service Provider' },
+    { id: 'status', name: 'Status' },
+    { id: 'last_updated', name: 'Last Updated' },
   ];
 
   return data ? (

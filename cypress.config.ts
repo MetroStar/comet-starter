@@ -1,11 +1,11 @@
-import { defineConfig } from "cypress";
-import customViteConfig from "./vite.config";
+import { defineConfig } from 'cypress';
+import customViteConfig from './vite.config';
 
 export default defineConfig({
   component: {
     devServer: {
-      framework: "react",
-      bundler: "vite",
+      framework: 'react',
+      bundler: 'vite',
       // optionally pass in vite config
       viteConfig: customViteConfig,
       // or a function - the result is merged with
@@ -19,7 +19,7 @@ export default defineConfig({
   },
 
   e2e: {
-    baseUrl: "http://localhost:8080",
+    baseUrl: 'http://localhost:8080',
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     setupNodeEvents(on, config) {
       // implement node event listeners here

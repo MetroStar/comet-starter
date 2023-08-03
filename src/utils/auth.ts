@@ -1,4 +1,4 @@
-import { User } from "@src/types/user";
+import { User } from '@src/types/user';
 
 export const getDisplayName = (user: User): string => {
   if (user.displayName) {
@@ -8,6 +8,6 @@ export const getDisplayName = (user: User): string => {
   } else if (user.firstName && !user.lastName) {
     return user.firstName;
   } else {
-    return "";
+    return '';
   }
 };

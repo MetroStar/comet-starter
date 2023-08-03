@@ -3,7 +3,7 @@
  * https://jestjs.io/docs/configuration
  */
 
-import type { JestConfigWithTsJest } from "ts-jest";
+import type { JestConfigWithTsJest } from 'ts-jest';
 
 const config: JestConfigWithTsJest = {
   // All imported modules in your tests should be mocked automatically
@@ -23,16 +23,16 @@ const config: JestConfigWithTsJest = {
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   collectCoverageFrom: [
-    "src/**/*.{ts,tsx}",
-    "!src/App.tsx",
-    "!src/main.tsx",
-    "!src/store.ts",
-    "!**/*.d.ts",
-    "!**/types.ts",
+    'src/**/*.{ts,tsx}',
+    '!src/App.tsx',
+    '!src/main.tsx',
+    '!src/store.ts',
+    '!**/*.d.ts',
+    '!**/types.ts',
   ],
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: "coverage",
+  coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
@@ -40,7 +40,7 @@ const config: JestConfigWithTsJest = {
   // ],
 
   // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: "babel",
+  coverageProvider: 'babel',
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
@@ -105,15 +105,15 @@ const config: JestConfigWithTsJest = {
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {
-    "^.+.(svg|css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$":
-      "jest-transform-stub",
+    '^.+.(svg|css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$':
+      'jest-transform-stub',
     // Paths from tsconfig.json
-    "^@src/components/(.*)$": "<rootDir>/src/components/$1",
-    "^@src/data/(.*)$": "<rootDir>/src/data/$1",
-    "^@src/features/(.*)$": "<rootDir>/src/features/$1",
-    "^@src/hooks/(.*)$": "<rootDir>/src/hooks/$1",
-    "^@src/types/(.*)$": "<rootDir>/src/types/$1",
-    "^@src/utils/(.*)$": "<rootDir>/src/utils/$1",
+    '^@src/components/(.*)$': '<rootDir>/src/components/$1',
+    '^@src/data/(.*)$': '<rootDir>/src/data/$1',
+    '^@src/features/(.*)$': '<rootDir>/src/features/$1',
+    '^@src/hooks/(.*)$': '<rootDir>/src/hooks/$1',
+    '^@src/types/(.*)$': '<rootDir>/src/types/$1',
+    '^@src/utils/(.*)$': '<rootDir>/src/utils/$1',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
@@ -126,7 +126,7 @@ const config: JestConfigWithTsJest = {
   // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration
-  preset: "ts-jest",
+  preset: 'ts-jest',
 
   // Run tests from one or more projects
   // projects: undefined,
@@ -170,7 +170,7 @@ const config: JestConfigWithTsJest = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: "jsdom",
+  testEnvironment: 'jsdom',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -200,10 +200,10 @@ const config: JestConfigWithTsJest = {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    "^.+\\.(ts|tsx)$": "ts-jest",
+    '^.+\\.(ts|tsx)$': 'ts-jest',
     // "^.+\\.tsx?$": "ts-jest",
-    ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2|svg)$":
-      "jest-transform-stub",
+    '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2|svg)$':
+      'jest-transform-stub',
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation

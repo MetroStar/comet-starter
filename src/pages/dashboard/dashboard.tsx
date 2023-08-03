@@ -1,12 +1,12 @@
-import { Spinner } from "@metrostar/comet-extras";
-import { Card, CardBody } from "@metrostar/comet-uswds";
-import React, { useEffect } from "react";
-import ErrorNotification from "../../components/error-notification/error-notification";
-import useApi from "../../hooks/use-api";
-import useAuth from "../../hooks/use-auth";
-import { DashboardBarChart } from "./dashboard-bar-chart/dashboard-bar-chart";
-import { DashboardPieChart } from "./dashboard-pie-chart/dashboard-pie-chart";
-import { DashboardTable } from "./dashboard-table/dashboard-table";
+import { Spinner } from '@metrostar/comet-extras';
+import { Card, CardBody } from '@metrostar/comet-uswds';
+import React, { useEffect } from 'react';
+import ErrorNotification from '../../components/error-notification/error-notification';
+import useApi from '../../hooks/use-api';
+import useAuth from '../../hooks/use-auth';
+import { DashboardBarChart } from './dashboard-bar-chart/dashboard-bar-chart';
+import { DashboardPieChart } from './dashboard-pie-chart/dashboard-pie-chart';
+import { DashboardTable } from './dashboard-table/dashboard-table';
 
 export const Dashboard = (): React.ReactElement => {
   const { isSignedIn } = useAuth();

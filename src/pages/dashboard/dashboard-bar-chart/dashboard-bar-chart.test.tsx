@@ -1,11 +1,11 @@
-import { act, render } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
-import { RecoilRoot } from "recoil";
-import { launchData } from "../../../data/launch";
-import { DashboardBarChart } from "./dashboard-bar-chart";
+import { act, render } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
+import { launchData } from '../../../data/launch';
+import { DashboardBarChart } from './dashboard-bar-chart';
 
-describe("DashboardBarChart", () => {
-  test("should render successfully", async () => {
+describe('DashboardBarChart', () => {
+  test('should render successfully', async () => {
     const { baseElement } = render(
       <RecoilRoot>
         <BrowserRouter>
@@ -16,6 +16,6 @@ describe("DashboardBarChart", () => {
     await act(async () => {
       expect(baseElement).toBeTruthy();
     });
-    expect(baseElement.querySelector(".VictoryContainer")).toBeDefined();
+    expect(baseElement.querySelector('.VictoryContainer')).toBeDefined();
   });
 });

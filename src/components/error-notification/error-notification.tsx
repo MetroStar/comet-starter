@@ -1,5 +1,5 @@
-import { Alert } from "@metrostar/comet-uswds";
-import React from "react";
+import { Alert } from '@metrostar/comet-uswds';
+import React from 'react';
 
 interface ErrorNotificationProps {
   error: string;

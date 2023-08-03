@@ -1,6 +1,6 @@
-import axios from "@src/utils/axios";
-import { useCallback, useState } from "react";
-import { Launch } from "../types/launch";
+import axios from '@src/utils/axios';
+import { useCallback, useState } from 'react';
+import { Launch } from '../types/launch';
 
 const useApi = () => {
   const [loading, setLoading] = useState<boolean>(false);
