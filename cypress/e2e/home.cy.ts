@@ -6,7 +6,7 @@ describe('home spec', () => {
 
   it('navigates to home', () => {
     // Navigate to Homepage
-    cy.visit(Cypress.env('base_url'));
+    cy.visit('/');
 
     // Setup Accessibility Testing
     cy.injectAxe();

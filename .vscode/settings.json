@@ -1,0 +1,20 @@
+{
+  // Formatting
+  // Uncomment the following line to allow Prettier to auto format your code on save 👇
+  // "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // Code highlighting
+  "files.associations": {
+    "*.env.*": "env"
+  }
+}

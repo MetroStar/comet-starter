@@ -8,7 +8,7 @@ describe('dashboard spec', () => {
 
   it('verifies access to dashboard after signing in', () => {
     // Navigate to Homepage
-    cy.visit(Cypress.env('base_url'));
+    cy.visit('/');
 
     // Setup Accessibility Testing
     cy.injectAxe();
@@ -18,7 +18,7 @@ describe('dashboard spec', () => {
 
     // Sign In
     cy.get('#auth-link').click();
-    cy.signIn('test', 'test');
+    cy.signIn('test', '12345678');
 
     // Mock launch data
     cy.intercept('GET', '/api/*', {

@@ -2,6 +2,7 @@
 
 The goal of this project is to provide a React with TypeScript starter application, which comes pre-configured with the USWDS-based [Comet Component Library](https://github.com/MetroStar/comet) as well as other tools to accelerate development. Some of these tools are as follows:
 
+- Tooling: [Vite](https://vitejs.dev/)
 - Platform: [React](https://react.dev/) with [TypeScript](https://www.typescriptlang.org/)
 - Component Library: [Comet Component Library](https://github.com/MetroStar/comet)
 - Data Visualization: [Victory Charts](https://formidable.com/open-source/victory/)
@@ -33,7 +34,7 @@ npm install
 2. To start the app, run the following:
 
 ```sh
-npm run start
+npm run dev
 ```
 
 ## Running Unit Tests
@@ -46,6 +47,10 @@ npm run test
 
 Ensure to review the coverage directory for code coverage details.
 
+```sh
+npm run coverage
+```
+
 ## Running Code Quality Checks
 
 To make sure your changes adhere to additional code quality standards, run the following:
@@ -54,6 +59,8 @@ To make sure your changes adhere to additional code quality standards, run the f
 npm run lint
 npm run format
 ```
+
+You can also see the `.vscode/settings.json` file to find how to enable auto-formatting on save.
 
 ## Running End-to-End (E2E) Tests
 

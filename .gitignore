@@ -3,7 +3,7 @@
 /tmp
 /out-tsc
 
-# dependencies
+# Dependency directories
 node_modules
 
 # IDEs and editors
@@ -22,18 +22,30 @@ node_modules
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# Coverage directory used by tools like istanbul
+coverage
+*.lcov
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
 # misc
 /.sass-cache
 /connect.lock
-/coverage
 /libpeerconnection.log
 npm-debug.log
 yarn-error.log
 testem.log
 /typings
-.env
+*.local
 cypress/videos
-
-# System Files
-.DS_Store
-Thumbs.db

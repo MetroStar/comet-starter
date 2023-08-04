@@ -1,0 +1,6 @@
+// node_modules\@uswds\uswds\packages\uswds-core
+@use 'uswds-core' with (
+  $theme-show-notifications: false,
+  $theme-font-path: 'node_modules/@uswds/uswds/dist/fonts/',
+  $theme-image-path: 'node_modules/@uswds/uswds/dist/img/'
+);

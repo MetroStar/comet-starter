@@ -6,7 +6,7 @@ describe('signin spec', () => {
 
   it('navigates to home and signs in', () => {
     // Navigate to Homepage
-    cy.visit(Cypress.env('base_url'));
+    cy.visit('/');
 
     // Setup Accessibility Testing
     cy.injectAxe();
@@ -21,7 +21,7 @@ describe('signin spec', () => {
     cy.checkA11y();
 
     // Login
-    cy.signIn('test', 'test');
+    cy.signIn('test', '12345678');
 
     // Verify Homepage after signin
     cy.get('h1').should('contain', 'Welcome John Doe');

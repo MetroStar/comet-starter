@@ -1,17 +1,38 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "umd",
-    "lib": ["ESNext", "dom"],
-    "jsx": "react",
+    "baseUrl": ".",
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
     "noEmit": true,
-    "sourceMap": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
     "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "moduleResolution": "node",
-    "forceConsistentCasingInFileNames": true,
-    "esModuleInterop": true
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Paths */
+    "paths": {
+      "@src/components/*": ["src/components/*"],
+      "@src/data/*": ["src/data/*"],
+      "@src/features/*": ["src/features/*"],
+      "@src/hooks/*": ["src/hooks/*"],
+      "@src/pages/*": ["src/pages/*"],
+      "@src/types/*": ["src/types/*"],
+      "@src/utils/*": ["src/utils/*"]
+    }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
