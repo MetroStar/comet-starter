@@ -8,6 +8,7 @@ import {
   Label,
   TextInput,
 } from '@metrostar/comet-uswds';
+import { hasSsoConfig } from '@src/utils/auth';
 import { REQUIRED_FIELD_MESSAGE } from '@src/utils/constants';
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -110,14 +111,16 @@ export const SignIn = (): React.ReactElement => {
               >
                 Cancel
               </Button>
-              <Button
-                id="sign-in-sso"
-                type="button"
-                variant="outline"
-                onClick={handleSsoSignIn}
-              >
-                Sign In with SSO
-              </Button>
+              {hasSsoConfig() && (
+                <Button
+                  id="sign-in-sso"
+                  type="button"
+                  variant="outline"
+                  onClick={handleSsoSignIn}
+                >
+                  Sign In with SSO
+                </Button>
+              )}
             </ButtonGroup>
           </Form>
         </div>
