@@ -31,7 +31,14 @@ The goal of this project is to provide a React with TypeScript starter applicati
 npm install
 ```
 
-2. To start the app, run the following:
+2. Update the below keycloak configurations in your .env file:
+
+```
+SSO_AUTHORITY=[SOME_KEYCLOAK_REALM_URL]
+SSO_CLIENT_ID=[SOME_CLIENT_ID]
+```
+
+3. To start the app, run the following:
 
 ```sh
 npm run dev

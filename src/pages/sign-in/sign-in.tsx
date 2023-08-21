@@ -47,13 +47,17 @@ export const SignIn = (): React.ReactElement => {
     if (username.length === 0 || password.length === 0) {
       setHasLoginError(true);
     } else {
-      signIn();
+      signIn(false);
     }
   };
 
   const handleCancel = (event: FormEvent): void => {
     event.preventDefault();
     navigate('/');
+  };
+
+  const handleSsoSignIn = (): void => {
+    signIn(true);
   };
 
   return (
@@ -105,6 +109,14 @@ export const SignIn = (): React.ReactElement => {
                 onClick={handleCancel}
               >
                 Cancel
+              </Button>
+              <Button
+                id="sign-in-sso"
+                type="button"
+                variant="outline"
+                onClick={handleSsoSignIn}
+              >
+                Sign In with SSO
               </Button>
             </ButtonGroup>
           </Form>
