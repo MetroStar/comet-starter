@@ -11,3 +11,7 @@ export const getDisplayName = (user: User): string => {
     return '';
   }
 };
+
+export const getSignInRedirectUrl = () => {
+  return `${window.location.origin}/signin`;
+};

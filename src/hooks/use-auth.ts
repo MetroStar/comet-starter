@@ -1,3 +1,4 @@
+import { getSignInRedirectUrl } from '@src/utils/auth';
 import { useEffect, useState } from 'react';
 import { useAuth as useKeycloakAuth } from 'react-oidc-context';
 import { useRecoilState } from 'recoil';
@@ -43,9 +44,11 @@ const useAuth = () => {
 
   const signIn = (isSso: boolean): void => {
     if (isSso) {
-      auth.signinRedirect().catch((err) => {
-        setError(err);
-      });
+      auth
+        .signinRedirect({ redirect_uri: getSignInRedirectUrl() })
+        .catch((err) => {
+          setError(err);
+        });
     } else {
       setIsSignedIn(true);
       setCurrentUserDate(userData);
@@ -56,9 +59,13 @@ const useAuth = () => {
     setIsSignedIn(false);
     setCurrentUserDate({} as User);
     if (auth.isAuthenticated) {
-      auth.signoutRedirect().catch((err) => {
-        setError(err);
-      });
+      auth
+        .signoutRedirect({
+          post_logout_redirect_uri: getSignInRedirectUrl(),
+        })
+        .catch((err) => {
+          setError(err);
+        });
     } else {
       setIsSignedIn(false);
       setCurrentUserDate({} as User);
