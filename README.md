@@ -13,7 +13,7 @@ The goal of this project is to provide a React with TypeScript starter applicati
 - End-to-End (E2E) Testing: [Cypress](https://www.cypress.io/)
 - Accessibility Testing: [cypress-axe](https://www.npmjs.com/package/cypress-axe)
 - API support: [axios](https://axios-http.com/)
-- Authentication support (coming soon): TBD
+- Authentication support: [Keycloak](https://www.keycloak.org/)
 
 ## Table of Contents
 
@@ -31,11 +31,11 @@ The goal of this project is to provide a React with TypeScript starter applicati
 npm install
 ```
 
-2. Update the below keycloak configurations in your .env file:
+2. To run locally with SSO, add a file called `.env.local` to the `comet-starter` directory. Copy and paste the template below and replace the placeholder values with your own (optional):
 
 ```
-SSO_AUTHORITY=[SOME_KEYCLOAK_REALM_URL]
-SSO_CLIENT_ID=[SOME_CLIENT_ID]
+SSO_AUTHORITY=[SOME_KEYCLOAK_REALM_URL] # Ex: http://localhost:8088/realms/dev
+SSO_CLIENT_ID=[SOME_CLIENT_ID] # Ex: dev-client
 ```
 
 3. To start the app, run the following:
