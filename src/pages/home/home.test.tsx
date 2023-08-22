@@ -1,4 +1,5 @@
 import { act, render } from '@testing-library/react';
+import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import * as useAuthMock from '../../hooks/use-auth';
@@ -6,14 +7,18 @@ import { User } from '../../types/user';
 import { Home } from './home';
 
 describe('Home', () => {
-  test('should render successfully', () => {
-    const { baseElement } = render(
+  const componentWrapper = (
+    <AuthProvider>
       <RecoilRoot>
         <BrowserRouter>
           <Home />
         </BrowserRouter>
-      </RecoilRoot>,
-    );
+      </RecoilRoot>
+    </AuthProvider>
+  );
+
+  test('should render successfully', () => {
+    const { baseElement } = render(componentWrapper);
     expect(baseElement).toBeTruthy();
     expect(baseElement.querySelector('h1')?.textContent).toEqual(
       'Welcome Guest',
@@ -28,13 +33,7 @@ describe('Home', () => {
       signIn: jest.fn(),
       signOut: jest.fn(),
     });
-    const { baseElement } = render(
-      <RecoilRoot>
-        <BrowserRouter>
-          <Home />
-        </BrowserRouter>
-      </RecoilRoot>,
-    );
+    const { baseElement } = render(componentWrapper);
     await act(async () => {
       expect(baseElement).toBeTruthy();
     });
