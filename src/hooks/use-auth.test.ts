@@ -9,7 +9,7 @@ describe('useAuth', () => {
     });
 
     act(() => {
-      result.current.signIn();
+      result.current.signIn(false);
     });
     expect(result.current.signIn).toBeTruthy();
   });
