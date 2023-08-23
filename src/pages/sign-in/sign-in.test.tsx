@@ -19,6 +19,11 @@ describe('SignIn', () => {
     </AuthProvider>
   );
 
+  const OLD_ENV = process.env;
+  beforeEach(() => {
+    process.env = { ...OLD_ENV };
+  });
+
   test('should render successfully', () => {
     const { baseElement } = render(signInComponent);
     expect(baseElement).toBeTruthy();
@@ -118,6 +123,29 @@ describe('SignIn', () => {
     await userEvent.click(
       screen.getByText('Cancel', { selector: 'button[type=button]' }),
     );
+    expect(baseElement.querySelectorAll('.usa-error-message').length).toBe(0);
+  });
+
+  test('should simulate an sso login', async () => {
+    jest.spyOn(useAuthMock, 'default').mockReturnValue({
+      isSignedIn: false,
+      currentUserData: {} as User,
+      error: null,
+      signIn: jest.fn(),
+      signOut: jest.fn(),
+    });
+
+    process.env.SSO_AUTHORITY = 'http://localhost';
+    process.env.SSO_CLIENT_ID = 'dev-client';
+
+    const { baseElement } = render(signInComponent);
+    await act(async () => {
+      await userEvent.click(
+        screen.getByText('Sign In with SSO', {
+          selector: 'button[type=button]',
+        }),
+      );
+    });
     expect(baseElement.querySelectorAll('.usa-error-message').length).toBe(0);
   });
 });
