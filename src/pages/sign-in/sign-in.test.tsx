@@ -2,6 +2,7 @@ import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 
+import { AuthProvider } from 'react-oidc-context';
 import { RecoilRoot } from 'recoil';
 import * as useAuthMock from '../../hooks/use-auth';
 import { User } from '../../types/user';
@@ -9,12 +10,19 @@ import { SignIn } from './sign-in';
 
 describe('SignIn', () => {
   const signInComponent = (
-    <RecoilRoot>
-      <BrowserRouter>
-        <SignIn />
-      </BrowserRouter>
-    </RecoilRoot>
+    <AuthProvider>
+      <RecoilRoot>
+        <BrowserRouter>
+          <SignIn />
+        </BrowserRouter>
+      </RecoilRoot>
+    </AuthProvider>
   );
+
+  const OLD_ENV = process.env;
+  beforeEach(() => {
+    process.env = { ...OLD_ENV };
+  });
 
   test('should render successfully', () => {
     const { baseElement } = render(signInComponent);
@@ -115,6 +123,29 @@ describe('SignIn', () => {
     await userEvent.click(
       screen.getByText('Cancel', { selector: 'button[type=button]' }),
     );
+    expect(baseElement.querySelectorAll('.usa-error-message').length).toBe(0);
+  });
+
+  test('should simulate an sso login', async () => {
+    jest.spyOn(useAuthMock, 'default').mockReturnValue({
+      isSignedIn: false,
+      currentUserData: {} as User,
+      error: null,
+      signIn: jest.fn(),
+      signOut: jest.fn(),
+    });
+
+    process.env.SSO_AUTHORITY = 'http://localhost';
+    process.env.SSO_CLIENT_ID = 'dev-client';
+
+    const { baseElement } = render(signInComponent);
+    await act(async () => {
+      await userEvent.click(
+        screen.getByText('Sign In with SSO', {
+          selector: 'button[type=button]',
+        }),
+      );
+    });
     expect(baseElement.querySelectorAll('.usa-error-message').length).toBe(0);
   });
 });

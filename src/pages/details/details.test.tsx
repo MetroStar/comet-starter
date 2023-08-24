@@ -1,6 +1,7 @@
 import axios from '@src/utils/axios';
 import { act, render } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
+import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { launchData } from '../../data/launch';
@@ -14,19 +15,23 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('Details', () => {
+  const componentWrapper = (
+    <AuthProvider>
+      <RecoilRoot>
+        <BrowserRouter>
+          <Details />
+        </BrowserRouter>
+      </RecoilRoot>
+    </AuthProvider>
+  );
+
   const mock = new MockAdapter(axios);
   beforeAll(() => {
     mock.reset();
   });
 
   test('should render successfully', () => {
-    const { baseElement } = render(
-      <RecoilRoot>
-        <BrowserRouter>
-          <Details />
-        </BrowserRouter>
-      </RecoilRoot>,
-    );
+    const { baseElement } = render(componentWrapper);
     expect(baseElement).toBeTruthy();
   });
 
@@ -39,13 +44,7 @@ describe('Details', () => {
       signIn: jest.fn(),
       signOut: jest.fn(),
     });
-    const { baseElement } = render(
-      <RecoilRoot>
-        <BrowserRouter>
-          <Details />
-        </BrowserRouter>
-      </RecoilRoot>,
-    );
+    const { baseElement } = render(componentWrapper);
     await act(async () => {
       expect(baseElement).toBeTruthy();
     });
@@ -57,13 +56,7 @@ describe('Details', () => {
 
   test('should render with error', async () => {
     mock.onGet().networkError();
-    const { baseElement } = render(
-      <RecoilRoot>
-        <BrowserRouter>
-          <Details />
-        </BrowserRouter>
-      </RecoilRoot>,
-    );
+    const { baseElement } = render(componentWrapper);
     await act(async () => {
       expect(baseElement).toBeTruthy();
     });

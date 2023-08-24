@@ -11,3 +11,11 @@ export const getDisplayName = (user: User): string => {
     return '';
   }
 };
+
+export const getSignInRedirectUrl = (): string => {
+  return `${window.location.origin}/signin`;
+};
+
+export const hasSsoConfig = (): boolean => {
+  return process.env.SSO_AUTHORITY && process.env.SSO_CLIENT_ID ? true : false;
+};

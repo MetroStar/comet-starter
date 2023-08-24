@@ -6,7 +6,7 @@ const signedIn = atom({
   default: false,
 });
 
-const currentUser = atom<User>({
+const currentUser = atom<User | undefined>({
   key: 'currentUser',
   default: undefined,
 });

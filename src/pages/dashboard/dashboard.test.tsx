@@ -1,6 +1,7 @@
 import axios from '@src/utils/axios';
 import { act, render } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
+import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import * as useAuthMock from '../../hooks/use-auth';
@@ -8,19 +9,23 @@ import { User } from '../../types/user';
 import { Dashboard } from './dashboard';
 
 describe('Dashboard', () => {
+  const componentWrapper = (
+    <AuthProvider>
+      <RecoilRoot>
+        <BrowserRouter>
+          <Dashboard />
+        </BrowserRouter>
+      </RecoilRoot>
+    </AuthProvider>
+  );
+
   const mock = new MockAdapter(axios);
   beforeAll(() => {
     mock.reset();
   });
 
   test('should render successfully', () => {
-    const { baseElement } = render(
-      <RecoilRoot>
-        <BrowserRouter>
-          <Dashboard />
-        </BrowserRouter>
-      </RecoilRoot>,
-    );
+    const { baseElement } = render(componentWrapper);
     expect(baseElement).toBeTruthy();
     expect(baseElement.querySelector('h1')?.textContent).toEqual(
       'My Dashboard',
@@ -37,13 +42,7 @@ describe('Dashboard', () => {
       signOut: jest.fn(),
     });
 
-    const { baseElement } = render(
-      <RecoilRoot>
-        <BrowserRouter>
-          <Dashboard />
-        </BrowserRouter>
-      </RecoilRoot>,
-    );
+    const { baseElement } = render(componentWrapper);
     await act(async () => {
       expect(baseElement).toBeTruthy();
     });
@@ -59,13 +58,7 @@ describe('Dashboard', () => {
 
   test('should render with error', async () => {
     mock.onGet().networkError();
-    const { baseElement } = render(
-      <RecoilRoot>
-        <BrowserRouter>
-          <Dashboard />
-        </BrowserRouter>
-      </RecoilRoot>,
-    );
+    const { baseElement } = render(componentWrapper);
     await act(async () => {
       expect(baseElement).toBeTruthy();
     });

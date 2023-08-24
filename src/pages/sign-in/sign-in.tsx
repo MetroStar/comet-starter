@@ -8,6 +8,7 @@ import {
   Label,
   TextInput,
 } from '@metrostar/comet-uswds';
+import { hasSsoConfig } from '@src/utils/auth';
 import { REQUIRED_FIELD_MESSAGE } from '@src/utils/constants';
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -47,13 +48,17 @@ export const SignIn = (): React.ReactElement => {
     if (username.length === 0 || password.length === 0) {
       setHasLoginError(true);
     } else {
-      signIn();
+      signIn(false);
     }
   };
 
   const handleCancel = (event: FormEvent): void => {
     event.preventDefault();
     navigate('/');
+  };
+
+  const handleSsoSignIn = (): void => {
+    signIn(true);
   };
 
   return (
@@ -106,6 +111,16 @@ export const SignIn = (): React.ReactElement => {
               >
                 Cancel
               </Button>
+              {hasSsoConfig() && (
+                <Button
+                  id="sign-in-sso"
+                  type="button"
+                  variant="outline"
+                  onClick={handleSsoSignIn}
+                >
+                  Sign In with SSO
+                </Button>
+              )}
             </ButtonGroup>
           </Form>
         </div>
