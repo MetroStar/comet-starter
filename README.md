@@ -7,6 +7,7 @@ The goal of this project is to provide a React with TypeScript starter applicati
 - Component Library: [Comet Component Library](https://github.com/MetroStar/comet)
 - Data Visualization: [Victory Charts](https://formidable.com/open-source/victory/)
 - State Management: [Recoil](https://recoiljs.org/)
+- Form Validation: [React Hook Form](https://react-hook-form.com/)
 - Unit Testing: [Jest](https://jestjs.io/) with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 - Code Analysis: [ES Lint](https://eslint.org/)
 - Code Formatting: [Prettier](https://prettier.io/)

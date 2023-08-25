@@ -24,12 +24,14 @@ describe('Dashboard', () => {
     mock.reset();
   });
 
-  test('should render successfully', () => {
+  test('should render successfully', async () => {
     const { baseElement } = render(componentWrapper);
-    expect(baseElement).toBeTruthy();
-    expect(baseElement.querySelector('h1')?.textContent).toEqual(
-      'My Dashboard',
-    );
+    await act(async () => {
+      expect(baseElement).toBeTruthy();
+      expect(baseElement.querySelector('h1')?.textContent).toEqual(
+        'My Dashboard',
+      );
+    });
   });
 
   test('should render with mock data', async () => {

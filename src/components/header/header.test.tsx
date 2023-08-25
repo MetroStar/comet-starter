@@ -19,9 +19,11 @@ describe('Header', () => {
     </AuthProvider>
   );
 
-  test('should render successfully', () => {
+  test('should render successfully', async () => {
     const { baseElement } = render(headerComponent);
-    expect(baseElement).toBeTruthy();
+    await act(async () => {
+      expect(baseElement).toBeTruthy();
+    });
   });
 
   test('should navigate away from home', async () => {
@@ -87,17 +89,15 @@ describe('Header', () => {
     window.dispatchEvent(new Event('resize'));
 
     const button = screen.getByText('Menu');
-    await act(async () => {
-      expect(screen.getByText('Menu')).toBeTruthy();
-      userEvent
-        .click(button)
-        .then(() => {
-          // Handle click
-        })
-        .catch(() => {
-          // Handle error
-        });
-    });
+    expect(screen.getByText('Menu')).toBeTruthy();
+    userEvent
+      .click(button)
+      .then(() => {
+        // Handle click
+      })
+      .catch(() => {
+        // Handle error
+      });
     expect(baseElement.querySelector('.usa-nav')).toBeDefined();
   });
 });

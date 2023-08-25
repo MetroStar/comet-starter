@@ -8,48 +8,34 @@ import {
   Label,
   TextInput,
 } from '@metrostar/comet-uswds';
+import { FormInput } from '@src/types/form';
 import { hasSsoConfig } from '@src/utils/auth';
-import { REQUIRED_FIELD_MESSAGE } from '@src/utils/constants';
-import React, { FormEvent, useEffect, useState } from 'react';
+import {
+  PASSWORD_RULES,
+  REQUIRED_FORM_FIELDS_RULES,
+} from '@src/utils/constants';
+import React, { FormEvent } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/use-auth';
 
 export const SignIn = (): React.ReactElement => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [hasLoginError, setHasLoginError] = useState(false);
-  const [usernameErrors, setUsernameErrors] = useState([] as string[]);
-  const [passwordErrors, setPasswordErrors] = useState([] as string[]);
-  const { signIn, isSignedIn, error } = useAuth();
+  const { signIn, error } = useAuth();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormInput>({
+    defaultValues: {
+      username: '',
+      password: '',
+    },
+  });
 
-  useEffect(() => {
-    if (isSignedIn) {
-      setHasLoginError(false);
-      navigate('/');
-    }
-  }, [isSignedIn, navigate]);
-
-  useEffect(() => {
-    if (error) {
-      setHasLoginError(true);
-    }
-  }, [error]);
-
-  const handleLogin = (event: FormEvent): void => {
-    event.preventDefault();
-    username === ''
-      ? setUsernameErrors([REQUIRED_FIELD_MESSAGE])
-      : setUsernameErrors([]);
-    password === ''
-      ? setPasswordErrors([REQUIRED_FIELD_MESSAGE])
-      : setPasswordErrors([]);
-
-    if (username.length === 0 || password.length === 0) {
-      setHasLoginError(true);
-    } else {
-      signIn(false);
-    }
+  const onSubmit: SubmitHandler<FormInput> = () => {
+    signIn(false);
+    navigate('/dashboard');
   };
 
   const handleCancel = (event: FormEvent): void => {
@@ -66,41 +52,50 @@ export const SignIn = (): React.ReactElement => {
       <div className="grid-row">
         <div className="grid-col-6">
           <h1>Sign In</h1>
-          {hasLoginError && (
+          {error && (
             <Alert id="loginAlert" type="error" heading="Error">
               Incorrect email or password was entered.
             </Alert>
           )}
-          <Form id="login-form" onSubmit={handleLogin}>
+          <Form id="login-form" onSubmit={handleSubmit(onSubmit)}>
             <FormGroup>
               <Label htmlFor="username">Username</Label>
-              <ErrorMessages errors={usernameErrors} />
-              <TextInput
-                id="username"
+              <Controller
                 name="username"
-                value={username}
-                onChange={(e) => {
-                  setUsername(e.target.value);
-                }}
-                autoFocus
+                control={control}
+                rules={REQUIRED_FORM_FIELDS_RULES}
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                render={({ field: { ref: _, ...field } }) => (
+                  <TextInput {...field} id="username" autoFocus />
+                )}
               />
+              {errors.username?.message && (
+                <ErrorMessages errors={[errors.username.message]} />
+              )}
             </FormGroup>
             <FormGroup>
               <Label htmlFor="password">Password</Label>
-              <ErrorMessages errors={passwordErrors} />
-              <TextInput
-                id="password"
-                type="password"
+              <Controller
                 name="password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
+                control={control}
+                rules={PASSWORD_RULES}
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                render={({ field: { ref: _, ...field } }) => (
+                  <TextInput {...field} id="password" type="password" />
+                )}
               />
+              {errors.password?.message && (
+                <ErrorMessages errors={[errors.password.message]} />
+              )}
             </FormGroup>
-
             <ButtonGroup>
-              <Button id="submit" type="submit">
+              <Button
+                id="submit"
+                type="submit"
+                disabled={
+                  !!errors.username?.message || !!errors.password?.message
+                }
+              >
                 Sign In
               </Button>
               <Button
