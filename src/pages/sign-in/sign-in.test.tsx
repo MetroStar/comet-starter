@@ -19,14 +19,19 @@ describe('SignIn', () => {
     </AuthProvider>
   );
 
+  const mockUsername = 'username1';
+  const mockPassword = 'test1234';
+
   const OLD_ENV = process.env;
   beforeEach(() => {
     process.env = { ...OLD_ENV };
   });
 
-  test('should render successfully', () => {
+  test('should render successfully', async () => {
     const { baseElement } = render(signInComponent);
-    expect(baseElement).toBeTruthy();
+    await act(async () => {
+      expect(baseElement).toBeTruthy();
+    });
   });
 
   test('should simulate a login attempt with blank fields', async () => {
@@ -39,7 +44,7 @@ describe('SignIn', () => {
 
   test('should simulate a login attempt with blank username', async () => {
     const { baseElement } = render(signInComponent);
-    await userEvent.type(screen.getByLabelText('Password'), 'b');
+    await userEvent.type(screen.getByLabelText('Password'), mockPassword);
     await userEvent.click(
       screen.getByText('Sign In', { selector: 'button[type=submit]' }),
     );
@@ -48,7 +53,7 @@ describe('SignIn', () => {
 
   test('should simulate a login attempt with blank password', async () => {
     const { baseElement } = render(signInComponent);
-    await userEvent.type(screen.getByLabelText('Username'), 'a');
+    await userEvent.type(screen.getByLabelText('Username'), mockUsername);
     await userEvent.click(
       screen.getByText('Sign In', { selector: 'button[type=submit]' }),
     );
@@ -65,14 +70,12 @@ describe('SignIn', () => {
     });
 
     const { baseElement } = render(signInComponent);
-    await userEvent.type(screen.getByLabelText('Username'), 'a');
-    await userEvent.type(screen.getByLabelText('Password'), 'b');
+    await userEvent.type(screen.getByLabelText('Username'), mockUsername);
+    await userEvent.type(screen.getByLabelText('Password'), mockPassword);
 
-    await act(async () => {
-      await userEvent.click(
-        screen.getByText('Sign In', { selector: 'button[type=submit]' }),
-      );
-    });
+    await userEvent.click(
+      screen.getByText('Sign In', { selector: 'button[type=submit]' }),
+    );
     expect(baseElement.querySelectorAll('.usa-error-message').length).toBe(0);
   });
 
@@ -86,14 +89,12 @@ describe('SignIn', () => {
     });
 
     const { baseElement } = render(signInComponent);
-    await userEvent.type(screen.getByLabelText('Username'), 'a');
-    await userEvent.type(screen.getByLabelText('Password'), 'b');
+    await userEvent.type(screen.getByLabelText('Username'), mockUsername);
+    await userEvent.type(screen.getByLabelText('Password'), mockPassword);
 
-    await act(async () => {
-      await userEvent.click(
-        screen.getByText('Sign In', { selector: 'button[type=submit]' }),
-      );
-    });
+    await userEvent.click(
+      screen.getByText('Sign In', { selector: 'button[type=submit]' }),
+    );
     expect(baseElement.querySelectorAll('.usa-error-message').length).toBe(0);
   });
 
@@ -107,14 +108,12 @@ describe('SignIn', () => {
     });
 
     const { baseElement } = render(signInComponent);
-    await userEvent.type(screen.getByLabelText('Username'), 'a');
-    await userEvent.type(screen.getByLabelText('Password'), 'b');
+    await userEvent.type(screen.getByLabelText('Username'), mockUsername);
+    await userEvent.type(screen.getByLabelText('Password'), mockPassword);
 
-    await act(async () => {
-      await userEvent.click(
-        screen.getByText('Sign In', { selector: 'button[type=submit]' }),
-      );
-    });
+    await userEvent.click(
+      screen.getByText('Sign In', { selector: 'button[type=submit]' }),
+    );
     expect(baseElement.querySelectorAll('.usa-alert').length).toBe(1);
   });
 
@@ -139,13 +138,11 @@ describe('SignIn', () => {
     process.env.SSO_CLIENT_ID = 'dev-client';
 
     const { baseElement } = render(signInComponent);
-    await act(async () => {
-      await userEvent.click(
-        screen.getByText('Sign In with SSO', {
-          selector: 'button[type=button]',
-        }),
-      );
-    });
+    await userEvent.click(
+      screen.getByText('Sign In with SSO', {
+        selector: 'button[type=button]',
+      }),
+    );
     expect(baseElement.querySelectorAll('.usa-error-message').length).toBe(0);
   });
 });

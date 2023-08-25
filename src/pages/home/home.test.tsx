@@ -17,12 +17,14 @@ describe('Home', () => {
     </AuthProvider>
   );
 
-  test('should render successfully', () => {
+  test('should render successfully', async () => {
     const { baseElement } = render(componentWrapper);
-    expect(baseElement).toBeTruthy();
-    expect(baseElement.querySelector('h1')?.textContent).toEqual(
-      'Welcome Guest',
-    );
+    await act(async () => {
+      expect(baseElement).toBeTruthy();
+      expect(baseElement.querySelector('h1')?.textContent).toEqual(
+        'Welcome Guest',
+      );
+    });
   });
 
   test('should render with mock data', async () => {

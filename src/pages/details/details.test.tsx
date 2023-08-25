@@ -30,9 +30,11 @@ describe('Details', () => {
     mock.reset();
   });
 
-  test('should render successfully', () => {
+  test('should render successfully', async () => {
     const { baseElement } = render(componentWrapper);
-    expect(baseElement).toBeTruthy();
+    await act(async () => {
+      expect(baseElement).toBeTruthy();
+    });
   });
 
   test('should render with mock data', async () => {

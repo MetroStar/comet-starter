@@ -1,5 +1,5 @@
 import { User } from '@src/types/user';
-import { render } from '@testing-library/react';
+import { act, render } from '@testing-library/react';
 import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
@@ -17,12 +17,14 @@ describe('ProtectedRoute', () => {
     </AuthProvider>
   );
 
-  test('should render successfully', () => {
+  test('should render successfully', async () => {
     const { baseElement } = render(wrapperComponent);
-    expect(baseElement).toBeTruthy();
+    await act(async () => {
+      expect(baseElement).toBeTruthy();
+    });
   });
 
-  test('should render successfully when signed in', () => {
+  test('should render successfully when signed in', async () => {
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       currentUserData: {} as User,
@@ -32,6 +34,8 @@ describe('ProtectedRoute', () => {
     });
 
     const { baseElement } = render(wrapperComponent);
-    expect(baseElement).toBeTruthy();
+    await act(async () => {
+      expect(baseElement).toBeTruthy();
+    });
   });
 });

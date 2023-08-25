@@ -20,29 +20,29 @@ describe('useAuth', () => {
     </AuthProvider>
   );
 
-  test('should call signIn successfully', () => {
+  test('should call signIn successfully', async () => {
     const { result } = renderHook(() => useAuth(), {
       wrapper: contextWrapper,
     });
 
-    act(() => {
+    await act(async () => {
       result.current.signIn(false);
     });
     expect(result.current.signIn).toBeTruthy();
   });
 
-  test('should call signIn with SSO and no configs', () => {
+  test('should call signIn with SSO and no configs', async () => {
     const { result } = renderHook(() => useAuth(), {
       wrapper: contextWrapper,
     });
 
-    act(() => {
+    await act(async () => {
       result.current.signIn(true);
     });
     expect(result.current.signIn).toBeTruthy();
   });
 
-  test('should call signIn with SSO and available configs', () => {
+  test('should call signIn with SSO and available configs', async () => {
     process.env.SSO_AUTHORITY = 'http://localhost';
     process.env.SSO_CLIENT_ID = 'dev-client';
 
@@ -50,18 +50,18 @@ describe('useAuth', () => {
       wrapper: contextWrapper,
     });
 
-    act(() => {
+    await act(async () => {
       result.current.signIn(true);
     });
     expect(result.current.signIn).toBeTruthy();
   });
 
-  test('should call signOut successfully', () => {
+  test('should call signOut successfully', async () => {
     const { result } = renderHook(() => useAuth(), {
       wrapper: contextWrapper,
     });
 
-    act(() => {
+    await act(async () => {
       result.current.signOut();
     });
     expect(result.current.signOut).toBeTruthy();
