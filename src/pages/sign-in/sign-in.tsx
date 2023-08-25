@@ -88,7 +88,6 @@ export const SignIn = (): React.ReactElement => {
                 <ErrorMessages errors={[errors.password.message]} />
               )}
             </FormGroup>
-
             <ButtonGroup>
               <Button
                 id="submit"
