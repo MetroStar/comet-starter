@@ -27,9 +27,9 @@ describe('DashboardTable', () => {
     await act(async () => {
       expect(baseElement).toBeTruthy();
     });
-    expect(baseElement.querySelector('.usa-table')).toBeDefined();
+    expect(baseElement.querySelector('.data-table')).toBeDefined();
     expect(
-      baseElement.querySelectorAll('.usa-table > tbody > tr'),
+      baseElement.querySelectorAll('.data-table > tbody > tr'),
     ).toHaveLength(5);
   });
 });

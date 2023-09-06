@@ -1,15 +1,10 @@
 import { ReactNode } from 'react';
 
 export interface LaunchData {
-  provider: SortableDataCell;
-  name: SortableDataCell;
-  status: SortableDataCell;
-  last_updated: SortableDataCell;
-}
-
-export interface SortableDataCell {
-  value: string | ReactNode;
-  sortValue: string;
+  name: string | ReactNode;
+  provider: string;
+  status: string;
+  last_updated: string;
 }
 
 export interface ChartData {
