@@ -28,7 +28,7 @@
   "dependencies": {
     "@metrostar/comet-data-viz": "1.1.1",
     "@metrostar/comet-extras": "1.2.0",
-    "@metrostar/comet-uswds": "1.4.0",
+    "@metrostar/comet-uswds": "1.5.0",
     "@tanstack/react-query": "4.32.0",
     "@tanstack/react-table": "8.9.3",
     "@types/keycloak-js": "^3.4.1",
