@@ -1,8 +1,10 @@
 import { Spinner } from '@metrostar/comet-extras';
 import { Card, CardBody } from '@metrostar/comet-uswds';
-import React, { useEffect } from 'react';
+import { Launch } from '@src/types/launch';
+import axios from '@src/utils/axios';
+import { useQuery } from '@tanstack/react-query';
+import React from 'react';
 import ErrorNotification from '../../components/error-notification/error-notification';
-import useApi from '../../hooks/use-api';
 import useAuth from '../../hooks/use-auth';
 import { DashboardBarChart } from './dashboard-bar-chart/dashboard-bar-chart';
 import { DashboardPieChart } from './dashboard-pie-chart/dashboard-pie-chart';
@@ -10,13 +12,21 @@ import { DashboardTable } from './dashboard-table/dashboard-table';
 
 export const Dashboard = (): React.ReactElement => {
   const { isSignedIn } = useAuth();
-  const { getItems, items, loading, error } = useApi();
-
-  useEffect(() => {
-    if (isSignedIn) {
-      getItems();
-    }
-  }, [getItems, isSignedIn]);
+  const {
+    isLoading,
+    error,
+    data: items,
+  } = useQuery<Launch[], { message: string }>({
+    queryKey: ['launches'],
+    queryFn: () =>
+      axios
+        .get('/?format=json')
+        .then((response) => {
+          return response.data;
+        })
+        .then((data) => data.results),
+    enabled: isSignedIn,
+  });
 
   return (
     <div className="grid-container">
@@ -28,7 +38,7 @@ export const Dashboard = (): React.ReactElement => {
       {error && (
         <div className="grid-row padding-bottom-2">
           <div className="grid-col">
-            <ErrorNotification error={error} />
+            <ErrorNotification error={error.message} />
           </div>
         </div>
       )}
@@ -52,7 +62,7 @@ export const Dashboard = (): React.ReactElement => {
       </div>
       <div className="grid-row">
         <div className="grid-col">
-          {loading ? (
+          {isLoading ? (
             <Spinner id="spinner" type="small" loadingText="Loading..." />
           ) : (
             <DashboardTable items={items} />

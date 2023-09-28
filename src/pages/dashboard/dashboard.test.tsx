@@ -1,4 +1,5 @@
 import axios from '@src/utils/axios';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { act, render } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import { AuthProvider } from 'react-oidc-context';
@@ -9,11 +10,14 @@ import { User } from '../../types/user';
 import { Dashboard } from './dashboard';
 
 describe('Dashboard', () => {
+  const queryClient = new QueryClient();
   const componentWrapper = (
     <AuthProvider>
       <RecoilRoot>
         <BrowserRouter>
-          <Dashboard />
+          <QueryClientProvider client={queryClient}>
+            <Dashboard />
+          </QueryClientProvider>
         </BrowserRouter>
       </RecoilRoot>
     </AuthProvider>
@@ -22,20 +26,19 @@ describe('Dashboard', () => {
   const mock = new MockAdapter(axios);
   beforeAll(() => {
     mock.reset();
-  });
-
-  test('should render successfully', async () => {
-    const { baseElement } = render(componentWrapper);
-    await act(async () => {
-      expect(baseElement).toBeTruthy();
-      expect(baseElement.querySelector('h1')?.textContent).toEqual(
-        'My Dashboard',
-      );
+    queryClient.setDefaultOptions({
+      queries: {
+        retry: false, // Disable retries for tests
+      },
     });
   });
 
-  test('should render with mock data', async () => {
-    mock.onGet().reply(200, { results: [] });
+  beforeEach(() => {
+    queryClient.clear();
+  });
+
+  test('should render successfully', async () => {
+    mock.onGet(new RegExp('/?format=json')).reply(200, { results: [] });
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       currentUserData: {} as User,
@@ -59,7 +62,7 @@ describe('Dashboard', () => {
   });
 
   test('should render with error', async () => {
-    mock.onGet().networkError();
+    mock.onGet(new RegExp('/?format=json')).networkError();
     const { baseElement } = render(componentWrapper);
     await act(async () => {
       expect(baseElement).toBeTruthy();

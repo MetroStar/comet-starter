@@ -1,4 +1,5 @@
 import axios from '@src/utils/axios';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { act, render } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import { AuthProvider } from 'react-oidc-context';
@@ -15,11 +16,14 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('Details', () => {
+  const queryClient = new QueryClient();
   const componentWrapper = (
     <AuthProvider>
       <RecoilRoot>
         <BrowserRouter>
-          <Details />
+          <QueryClientProvider client={queryClient}>
+            <Details />
+          </QueryClientProvider>
         </BrowserRouter>
       </RecoilRoot>
     </AuthProvider>
@@ -28,17 +32,19 @@ describe('Details', () => {
   const mock = new MockAdapter(axios);
   beforeAll(() => {
     mock.reset();
-  });
-
-  test('should render successfully', async () => {
-    const { baseElement } = render(componentWrapper);
-    await act(async () => {
-      expect(baseElement).toBeTruthy();
+    queryClient.setDefaultOptions({
+      queries: {
+        retry: false, // Disable retries for tests
+      },
     });
   });
 
-  test('should render with mock data', async () => {
-    mock.onGet().reply(200, launchData[0]);
+  beforeEach(() => {
+    queryClient.clear();
+  });
+
+  test('should render successfully', async () => {
+    mock.onGet(new RegExp('/*/?format=json')).reply(200, launchData[0]);
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       currentUserData: {} as User,
@@ -57,7 +63,7 @@ describe('Details', () => {
   });
 
   test('should render with error', async () => {
-    mock.onGet().networkError();
+    mock.onGet(new RegExp('/*/?format=json')).networkError();
     const { baseElement } = render(componentWrapper);
     await act(async () => {
       expect(baseElement).toBeTruthy();
