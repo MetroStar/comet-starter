@@ -1,6 +1,6 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import { Route, Routes } from 'react-router';
-import { RecoilRoot } from 'recoil';
 import { Footer } from './components/footer/footer';
 import { Header } from './components/header/header';
 import { ProtectedRoute } from './components/protected-route/protected-route';
@@ -9,8 +9,10 @@ import Details from './pages/details/details';
 import { Home } from './pages/home/home';
 import { SignIn } from './pages/sign-in/sign-in';
 
+const queryClient = new QueryClient();
+
 export const App = (): React.ReactElement => (
-  <RecoilRoot>
+  <QueryClientProvider client={queryClient}>
     <div>
       <Header />
       <main id="mainSection" className="usa-section">
@@ -27,5 +29,5 @@ export const App = (): React.ReactElement => (
       </main>
       <Footer />
     </div>
-  </RecoilRoot>
+  </QueryClientProvider>
 );
