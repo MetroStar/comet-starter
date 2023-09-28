@@ -17,7 +17,7 @@ export const Details = (): React.ReactElement => {
       axios.get(`/${id}/?format=json`).then((response) => {
         return response.data;
       }),
-    enabled: isSignedIn,
+    enabled: isSignedIn && !!id,
   });
 
   return (

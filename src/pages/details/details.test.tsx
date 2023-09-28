@@ -44,14 +44,7 @@ describe('Details', () => {
   });
 
   test('should render successfully', async () => {
-    const { baseElement } = render(componentWrapper);
-    await act(async () => {
-      expect(baseElement).toBeTruthy();
-    });
-  });
-
-  test('should render with mock data', async () => {
-    mock.onGet().reply(200, launchData[0]);
+    mock.onGet(new RegExp('/*/?format=json')).reply(200, launchData[0]);
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       currentUserData: {} as User,
@@ -66,10 +59,11 @@ describe('Details', () => {
     expect(baseElement.querySelector('h1')?.textContent).toEqual(
       'Launch Details',
     );
+    expect(baseElement.querySelectorAll('#details-card li')).toHaveLength(5);
   });
 
   test('should render with error', async () => {
-    mock.onGet().networkError();
+    mock.onGet(new RegExp('/*/?format=json')).networkError();
     const { baseElement } = render(componentWrapper);
     await act(async () => {
       expect(baseElement).toBeTruthy();

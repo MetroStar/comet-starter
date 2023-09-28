@@ -38,17 +38,7 @@ describe('Dashboard', () => {
   });
 
   test('should render successfully', async () => {
-    const { baseElement } = render(componentWrapper);
-    await act(async () => {
-      expect(baseElement).toBeTruthy();
-      expect(baseElement.querySelector('h1')?.textContent).toEqual(
-        'My Dashboard',
-      );
-    });
-  });
-
-  test('should render with mock data', async () => {
-    mock.onGet().reply(200, { results: [] });
+    mock.onGet(new RegExp('/?format=json')).reply(200, { results: [] });
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       currentUserData: {} as User,
@@ -64,6 +54,7 @@ describe('Dashboard', () => {
     expect(baseElement.querySelector('h1')?.textContent).toEqual(
       'My Dashboard',
     );
+    expect(baseElement.querySelectorAll('.VictoryContainer')).toHaveLength(2);
     expect(baseElement.querySelector('.usa-table')).toBeDefined();
     expect(
       baseElement.querySelectorAll('.usa-table > tbody > tr'),
@@ -71,7 +62,7 @@ describe('Dashboard', () => {
   });
 
   test('should render with error', async () => {
-    mock.onGet().networkError();
+    mock.onGet(new RegExp('/?format=json')).networkError();
     const { baseElement } = render(componentWrapper);
     await act(async () => {
       expect(baseElement).toBeTruthy();
