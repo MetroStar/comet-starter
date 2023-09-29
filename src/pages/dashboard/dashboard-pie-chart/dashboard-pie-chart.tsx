@@ -1,10 +1,10 @@
 import { PieChart } from '@metrostar/comet-data-viz';
+import { Spacecraft } from '@src/types/spacecraft';
 import React, { useEffect, useState } from 'react';
-import { Launch } from '../../../types/launch';
 import { ChartData } from '../types';
 
 interface DashboardPieChartProps {
-  items: Launch[] | undefined;
+  items: Spacecraft[] | undefined;
 }
 
 export const DashboardPieChart = ({
@@ -15,15 +15,15 @@ export const DashboardPieChart = ({
     if (items) {
       const newData: ChartData[] = [];
       const set = new Set<string>();
-      items.forEach((item: Launch) => {
-        set.add(item.status.name);
+      items.forEach((item: Spacecraft) => {
+        set.add(item.affiliation);
       });
 
       set.forEach((name: string) => {
         const total = items.filter(
-          (item: Launch) => item.status.name === name,
+          (item: Spacecraft) => item.affiliation === name,
         ).length;
-        newData.push({ x: name.replace('Launch ', ''), y: total });
+        newData.push({ x: name.replace('Affiliation ', ''), y: total });
       });
       setData(newData);
     }
@@ -37,7 +37,7 @@ export const DashboardPieChart = ({
       }}
     >
       <PieChart
-        title="Launch Success/Failure Pie Chart"
+        title="Spacecraft Affiliation Pie Chart"
         innerRadius={60}
         width={375}
         height={300}

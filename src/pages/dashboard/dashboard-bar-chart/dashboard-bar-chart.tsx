@@ -1,10 +1,10 @@
 import { BarGraph } from '@metrostar/comet-data-viz';
+import { Spacecraft } from '@src/types/spacecraft';
 import React, { useEffect, useState } from 'react';
-import { Launch } from '../../../types/launch';
 import { ChartData } from '../types';
 
 interface DashboardBarChartProps {
-  items: Launch[] | undefined;
+  items: Spacecraft[] | undefined;
 }
 
 export const DashboardBarChart = ({
@@ -15,13 +15,13 @@ export const DashboardBarChart = ({
     if (items) {
       const newData: ChartData[] = [];
       const set = new Set<string>();
-      items.forEach((item: Launch) => {
-        set.add(item.launch_service_provider.name);
+      items.forEach((item: Spacecraft) => {
+        set.add(item.appearances.toString());
       });
 
       set.forEach((name: string) => {
         const total = items.filter(
-          (item: Launch) => item.launch_service_provider.name === name,
+          (item: Spacecraft) => item.appearances.toString() === name,
         ).length;
         newData.push({ x: name, y: total });
       });
@@ -39,7 +39,7 @@ export const DashboardBarChart = ({
       <BarGraph
         chart={{
           height: 300,
-          title: 'Service Provider Bar Graph',
+          title: 'Spacecraft Appearance Bar Graph',
           width: 375,
         }}
         alignment="start"

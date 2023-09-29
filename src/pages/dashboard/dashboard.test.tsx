@@ -38,7 +38,7 @@ describe('Dashboard', () => {
   });
 
   test('should render successfully', async () => {
-    mock.onGet(new RegExp('/?format=json')).reply(200, { results: [] });
+    mock.onGet(new RegExp('/api/spacecraft')).reply(200, { items: [] });
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       currentUserData: {} as User,
@@ -51,9 +51,7 @@ describe('Dashboard', () => {
     await act(async () => {
       expect(baseElement).toBeTruthy();
     });
-    expect(baseElement.querySelector('h1')?.textContent).toEqual(
-      'My Dashboard',
-    );
+    expect(baseElement.querySelector('h1')?.textContent).toEqual('Dashboard');
     expect(baseElement.querySelectorAll('.VictoryContainer')).toHaveLength(2);
     expect(baseElement.querySelector('.usa-table')).toBeDefined();
     expect(
@@ -67,9 +65,7 @@ describe('Dashboard', () => {
     await act(async () => {
       expect(baseElement).toBeTruthy();
     });
-    expect(baseElement.querySelector('h1')?.textContent).toEqual(
-      'My Dashboard',
-    );
+    expect(baseElement.querySelector('h1')?.textContent).toEqual('Dashboard');
     expect(baseElement.querySelector('.usa-alert')).toBeDefined();
     expect(baseElement.querySelector('.usa-alert--error')).toBeDefined();
   });

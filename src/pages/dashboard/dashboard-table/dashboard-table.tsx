@@ -1,19 +1,19 @@
 import { DataTable } from '@metrostar/comet-extras';
+import { Spacecraft } from '@src/types/spacecraft';
 import { ColumnDef } from '@tanstack/react-table';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Launch } from '../../../types/launch';
-import { LaunchData } from '../types';
+import { TableData } from '../types';
 
 interface DashboardTableProps {
-  items: Launch[] | undefined;
+  items: Spacecraft[] | undefined;
 }
 
 export const DashboardTable = ({
   items,
 }: DashboardTableProps): React.ReactElement => {
-  const [data, setData] = useState<LaunchData[]>();
-  const cols = React.useMemo<ColumnDef<LaunchData>[]>(
+  const [data, setData] = useState<TableData[]>();
+  const cols = React.useMemo<ColumnDef<TableData>[]>(
     () => [
       {
         accessorKey: 'name',
@@ -21,18 +21,18 @@ export const DashboardTable = ({
         cell: (info) => info.getValue(),
       },
       {
-        accessorKey: 'provider',
-        header: 'Service Provider',
+        accessorKey: 'affiliation',
+        header: 'Affiliation',
         cell: (info) => info.getValue(),
       },
       {
-        accessorKey: 'status',
-        header: 'Status',
+        accessorKey: 'dimensions',
+        header: 'Dimensions',
         cell: (info) => info.getValue(),
       },
       {
-        accessorKey: 'last_updated',
-        header: 'Last Updated',
+        accessorKey: 'appearances',
+        header: 'Appearances',
         cell: (info) => info.getValue(),
       },
     ],
@@ -41,17 +41,17 @@ export const DashboardTable = ({
 
   useEffect(() => {
     if (items) {
-      const newData: LaunchData[] = [];
-      items.forEach((item: Launch) => {
+      const newData: TableData[] = [];
+      items.forEach((item: Spacecraft) => {
         newData.push({
           name: (
             <NavLink id={`details-link-${item.id}`} to={`/details/${item.id}`}>
               {item.name}
             </NavLink>
           ),
-          provider: item.launch_service_provider.name,
-          status: item.status.name,
-          last_updated: item.last_updated,
+          affiliation: item.affiliation,
+          dimensions: item.dimensions,
+          appearances: item.appearances,
         });
       });
       setData(newData);
@@ -65,7 +65,7 @@ export const DashboardTable = ({
       columns={cols}
       data={data}
       sortable
-      sortCol="last_updated"
+      sortCol="appearances"
       sortDir="desc"
     ></DataTable>
   ) : (
