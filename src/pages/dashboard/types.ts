@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
 
-export interface LaunchData {
+export interface TableData {
   name: string | ReactNode;
-  provider: string;
-  status: string;
-  last_updated: string;
+  affiliation: string;
+  dimensions: string;
+  appearances: number;
 }
 
 export interface ChartData {

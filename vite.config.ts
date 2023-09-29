@@ -12,9 +12,8 @@ export default defineConfig({
     port: 8080,
     proxy: {
       '/api': {
-        target: 'https://ll.thespacedevs.com/2.2.0/launch/',
+        target: 'http://0.0.0.0:5000',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },

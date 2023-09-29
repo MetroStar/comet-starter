@@ -1,7 +1,7 @@
+import { mockData } from '@src/data/spacecraft';
 import { act, render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import { launchData } from '../../../data/launch';
 import { DashboardBarChart } from './dashboard-bar-chart';
 
 describe('DashboardBarChart', () => {
@@ -9,7 +9,7 @@ describe('DashboardBarChart', () => {
     const { baseElement } = render(
       <RecoilRoot>
         <BrowserRouter>
-          <DashboardBarChart items={launchData} />
+          <DashboardBarChart items={mockData.items} />
         </BrowserRouter>
       </RecoilRoot>,
     );

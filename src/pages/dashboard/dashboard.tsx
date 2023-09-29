@@ -1,7 +1,7 @@
 import { Spinner } from '@metrostar/comet-extras';
 import { Card, CardBody } from '@metrostar/comet-uswds';
-import { Launch } from '@src/types/launch';
-import axios from '@src/utils/axios';
+import { mockData } from '@src/data/spacecraft';
+import { Spacecraft } from '@src/types/spacecraft';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import ErrorNotification from '../../components/error-notification/error-notification';
@@ -9,6 +9,7 @@ import useAuth from '../../hooks/use-auth';
 import { DashboardBarChart } from './dashboard-bar-chart/dashboard-bar-chart';
 import { DashboardPieChart } from './dashboard-pie-chart/dashboard-pie-chart';
 import { DashboardTable } from './dashboard-table/dashboard-table';
+// import axios from '@src/utils/axios';
 
 export const Dashboard = (): React.ReactElement => {
   const { isSignedIn } = useAuth();
@@ -16,15 +17,20 @@ export const Dashboard = (): React.ReactElement => {
     isLoading,
     error,
     data: items,
-  } = useQuery<Launch[], { message: string }>({
-    queryKey: ['launches'],
+  } = useQuery<Spacecraft[], { message: string }>({
+    queryKey: ['dashboard'],
     queryFn: () =>
-      axios
-        .get('/?format=json')
-        .then((response) => {
-          return response.data;
-        })
-        .then((data) => data.results),
+      // axios
+      //   .get('/spacecraft')
+      //   .then((response) => {
+      //     return response.data;
+      //   })
+      //   .then((data) => {
+      //     return data.items;
+      //   }),
+
+      // TODO: Remove this mock response and uncomment above if API available
+      Promise.resolve(mockData.items),
     enabled: isSignedIn,
   });
 
@@ -32,7 +38,7 @@ export const Dashboard = (): React.ReactElement => {
     <div className="grid-container">
       <div className="grid-row padding-bottom-2">
         <div className="grid-col">
-          <h1>My Dashboard</h1>
+          <h1>Dashboard</h1>
         </div>
       </div>
       {error && (
@@ -46,7 +52,7 @@ export const Dashboard = (): React.ReactElement => {
         <div className="tablet:grid-col-6">
           <Card id="pie-chart-card">
             <CardBody>
-              <h2>Launch Success/Failure</h2>
+              <h2>Spacecraft Affiliation</h2>
               <DashboardPieChart items={items} />
             </CardBody>
           </Card>
@@ -54,7 +60,7 @@ export const Dashboard = (): React.ReactElement => {
         <div className="tablet:grid-col-6">
           <Card id="pie-bar-card">
             <CardBody>
-              <h2>Service Provider</h2>
+              <h2>Spacecraft Appearances</h2>
               <DashboardBarChart items={items} />
             </CardBody>
           </Card>

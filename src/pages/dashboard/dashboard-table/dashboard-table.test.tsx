@@ -1,7 +1,7 @@
+import { mockData } from '@src/data/spacecraft';
 import { act, render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import { launchData } from '../../../data/launch';
 import { DashboardTable } from './dashboard-table';
 
 describe('DashboardTable', () => {
@@ -20,7 +20,7 @@ describe('DashboardTable', () => {
     const { baseElement } = render(
       <RecoilRoot>
         <BrowserRouter>
-          <DashboardTable items={launchData} />
+          <DashboardTable items={mockData.items} />
         </BrowserRouter>
       </RecoilRoot>,
     );
@@ -30,6 +30,6 @@ describe('DashboardTable', () => {
     expect(baseElement.querySelector('.data-table')).toBeDefined();
     expect(
       baseElement.querySelectorAll('.data-table > tbody > tr'),
-    ).toHaveLength(5);
+    ).toHaveLength(10);
   });
 });
