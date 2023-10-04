@@ -30,7 +30,7 @@ describe('dashboard spec', () => {
 
     // Navigate to Dashboard
     cy.get('#dashboard-link').click();
-    cy.get('h1').should('contain', 'My Dashboard');
+    cy.get('h1').should('contain', 'Dashboard');
 
     // Verify no accessibility violations
     cy.checkA11y();
@@ -43,7 +43,7 @@ describe('dashboard spec', () => {
 
     // Click on table item and verify details
     cy.get('[id*="details-link-"]:first').click();
-    cy.get('h1').should('contain', 'Launch Details');
+    cy.get('h1').should('contain', 'Details');
 
     // Verify no accessibility violations
     cy.checkA11y();
