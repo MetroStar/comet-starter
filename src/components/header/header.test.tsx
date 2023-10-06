@@ -47,7 +47,7 @@ describe('Header', () => {
     expect(window.location.pathname).toBe('/dashboard');
   });
 
-  it('should handle sign in', async () => {
+  test('should handle sign in', async () => {
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: false,
       currentUserData: {} as User,
@@ -63,7 +63,7 @@ describe('Header', () => {
     });
   });
 
-  it('should handle sign out', async () => {
+  test('should handle sign out', async () => {
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       currentUserData: {} as User,
@@ -98,14 +98,14 @@ describe('Header', () => {
     expect(baseElement.querySelector('.usa-nav')).toBeDefined();
   });
 
-  it('renders without errors', () => {
+  test('should render menu successfully', () => {
     render(headerComponent);
 
     expect(screen.getByText('Skip to main content')).toBeTruthy();
     expect(screen.getByText('Menu')).toBeTruthy();
   });
 
-  it('toggles the menu on button click', () => {
+  test('should toggle the menu on button click', () => {
     render(headerComponent);
 
     const menuButton = screen.getByText('Menu');
