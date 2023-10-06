@@ -44,7 +44,7 @@ describe('Details', () => {
   });
 
   test('should render successfully', async () => {
-    mock.onGet(new RegExp('/api/spacecraft/*')).reply(200, mockData.items[0]);
+    mock.onGet(new RegExp('/spacecraft/*')).reply(200, mockData.items[0]);
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       currentUserData: {} as User,
@@ -61,7 +61,9 @@ describe('Details', () => {
   });
 
   test('should render with error', async () => {
-    mock.onGet(new RegExp('/api/spacecraft/*')).networkError();
+    mock
+      .onGet(new RegExp('/spacecraft/*'))
+      .reply(500, { message: 'Internal Server Error' });
     const { baseElement } = render(componentWrapper);
     await act(async () => {
       expect(baseElement).toBeTruthy();

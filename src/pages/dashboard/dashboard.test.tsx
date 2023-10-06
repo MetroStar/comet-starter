@@ -1,3 +1,4 @@
+import { mockData } from '@src/data/spacecraft';
 import axios from '@src/utils/axios';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { act, render } from '@testing-library/react';
@@ -38,7 +39,7 @@ describe('Dashboard', () => {
   });
 
   test('should render successfully', async () => {
-    mock.onGet(new RegExp('/api/spacecraft')).reply(200, { items: [] });
+    mock.onGet(new RegExp('/spacecraft')).reply(200, mockData);
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       currentUserData: {} as User,
@@ -51,6 +52,7 @@ describe('Dashboard', () => {
     await act(async () => {
       expect(baseElement).toBeTruthy();
     });
+
     expect(baseElement.querySelector('h1')?.textContent).toEqual('Dashboard');
     expect(baseElement.querySelectorAll('.VictoryContainer')).toHaveLength(2);
     expect(baseElement.querySelector('.usa-table')).toBeDefined();
@@ -60,7 +62,9 @@ describe('Dashboard', () => {
   });
 
   test('should render with error', async () => {
-    mock.onGet(new RegExp('/?format=json')).networkError();
+    mock
+      .onGet(new RegExp('/spacecraft'))
+      .reply(500, { message: 'Internal Server Error' });
     const { baseElement } = render(componentWrapper);
     await act(async () => {
       expect(baseElement).toBeTruthy();
