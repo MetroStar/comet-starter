@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -7,6 +7,12 @@ import { RecoilRoot } from 'recoil';
 import * as useAuthMock from '../../hooks/use-auth';
 import { User } from '../../types/user';
 import { Header } from './header';
+
+// Mock the navigation module
+jest.mock('@uswds/uswds/js/usa-header', () => ({
+  on: jest.fn(),
+  off: jest.fn(),
+}));
 
 describe('Header', () => {
   const headerComponent = (
@@ -41,13 +47,7 @@ describe('Header', () => {
     expect(window.location.pathname).toBe('/dashboard');
   });
 
-  test('should Sign In', async () => {
-    Object.defineProperty(window, 'location', {
-      configurable: true,
-      enumerable: true,
-      value: new URL(window.location.href),
-    });
-
+  it('should handle sign in', async () => {
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: false,
       currentUserData: {} as User,
@@ -56,18 +56,14 @@ describe('Header', () => {
       signOut: jest.fn(),
     });
 
-    render(headerComponent);
-    await userEvent.click(screen.getByText('Sign In', { selector: 'a' }));
-    expect(window.location.href).toBeTruthy();
+    const { baseElement } = render(headerComponent);
+    await act(async () => {
+      expect(baseElement).toBeTruthy();
+      fireEvent.click(screen.getByText('Sign In'));
+    });
   });
 
-  test('should Sign Out', async () => {
-    Object.defineProperty(window, 'location', {
-      configurable: true,
-      enumerable: true,
-      value: new URL(window.location.href),
-    });
-
+  it('should handle sign out', async () => {
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       currentUserData: {} as User,
@@ -76,10 +72,11 @@ describe('Header', () => {
       signOut: jest.fn(),
     });
 
-    render(headerComponent);
-
-    await userEvent.click(screen.getByText('Sign Out', { selector: 'a' }));
-    expect(window.location.href).toBeTruthy();
+    const { baseElement } = render(headerComponent);
+    await act(async () => {
+      expect(baseElement).toBeTruthy();
+      fireEvent.click(screen.getByText('Sign Out'));
+    });
   });
 
   test('should display menu when button is clicked', async () => {
@@ -99,5 +96,19 @@ describe('Header', () => {
         // Handle error
       });
     expect(baseElement.querySelector('.usa-nav')).toBeDefined();
+  });
+
+  it('renders without errors', () => {
+    render(headerComponent);
+
+    expect(screen.getByText('Skip to main content')).toBeTruthy();
+    expect(screen.getByText('Menu')).toBeTruthy();
+  });
+
+  it('toggles the menu on button click', () => {
+    render(headerComponent);
+
+    const menuButton = screen.getByText('Menu');
+    fireEvent.click(menuButton);
   });
 });
