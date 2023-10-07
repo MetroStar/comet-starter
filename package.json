@@ -21,8 +21,10 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "e2e": "npx cypress open",
+    "e2e:ci": "npm run e2e:ci:run || true && npm run e2e:ci:report",
+    "e2e:ci:run": "rm cypress/reports/* || true && npx cypress run --reporter mochawesome",
+    "e2e:ci:report": "mochawesome-merge cypress/reports/*.json > cypress/reports/report.json && marge --reportDir cypress/reports cypress/reports/report.json",
     "e2e:format": "npx prettier cypress --write",
-    "e2e:ci": "npx cypress run",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -68,6 +70,9 @@
     "jest-environment-jsdom": "29.6.2",
     "jest-transform-stub": "2.0.0",
     "lint-staged": "13.2.3",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.3.0",
+    "mochawesome-report-generator": "^6.2.0",
     "prettier": "3.0.0",
     "prettier-plugin-organize-imports": "3.2.3",
     "sass": "1.64.1",
