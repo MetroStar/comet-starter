@@ -19,10 +19,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Set Git Configs
-        run: |
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git config user.name "github-actions"
+      - name: Build for GitHub Pages
+        run: npm run predeploy
 
-      - name: Build and Deploy
-        run: npm run deploy
+      - name: Deploy
+        uses: crazy-max/ghaction-github-pages@v1
+        with:
+          target_branch: gh-pages
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_REPO_TOKEN }}
