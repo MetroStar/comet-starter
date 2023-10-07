@@ -1,7 +1,7 @@
 name: Run End-to-end Testing
 on:
   workflow_run:
-    workflows: ['Build and Deploy']
+    workflows: ['pages build and deployment']
     types:
       - completed
 permissions:
