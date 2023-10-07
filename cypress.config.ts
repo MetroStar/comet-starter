@@ -20,6 +20,13 @@ export default defineConfig({
 
   e2e: {
     baseUrl: 'http://localhost:8080',
+    reporter: 'mochawesome',
+    reporterOptions: {
+      reportDir: 'cypress/reports',
+      overwrite: false,
+      html: false,
+      json: true,
+    },
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     setupNodeEvents(on, config) {
       // implement node event listeners here
