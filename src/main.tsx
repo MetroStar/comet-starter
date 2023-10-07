@@ -9,7 +9,7 @@ import keycloak from './utils/keycloak.ts';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.APP_BASE_URL}>
       <AuthProvider {...keycloak}>
         <RecoilRoot>
           <App />

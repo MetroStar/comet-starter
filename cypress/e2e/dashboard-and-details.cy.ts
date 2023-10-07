@@ -8,7 +8,7 @@ describe('dashboard spec', () => {
 
   it('verifies access to dashboard after signing in', () => {
     // Navigate to Homepage
-    cy.visit('/');
+    cy.visit(Cypress.config('baseUrl'));
 
     // Setup Accessibility Testing
     cy.injectAxe();

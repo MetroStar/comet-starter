@@ -6,7 +6,7 @@ describe('signin spec', () => {
 
   it('navigates to home and signs in', () => {
     // Navigate to Homepage
-    cy.visit('/');
+    cy.visit(Cypress.config('baseUrl'));
 
     // Setup Accessibility Testing
     cy.injectAxe();
