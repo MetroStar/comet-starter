@@ -19,7 +19,7 @@ export default defineConfig({
   },
 
   e2e: {
-    baseUrl: 'http://localhost:8080',
+    baseUrl: 'https://metrostar.github.io/comet-starter/',
     reporter: 'mochawesome',
     reporterOptions: {
       reportDir: 'cypress/reports',
