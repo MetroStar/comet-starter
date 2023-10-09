@@ -5,8 +5,8 @@
 @use 'uswds-core' with (
   // General settings
   $theme-show-notifications: false,
-  $theme-font-path: '/fonts',
-  $theme-image-path: '/img',
+  $theme-font-path: '~uswds/dist/fonts',
+  $theme-image-path: '~uswds/dist/img',
   $theme-focus-color: 'blue-40v',
   $theme-focus-offset: 0,
   $theme-focus-style: solid,
