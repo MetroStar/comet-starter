@@ -1,4 +1,5 @@
 import react from '@vitejs/plugin-react';
+import path from 'path';
 import { defineConfig } from 'vite';
 import EnvironmentPlugin from 'vite-plugin-environment';
 import eslint from 'vite-plugin-eslint';
@@ -7,6 +8,18 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), tsconfigPaths(), eslint(), EnvironmentPlugin('all')],
+  resolve: {
+    alias: {
+      '~uswds': path.resolve(__dirname, 'node_modules/@uswds/uswds'),
+    },
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        includePaths: ['node_modules/@uswds/uswds/packages'],
+      },
+    },
+  },
   server: {
     open: true,
     port: 8080,
