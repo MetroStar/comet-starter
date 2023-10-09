@@ -1,26 +1,31 @@
 /*
   This file contains some of the most common USWDS design tokens. These tokens should be used to customize any USWDS theming where possible.
-  Additional design tokens can be found here: https://designsystem.digital.gov/documentation/settings/.
+  Additional design token settings can be found here: https://designsystem.digital.gov/documentation/settings/.
+  Spacing Units can be found here: https://designsystem.digital.gov/design-tokens/spacing-units/.
 */
 @use 'uswds-core' with (
   // General settings
   $theme-show-notifications: false,
   $theme-font-path: '~uswds/dist/fonts',
   $theme-image-path: '~uswds/dist/img',
-  $theme-focus-color: 'blue-40v',
-  $theme-focus-offset: 0,
-  $theme-focus-style: solid,
-  $theme-focus-width: 0.5,
-  $theme-icon-image-size: 2,
   $theme-body-background-color: 'white',
   $theme-text-color: 'ink',
   $theme-link-color: 'primary',
   $theme-link-visited-color: 'violet-70v',
   $theme-link-hover-color: 'primary-dark',
   $theme-link-active-color: 'primary-darker',
-  $theme-font-type-mono: 'roboto-mono',
-  $theme-font-type-sans: 'source-sans-pro',
-  $theme-font-type-serif: 'merriweather',
+  $theme-focus-color: 'blue-40v',
+  $theme-focus-offset: 0,
+  $theme-focus-style: solid,
+  $theme-focus-width: 0.5,
+  $theme-icon-image-size: 2,
+  // Width settings
+  $theme-grid-container-max-width: 'desktop',
+  $theme-banner-max-width: 'desktop',
+  $theme-header-max-width: 'desktop',
+  $theme-footer-max-width: 'desktop',
+  $theme-site-alert-max-width: 'desktop',
+  $theme-input-max-width: 'mobile-lg',
   // Base colors
   $theme-color-base-lightest: #f0f0f0,
   $theme-color-base-lighter: #dfe1e2,
@@ -77,6 +82,10 @@
   // Emergency colors
   $theme-color-emergency: #9c3d10,
   $theme-color-emergency-dark: #332d29,
+  // Typography
+  $theme-font-type-mono: 'roboto-mono',
+  $theme-font-type-sans: 'source-sans-pro',
+  $theme-font-type-serif: 'merriweather',
   // Font sizes
   $theme-type-scale-3xs: 2,
   $theme-type-scale-2xs: 3,
