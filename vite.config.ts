@@ -1,4 +1,5 @@
 import react from '@vitejs/plugin-react';
+import autoprefixer from 'autoprefixer';
 import path from 'path';
 import { defineConfig } from 'vite';
 import EnvironmentPlugin from 'vite-plugin-environment';
@@ -18,6 +19,9 @@ export default defineConfig({
       scss: {
         includePaths: ['node_modules/@uswds/uswds/packages'],
       },
+    },
+    postcss: {
+      plugins: [autoprefixer],
     },
   },
   server: {
