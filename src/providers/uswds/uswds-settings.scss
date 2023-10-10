@@ -1,6 +1,117 @@
-// node_modules\@uswds\uswds\packages\uswds-core
+/*
+  This file contains some of the most common USWDS design tokens. These tokens should be used to customize any USWDS theming where possible.
+  Additional design token settings can be found here: https://designsystem.digital.gov/documentation/settings/.
+  Spacing Units can be found here: https://designsystem.digital.gov/design-tokens/spacing-units/.
+*/
 @use 'uswds-core' with (
+  // General settings
   $theme-show-notifications: false,
-  $theme-font-path: 'node_modules/@uswds/uswds/dist/fonts/',
-  $theme-image-path: 'node_modules/@uswds/uswds/dist/img/'
+  $theme-font-path: '~uswds/dist/fonts',
+  $theme-image-path: '~uswds/dist/img',
+  $theme-body-background-color: 'white',
+  $theme-text-color: 'ink',
+  $theme-link-color: 'primary',
+  $theme-link-visited-color: 'violet-70v',
+  $theme-link-hover-color: 'primary-dark',
+  $theme-link-active-color: 'primary-darker',
+  $theme-focus-color: 'blue-40v',
+  $theme-focus-offset: 0,
+  $theme-focus-style: solid,
+  $theme-focus-width: 0.5,
+  $theme-icon-image-size: 2,
+  // Width settings
+  $theme-grid-container-max-width: 'desktop',
+  $theme-banner-max-width: 'desktop',
+  $theme-header-max-width: 'desktop',
+  $theme-footer-max-width: 'desktop',
+  $theme-site-alert-max-width: 'desktop',
+  $theme-input-max-width: 'mobile-lg',
+  // Base colors
+  $theme-color-base-lightest: #f0f0f0,
+  $theme-color-base-lighter: #dfe1e2,
+  $theme-color-base-light: #a9aeb1,
+  $theme-color-base: #71767a,
+  $theme-color-base-dark: #565c65,
+  $theme-color-base-darker: #3d4551,
+  $theme-color-base-darkest: #1b1b1b,
+  $theme-color-base-ink: #1b1b1b,
+  // Primary colors
+  $theme-color-primary-lighter: #d9e8f6,
+  $theme-color-primary-light: #73b3e7,
+  $theme-color-primary: #005ea2,
+  $theme-color-primary-vivid: #0050d8,
+  $theme-color-primary-dark: #1a4480,
+  $theme-color-primary-darker: #162e51,
+  // Secondary colors
+  $theme-color-secondary-lighter: #f8dfe2,
+  $theme-color-secondary-light: #f2938c,
+  $theme-color-secondary: #d83933,
+  $theme-color-secondary-vivid: #e41d3d,
+  $theme-color-secondary-dark: #b50909,
+  $theme-color-secondary-darker: #8b0a03,
+  // Info colors
+  $theme-color-info-lighter: #e7f6f8,
+  $theme-color-info-light: #99deea,
+  $theme-color-info: #00bde3,
+  $theme-color-info-dark: #009ec1,
+  $theme-color-info-darker: #2e6276,
+  // Error colors
+  $theme-color-error-lighter: #f4e3db,
+  $theme-color-error-light: #f39268,
+  $theme-color-error: #d54309,
+  $theme-color-error-dark: #b50909,
+  $theme-color-error-darker: #6f3331,
+  // Warning colors
+  $theme-color-warning-lighter: #faf3d1,
+  $theme-color-warning-light: #fee685,
+  $theme-color-warning: #ffbe2e,
+  $theme-color-warning-dark: #e5a000,
+  $theme-color-warning-darker: #936f38,
+  // Success colors
+  $theme-color-success-lighter: #ecf3ec,
+  $theme-color-success-light: #70e17b,
+  $theme-color-success: #00a91c,
+  $theme-color-success-dark: #008817,
+  $theme-color-success-darker: #216e1f,
+  // Disabled colors
+  $theme-color-disabled-lighter: #c9c9c9,
+  $theme-color-disabled-light: #919191,
+  $theme-color-disabled: #757575,
+  $theme-color-disabled-dark: #454545,
+  $theme-color-disabled-darker: #1b1b1b,
+  // Emergency colors
+  $theme-color-emergency: #9c3d10,
+  $theme-color-emergency-dark: #332d29,
+  // Typography
+  $theme-font-type-mono: 'roboto-mono',
+  $theme-font-type-sans: 'source-sans-pro',
+  $theme-font-type-serif: 'merriweather',
+  // Font sizes
+  $theme-type-scale-3xs: 2,
+  $theme-type-scale-2xs: 3,
+  $theme-type-scale-xs: 4,
+  $theme-type-scale-sm: 5,
+  $theme-type-scale-md: 6,
+  $theme-type-scale-lg: 9,
+  $theme-type-scale-xl: 12,
+  $theme-type-scale-2xl: 14,
+  $theme-type-scale-3xl: 15,
+  // Font weight
+  $theme-font-weight-thin: false,
+  $theme-font-weight-light: 300,
+  $theme-font-weight-normal: 400,
+  $theme-font-weight-medium: false,
+  $theme-font-weight-semibold: false,
+  $theme-font-weight-bold: 700,
+  $theme-font-weight-heavy: false,
+  // Headings
+  $theme-h1-font-size: '2xl',
+  $theme-h2-font-size: 'xl',
+  $theme-h3-font-size: 'lg',
+  $theme-h4-font-size: 'sm',
+  $theme-h5-font-size: 'xs',
+  $theme-h6-font-size: '3xs',
+  $theme-heading-line-height: 2,
+  $theme-small-font-size: '2xs',
+  $theme-display-font-size: '3xl'
 );

@@ -1,10 +1,10 @@
 import { APP_TITLE } from '@src/utils/constants';
-import facebookIcon from '@uswds/uswds/img/usa-icons/facebook.svg';
-import instagramIcon from '@uswds/uswds/img/usa-icons/instagram.svg';
-import rssIcon from '@uswds/uswds/img/usa-icons/rss_feed.svg';
-import twitterIcon from '@uswds/uswds/img/usa-icons/twitter.svg';
-import youtubeIcon from '@uswds/uswds/img/usa-icons/youtube.svg';
 import React from 'react';
+import facebookIcon from '~uswds/dist/img/usa-icons/facebook.svg';
+import instagramIcon from '~uswds/dist/img/usa-icons/instagram.svg';
+import rssIcon from '~uswds/dist/img/usa-icons/rss_feed.svg';
+import twitterIcon from '~uswds/dist/img/usa-icons/twitter.svg';
+import youtubeIcon from '~uswds/dist/img/usa-icons/youtube.svg';
 import logo from '/img/logo.png';
 
 export const Footer = (): React.ReactElement => {
