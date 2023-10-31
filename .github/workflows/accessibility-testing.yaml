@@ -16,7 +16,10 @@ jobs:
         with:
           node-version: 18.x
 
-      - name: Install Dependencies
+      - name: Install project dependencies
+        run: npm ci
+
+      - name: Install global dependencies
         run: npm install -g @unlighthouse/cli puppeteer
 
       - name: Run Tests
