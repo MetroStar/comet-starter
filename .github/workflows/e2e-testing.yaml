@@ -1,4 +1,4 @@
-name: Run End-to-end Testing
+name: End-to-end Testing
 on:
   workflow_run:
     workflows: ['pages-build-deployment']
