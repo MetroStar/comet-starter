@@ -8,9 +8,13 @@ jobs:
   demo:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Node environment
+        uses: actions/setup-node@v3
         with:
-          fetch-depth: 0
+          node-version: 18.x
 
       - name: Install Dependencies
         run: npm add -g @unlighthouse/cli puppeteer
