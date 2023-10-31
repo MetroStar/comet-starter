@@ -1,0 +1,19 @@
+name: Run Accessibility Testing
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install Dependencies
+        run: npm add -g @unlighthouse/cli puppeteer
+
+      - name: Run Tests
+        run: unlighthouse-ci --config unlighthouse.config.ts --build-static --reporter jsonExpanded
