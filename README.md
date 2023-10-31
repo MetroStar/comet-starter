@@ -11,8 +11,8 @@ The goal of this project is to provide a React with TypeScript starter applicati
 - Unit Testing: [Jest](https://jestjs.io/) with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 - Code Analysis: [ES Lint](https://eslint.org/)
 - Code Formatting: [Prettier](https://prettier.io/)
-- End-to-End (E2E) Testing: [Cypress](https://www.cypress.io/)
-- Accessibility Testing: [cypress-axe](https://www.npmjs.com/package/cypress-axe)
+- End-to-End (E2E) Testing: [Cypress](https://www.cypress.io/) with [cypress-axe](https://www.npmjs.com/package/cypress-axe)
+- Accessibility Testing: [Unlighthouse](https://unlighthouse.dev/)
 - API support: [Axios](https://axios-http.com/) with [React Query](https://tanstack.com/query/v3/)
 - Authentication support: [Keycloak](https://www.keycloak.org/)
 
