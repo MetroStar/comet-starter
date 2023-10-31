@@ -1,11 +1,13 @@
-name: Run Accessibility Testing
+name: Accessibility Testing
 
 on:
-  pull_request:
-    branches: [main]
+  workflow_run:
+    workflows: ['pages-build-deployment']
+    types:
+      - completed
 
 jobs:
-  demo:
+  run-accessibility-checks:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
