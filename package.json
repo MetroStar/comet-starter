@@ -92,6 +92,9 @@
     "vite-plugin-eslint": "1.8.1",
     "vite-tsconfig-paths": "4.2.2"
   },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.6.1"
+  },
   "overrides": {
     "xml2js": "0.6.2",
     "@adobe/css-tools": "4.3.2"
