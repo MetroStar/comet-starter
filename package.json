@@ -52,7 +52,7 @@
     "@babel/preset-env": "7.22.9",
     "@babel/preset-react": "7.22.5",
     "@babel/preset-typescript": "7.22.5",
-    "@testing-library/jest-dom": "6.1.5",
+    "@testing-library/jest-dom": "6.1.6",
     "@testing-library/react": "14.0.0",
     "@testing-library/user-event": "14.4.3",
     "@types/jest": "^29.5.4",
@@ -96,7 +96,6 @@
     "@rollup/rollup-linux-x64-gnu": "4.6.1"
   },
   "overrides": {
-    "xml2js": "0.6.2",
-    "@adobe/css-tools": "4.3.2"
+    "xml2js": "0.6.2"
   }
 }
