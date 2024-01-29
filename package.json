@@ -93,7 +93,7 @@
     "vite-tsconfig-paths": "4.3.1"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "4.6.1"
+    "@rollup/rollup-linux-x64-gnu": "4.9.6"
   },
   "overrides": {
     "xml2js": "0.6.2"
