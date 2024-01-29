@@ -5,10 +5,10 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     open-pull-requests-limit: 10
     labels:
       - 'dependencies'
@@ -25,4 +25,4 @@ updates:
       - dependency-name: '@types/react-dom'
         versions:
           - '>=18.2.0'
-      - dependency-name: 'uswds'
+      - dependency-name: '@uswds/uswds'
