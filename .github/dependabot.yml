@@ -26,3 +26,4 @@ updates:
         versions:
           - '>=18.2.0'
       - dependency-name: '@uswds/uswds'
+      - dependency-name: '@tanstack/react-table'
