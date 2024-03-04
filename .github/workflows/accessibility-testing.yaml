@@ -25,4 +25,4 @@ jobs:
         run: npm install -g @unlighthouse/cli puppeteer
 
       - name: Run Tests
-        run: unlighthouse-ci --config unlighthouse.config.ts --build-static --reporter jsonExpanded
+        run: unlighthouse-ci --config unlighthouse.config.ts --build-static --reporter jsonExpanded --debug
