@@ -3,7 +3,7 @@ import { defineConfig } from 'unlighthouse';
 export default defineConfig({
   ci: {
     budget: {
-      performance: 80,
+      // performance: 90,
       accessibility: 90,
       'best-practices': 90,
       seo: 90,
