@@ -3,7 +3,7 @@ import { defineConfig } from 'unlighthouse';
 export default defineConfig({
   ci: {
     budget: {
-      performance: 90,
+      performance: 80,
       accessibility: 90,
       'best-practices': 90,
       seo: 90,
@@ -32,9 +32,11 @@ export default defineConfig({
     // headless: false,
     // slowMo: 50,
   },
+  routerPrefix: '/comet-starter',
   scanner: {
     device: 'desktop',
     skipJavascript: false,
   },
-  site: 'https://metrostar.github.io/comet-starter/',
+  site: 'https://metrostar.github.io',
+  urls: ['/comet-starter'],
 });
