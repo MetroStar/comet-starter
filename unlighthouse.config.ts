@@ -32,9 +32,11 @@ export default defineConfig({
     // headless: false,
     // slowMo: 50,
   },
+  routerPrefix: '/comet-starter',
   scanner: {
     device: 'desktop',
     skipJavascript: false,
   },
-  site: 'https://metrostar.github.io/comet-starter/',
+  site: 'https://metrostar.github.io',
+  urls: ['/comet-starter'],
 });

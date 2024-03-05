@@ -25,4 +25,4 @@ jobs:
         run: npm install -g @unlighthouse/cli puppeteer
 
       - name: Run Tests
-        run: unlighthouse-ci --site https://metrostar.github.io/comet-starter --router-prefix /comet-starter --config unlighthouse.config.ts --build-static --reporter jsonExpanded --debug
+        run: unlighthouse-ci --config-file unlighthouse.config.ts --build-static --reporter jsonExpanded --debug

@@ -26,7 +26,7 @@
     "e2e:ci:run": "rm cypress/reports/* || true && npx cypress run --reporter mochawesome",
     "e2e:ci:report": "mochawesome-merge cypress/reports/*.json > cypress/reports/report.json && marge --reportDir cypress/reports cypress/reports/report.json",
     "e2e:format": "npx prettier cypress --write",
-    "a11y": "unlighthouse --config unlighthouse.config.ts",
+    "a11y": "unlighthouse --config-file unlighthouse.config.ts",
     "prepare": "husky install",
     "predeploy": "vite build --base=/comet-starter/",
     "deploy": "gh-pages -d dist"
