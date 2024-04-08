@@ -17,6 +17,14 @@ updates:
         patterns:
           - '@typescript-eslint/eslint-plugin'
           - '@typescript-eslint/parser'
+      comet-uswds:
+        patterns:
+          - '@metrostar/comet-uswds'
+          - '@uswds/uswds'
+      comet-extras:
+        patterns:
+          - '@metrostar/comet-extras'
+          - '@tanstack/react-table'
     ignore:
       - dependency-name: react
         versions:
@@ -30,5 +38,3 @@ updates:
       - dependency-name: '@types/react-dom'
         versions:
           - '>=18.2.0'
-      - dependency-name: '@uswds/uswds'
-      - dependency-name: '@tanstack/react-table'
