@@ -8,6 +8,16 @@
   min-height: 500px;
 }
 
+.usa-form .usa-button {
+  max-height: 40px;
+}
+
 .loading-text {
   color: #005ea2;
+}
+
+@media screen and (max-width: 768px) {
+  .usa-form .usa-button-group {
+    margin-top: 1.5em;
+  }
 }
