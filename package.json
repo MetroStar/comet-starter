@@ -81,7 +81,7 @@
     "mochawesome-report-generator": "^6.2.0",
     "prettier": "3.2.5",
     "prettier-plugin-organize-imports": "3.2.4",
-    "sass": "1.77.1",
+    "sass": "1.77.2",
     "ts-jest": "29.1.2",
     "ts-node": "10.9.2",
     "tsconfig-paths": "4.2.0",
