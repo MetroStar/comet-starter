@@ -1,7 +1,7 @@
 import { mockData } from '@src/data/spacecraft';
 import axios from '@src/utils/axios';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { act, render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
@@ -53,11 +53,11 @@ describe('Details', () => {
       signOut: jest.fn(),
     });
     const { baseElement } = render(componentWrapper);
-    await act(async () => {
-      expect(baseElement).toBeTruthy();
-    });
+    expect(baseElement).toBeTruthy();
     expect(baseElement.querySelector('h1')?.textContent).toEqual('Details');
-    expect(baseElement.querySelectorAll('#details-card li')).toHaveLength(5);
+    await waitFor(async () => {
+      expect(baseElement.querySelectorAll('#details-card li')).toHaveLength(5);
+    });
   });
 
   test('should render with error', async () => {
@@ -65,11 +65,12 @@ describe('Details', () => {
       .onGet(new RegExp('/spacecraft/*'))
       .reply(500, { message: 'Internal Server Error' });
     const { baseElement } = render(componentWrapper);
-    await act(async () => {
-      expect(baseElement).toBeTruthy();
-    });
+    expect(baseElement).toBeTruthy();
     expect(baseElement.querySelector('h1')?.textContent).toEqual('Details');
-    expect(baseElement.querySelector('.usa-alert')).toBeDefined();
-    expect(baseElement.querySelector('.usa-alert--error')).toBeDefined();
+    await waitFor(async () => {
+      expect(baseElement.querySelectorAll('#details-card li')).toHaveLength(0);
+      expect(baseElement.querySelector('.usa-alert')).toBeDefined();
+      expect(baseElement.querySelector('.usa-alert--error')).toBeDefined();
+    });
   });
 });
