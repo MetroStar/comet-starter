@@ -9,6 +9,7 @@ import { User } from '../types/user';
 const useAuth = () => {
   const auth = useKeycloakAuth();
   const [isSignedIn, setIsSignedIn] = useRecoilState<boolean>(signedIn);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>();
   const [currentUserData, setCurrentUserDate] = useRecoilState<
     User | undefined
@@ -28,6 +29,10 @@ const useAuth = () => {
       setIsSignedIn(true);
     }
   }, [auth.isAuthenticated, setIsSignedIn]);
+
+  useEffect(() => {
+    setIsLoading(auth.isLoading);
+  }, [auth.isLoading, setIsSignedIn]);
 
   useEffect(() => {
     const profile = auth.user?.profile;
@@ -72,7 +77,7 @@ const useAuth = () => {
     }
   };
 
-  return { isSignedIn, currentUserData, error, signIn, signOut };
+  return { isSignedIn, isLoading, currentUserData, error, signIn, signOut };
 };
 
 export default useAuth;
