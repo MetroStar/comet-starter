@@ -35,6 +35,7 @@ describe('Header', () => {
   test('should navigate away from home', async () => {
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
+      isLoading: false,
       currentUserData: {} as User,
       error: null,
       signIn: jest.fn(),
@@ -50,6 +51,7 @@ describe('Header', () => {
   test('should handle sign in', async () => {
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: false,
+      isLoading: false,
       currentUserData: {} as User,
       error: null,
       signIn: jest.fn(),
@@ -66,6 +68,7 @@ describe('Header', () => {
   test('should handle sign out', async () => {
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
+      isLoading: false,
       currentUserData: {} as User,
       error: null,
       signIn: jest.fn(),

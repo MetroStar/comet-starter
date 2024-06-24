@@ -53,7 +53,7 @@ describe('Auth Helpers', () => {
     });
 
     const url = getSignInRedirectUrl();
-    expect(url).toEqual('http://localhost/signin');
+    expect(url).toEqual('http://localhost/dashboard');
   });
 
   test('should verify no SSL config', () => {

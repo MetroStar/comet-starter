@@ -63,6 +63,7 @@ describe('SignIn', () => {
   test('should simulate a successful login attempt', async () => {
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: false,
+      isLoading: false,
       currentUserData: {} as User,
       error: null,
       signIn: jest.fn(),
@@ -82,6 +83,7 @@ describe('SignIn', () => {
   test('should simulate a successful login attempt when signed in', async () => {
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
+      isLoading: false,
       currentUserData: {} as User,
       error: null,
       signIn: jest.fn(),
@@ -101,6 +103,7 @@ describe('SignIn', () => {
   test('should simulate an unsuccessful login attempt', async () => {
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: false,
+      isLoading: false,
       currentUserData: {} as User,
       error: 'Error',
       signIn: jest.fn(),
@@ -128,6 +131,7 @@ describe('SignIn', () => {
   test('should simulate an sso login', async () => {
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: false,
+      isLoading: false,
       currentUserData: {} as User,
       error: null,
       signIn: jest.fn(),
