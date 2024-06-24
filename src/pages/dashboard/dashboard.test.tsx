@@ -42,6 +42,7 @@ describe('Dashboard', () => {
     mock.onGet(new RegExp('/spacecraft')).reply(200, mockData);
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
+      isLoading: false,
       currentUserData: {} as User,
       error: null,
       signIn: jest.fn(),

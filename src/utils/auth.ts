@@ -13,7 +13,7 @@ export const getDisplayName = (user: User): string => {
 };
 
 export const getSignInRedirectUrl = (): string => {
-  return `${window.location.origin}/signin`;
+  return `${window.location.origin}/dashboard`;
 };
 
 export const hasSsoConfig = (): boolean => {

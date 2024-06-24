@@ -27,6 +27,7 @@ describe('ProtectedRoute', () => {
   test('should render successfully when signed in', async () => {
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
+      isLoading: false,
       currentUserData: {} as User,
       error: null,
       signIn: jest.fn(),
@@ -36,6 +37,23 @@ describe('ProtectedRoute', () => {
     const { baseElement } = render(wrapperComponent);
     await act(async () => {
       expect(baseElement).toBeTruthy();
+    });
+  });
+
+  test('should render loading when not signed in and loading', async () => {
+    jest.spyOn(useAuthMock, 'default').mockReturnValue({
+      isSignedIn: false,
+      isLoading: true,
+      currentUserData: {} as User,
+      error: null,
+      signIn: jest.fn(),
+      signOut: jest.fn(),
+    });
+
+    const { baseElement, getByText } = render(wrapperComponent);
+    await act(async () => {
+      expect(baseElement).toBeTruthy();
+      expect(getByText('Loading...')).toBeTruthy();
     });
   });
 });
