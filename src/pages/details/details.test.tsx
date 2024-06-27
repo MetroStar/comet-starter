@@ -16,7 +16,13 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('Details', () => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  });
   const componentWrapper = (
     <AuthProvider>
       <RecoilRoot>
@@ -32,19 +38,16 @@ describe('Details', () => {
   const mock = new MockAdapter(axios);
   beforeAll(() => {
     mock.reset();
-    queryClient.setDefaultOptions({
-      queries: {
-        retry: false, // Disable retries for tests
-      },
-    });
   });
 
   beforeEach(() => {
     queryClient.clear();
+    mock.reset();
   });
 
   test('should render successfully', async () => {
     mock.onGet(new RegExp('/spacecraft/*')).reply(200, mockData.items[0]);
+    queryClient.setQueryData(['details'], mockData.items[0]);
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       isLoading: false,
@@ -65,6 +68,8 @@ describe('Details', () => {
     mock
       .onGet(new RegExp('/spacecraft/*'))
       .reply(500, { message: 'Internal Server Error' });
+    queryClient.setQueryData(['details'], null);
+
     const { baseElement } = render(componentWrapper);
     expect(baseElement).toBeTruthy();
     expect(baseElement.querySelector('h1')?.textContent).toEqual('Details');

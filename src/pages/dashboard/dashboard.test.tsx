@@ -11,7 +11,13 @@ import { User } from '../../types/user';
 import { Dashboard } from './dashboard';
 
 describe('Dashboard', () => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  });
   const componentWrapper = (
     <AuthProvider>
       <RecoilRoot>
@@ -27,19 +33,16 @@ describe('Dashboard', () => {
   const mock = new MockAdapter(axios);
   beforeAll(() => {
     mock.reset();
-    queryClient.setDefaultOptions({
-      queries: {
-        retry: false, // Disable retries for tests
-      },
-    });
   });
 
   beforeEach(() => {
     queryClient.clear();
+    mock.reset();
   });
 
   test('should render successfully', async () => {
     mock.onGet(new RegExp('/spacecraft')).reply(200, mockData);
+    queryClient.setQueryData(['dashboard'], mockData.items);
     jest.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       isLoading: false,
@@ -66,6 +69,8 @@ describe('Dashboard', () => {
     mock
       .onGet(new RegExp('/spacecraft'))
       .reply(500, { message: 'Internal Server Error' });
+    queryClient.setQueryData(['dashboard'], null);
+
     const { baseElement } = render(componentWrapper);
     await act(async () => {
       expect(baseElement).toBeTruthy();
