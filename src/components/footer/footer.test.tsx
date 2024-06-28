@@ -19,7 +19,7 @@ describe('Footer', () => {
   });
 
   test('should scroll to top', async () => {
-    window.scrollTo = jest.fn();
+    window.scrollTo = vi.fn();
     render(<Footer />);
 
     window.scrollTo(100, 100);

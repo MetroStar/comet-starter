@@ -9,9 +9,9 @@ import { User } from '../../types/user';
 import { Header } from './header';
 
 // Mock the navigation module
-jest.mock('@uswds/uswds/js/usa-header', () => ({
-  on: jest.fn(),
-  off: jest.fn(),
+vi.mock('@uswds/uswds/js/usa-header', () => ({
+  on: vi.fn(),
+  off: vi.fn(),
 }));
 
 describe('Header', () => {
@@ -33,13 +33,13 @@ describe('Header', () => {
   });
 
   test('should navigate away from home', async () => {
-    jest.spyOn(useAuthMock, 'default').mockReturnValue({
+    vi.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       isLoading: false,
       currentUserData: {} as User,
       error: null,
-      signIn: jest.fn(),
-      signOut: jest.fn(),
+      signIn: vi.fn(),
+      signOut: vi.fn(),
     });
 
     render(headerComponent);
@@ -49,13 +49,13 @@ describe('Header', () => {
   });
 
   test('should handle sign in', async () => {
-    jest.spyOn(useAuthMock, 'default').mockReturnValue({
+    vi.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: false,
       isLoading: false,
       currentUserData: {} as User,
       error: null,
-      signIn: jest.fn(),
-      signOut: jest.fn(),
+      signIn: vi.fn(),
+      signOut: vi.fn(),
     });
 
     const { baseElement } = render(headerComponent);
@@ -66,13 +66,13 @@ describe('Header', () => {
   });
 
   test('should handle sign out', async () => {
-    jest.spyOn(useAuthMock, 'default').mockReturnValue({
+    vi.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       isLoading: false,
       currentUserData: {} as User,
       error: null,
-      signIn: jest.fn(),
-      signOut: jest.fn(),
+      signIn: vi.fn(),
+      signOut: vi.fn(),
     });
 
     const { baseElement } = render(headerComponent);
@@ -84,7 +84,7 @@ describe('Header', () => {
 
   test('should display menu when button is clicked', async () => {
     const { baseElement } = render(headerComponent);
-    global.scrollTo = jest.fn();
+    global.scrollTo = vi.fn();
     global.innerWidth = 500;
     window.dispatchEvent(new Event('resize'));
 

@@ -38,4 +38,23 @@ export default defineConfig({
       },
     },
   },
+  test: {
+    alias: {
+      '\\.(jpg|jpeg|png|svg|gif)$': path.resolve(__dirname, 'file-mock.js'),
+    },
+    globals: true,
+    environment: 'jsdom',
+    coverage: {
+      all: false,
+      provider: 'v8',
+      thresholds: {
+        global: {
+          statements: 95,
+          branches: 95,
+          functions: 95,
+          lines: 95,
+        },
+      },
+    },
+  },
 });

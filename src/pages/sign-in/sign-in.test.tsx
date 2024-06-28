@@ -61,13 +61,13 @@ describe('SignIn', () => {
   });
 
   test('should simulate a successful login attempt', async () => {
-    jest.spyOn(useAuthMock, 'default').mockReturnValue({
+    vi.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: false,
       isLoading: false,
       currentUserData: {} as User,
       error: null,
-      signIn: jest.fn(),
-      signOut: jest.fn(),
+      signIn: vi.fn(),
+      signOut: vi.fn(),
     });
 
     const { baseElement } = render(signInComponent);
@@ -81,13 +81,13 @@ describe('SignIn', () => {
   });
 
   test('should simulate a successful login attempt when signed in', async () => {
-    jest.spyOn(useAuthMock, 'default').mockReturnValue({
+    vi.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       isLoading: false,
       currentUserData: {} as User,
       error: null,
-      signIn: jest.fn(),
-      signOut: jest.fn(),
+      signIn: vi.fn(),
+      signOut: vi.fn(),
     });
 
     const { baseElement } = render(signInComponent);
@@ -101,13 +101,13 @@ describe('SignIn', () => {
   });
 
   test('should simulate an unsuccessful login attempt', async () => {
-    jest.spyOn(useAuthMock, 'default').mockReturnValue({
+    vi.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: false,
       isLoading: false,
       currentUserData: {} as User,
       error: 'Error',
-      signIn: jest.fn(),
-      signOut: jest.fn(),
+      signIn: vi.fn(),
+      signOut: vi.fn(),
     });
 
     const { baseElement } = render(signInComponent);
@@ -129,13 +129,13 @@ describe('SignIn', () => {
   });
 
   test('should simulate an sso login', async () => {
-    jest.spyOn(useAuthMock, 'default').mockReturnValue({
+    vi.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: false,
       isLoading: false,
       currentUserData: {} as User,
       error: null,
-      signIn: jest.fn(),
-      signOut: jest.fn(),
+      signIn: vi.fn(),
+      signOut: vi.fn(),
     });
 
     process.env.SSO_AUTHORITY = 'http://localhost';

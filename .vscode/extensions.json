@@ -6,7 +6,6 @@
     "dbaeumer.vscode-eslint",
     "wix.vscode-import-cost",
     "esbenp.prettier-vscode",
-    "pflannery.vscode-versionlens",
-    "orta.vscode-jest"
+    "pflannery.vscode-versionlens"
   ]
 }
