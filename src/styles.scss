@@ -1,11 +1,27 @@
 @forward 'providers/uswds/uswds.scss';
 
-.usa-section {
-  padding-top: 1em;
+html,
+body {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 #mainSection {
-  min-height: 500px;
+  display: unset;
+  flex: 1;
+}
+
+.usa-footer {
+  overflow: visible;
+}
+
+.usa-section {
+  padding-top: 1em;
 }
 
 .usa-form .usa-button {
