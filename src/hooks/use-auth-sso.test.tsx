@@ -6,10 +6,10 @@ interface ContextWrapperProps {
   children: React.ReactNode;
 }
 
-jest.mock('react-oidc-context', () => ({
-  useAuth: jest.fn().mockImplementation(() => ({
-    signinRedirect: jest.fn().mockResolvedValue(true),
-    signoutRedirect: jest.fn().mockResolvedValue(true),
+vi.mock('react-oidc-context', () => ({
+  useAuth: vi.fn().mockImplementation(() => ({
+    signinRedirect: vi.fn().mockResolvedValue(true),
+    signoutRedirect: vi.fn().mockResolvedValue(true),
     isAuthenticated: true,
     user: {
       profile: undefined,
@@ -17,15 +17,15 @@ jest.mock('react-oidc-context', () => ({
   })),
 }));
 
-jest.mock('@src/utils/auth', () => ({
-  getSignInRedirectUrl: jest.fn(() => 'mocked-redirect-url'), // Replace with the expected URL
+vi.mock('@src/utils/auth', () => ({
+  getSignInRedirectUrl: vi.fn(() => 'mocked-redirect-url'), // Replace with the expected URL
 }));
 
 describe('useAuth', () => {
   const OLD_ENV = process.env;
   beforeEach(() => {
     process.env = { ...OLD_ENV };
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   const contextWrapper = ({ children }: ContextWrapperProps) => (
@@ -70,10 +70,10 @@ describe('useAuth', () => {
   });
 
   it('should not authenticated with sso and error', () => {
-    jest.mock('react-oidc-context', () => ({
-      useAuth: jest.fn().mockImplementationOnce(() => ({
-        signinRedirect: jest.fn().mockRejectedValue(true),
-        signoutRedirect: jest.fn(),
+    vi.mock('react-oidc-context', () => ({
+      useAuth: vi.fn().mockImplementationOnce(() => ({
+        signinRedirect: vi.fn().mockRejectedValue(true),
+        signoutRedirect: vi.fn(),
         isAuthenticated: false,
       })),
     }));
@@ -113,10 +113,10 @@ describe('useAuth', () => {
   });
 
   it('should set isSignedIn to true when authenticated and with profile', () => {
-    jest.mock('react-oidc-context', () => ({
-      useAuth: jest.fn().mockImplementationOnce(() => ({
-        signinRedirect: jest.fn().mockResolvedValue(true),
-        signoutRedirect: jest.fn().mockResolvedValue(true),
+    vi.mock('react-oidc-context', () => ({
+      useAuth: vi.fn().mockImplementationOnce(() => ({
+        signinRedirect: vi.fn().mockResolvedValue(true),
+        signoutRedirect: vi.fn().mockResolvedValue(true),
         isAuthenticated: true,
         user: {
           profile: {
