@@ -39,11 +39,9 @@ export default defineConfig({
     },
   },
   test: {
-    alias: {
-      '\\.(jpg|jpeg|png|svg|gif)$': path.resolve(__dirname, 'file-mock.js'),
-    },
     globals: true,
     environment: 'jsdom',
+    // setupFiles: './vitest.setup.ts',
     coverage: {
       all: false,
       provider: 'v8',
@@ -56,5 +54,12 @@ export default defineConfig({
         },
       },
     },
+    css: false,
+    alias: [
+      {
+        find: /.+\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|svg|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$/,
+        replacement: path.resolve(__dirname, '__mocks__/fileMock.js'),
+      },
+    ],
   },
 });
