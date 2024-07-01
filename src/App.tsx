@@ -13,21 +13,19 @@ const queryClient = new QueryClient();
 
 export const App = (): React.ReactElement => (
   <QueryClientProvider client={queryClient}>
-    <div>
-      <Header />
-      <main id="mainSection" className="usa-section">
-        <Routes>
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/" element={<Home />} />
-          <Route element={<ProtectedRoute />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-          </Route>
-          <Route element={<ProtectedRoute />}>
-            <Route path="/details/:id" element={<Details />} />
-          </Route>
-        </Routes>
-      </main>
-      <Footer />
-    </div>
+    <Header />
+    <main id="mainSection" className="usa-section">
+      <Routes>
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/" element={<Home />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+        <Route element={<ProtectedRoute />}>
+          <Route path="/details/:id" element={<Details />} />
+        </Route>
+      </Routes>
+    </main>
+    <Footer />
   </QueryClientProvider>
 );
