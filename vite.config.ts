@@ -41,7 +41,6 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    // setupFiles: './vitest.setup.ts',
     coverage: {
       all: false,
       provider: 'v8',
@@ -55,11 +54,11 @@ export default defineConfig({
       },
     },
     css: false,
-    alias: [
-      {
-        find: /.+\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|svg|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$/,
-        replacement: path.resolve(__dirname, '__mocks__/fileMock.js'),
-      },
-    ],
+    alias: {
+      '@metrostar/comet-uswds': path.resolve(
+        __dirname,
+        'node_modules/@metrostar/comet-uswds/dist/esm/index.js',
+      ),
+    },
   },
 });

@@ -8,12 +8,6 @@ import * as useAuthMock from '../../hooks/use-auth';
 import { User } from '../../types/user';
 import { Header } from './header';
 
-// Mock the navigation module
-vi.mock('@uswds/uswds/js/usa-header', () => ({
-  on: vi.fn(),
-  off: vi.fn(),
-}));
-
 describe('Header', () => {
   const headerComponent = (
     <AuthProvider>
