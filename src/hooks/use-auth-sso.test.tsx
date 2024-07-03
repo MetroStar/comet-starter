@@ -7,24 +7,19 @@ interface ContextWrapperProps {
 }
 
 vi.mock('react-oidc-context', () => ({
-  useAuth: vi.fn().mockImplementation(() => ({
-    signinRedirect: vi.fn().mockResolvedValue(true),
-    signoutRedirect: vi.fn().mockResolvedValue(true),
+  useAuth: () => ({
     isAuthenticated: true,
+    isLoading: false,
     user: {
       profile: undefined,
     },
-  })),
-}));
-
-vi.mock('@src/utils/auth', () => ({
-  getSignInRedirectUrl: vi.fn(() => 'mocked-redirect-url'), // Replace with the expected URL
+    signinRedirect: vi.fn(),
+    signoutRedirect: vi.fn(),
+  }),
 }));
 
 describe('useAuth', () => {
-  const OLD_ENV = process.env;
-  beforeEach(() => {
-    process.env = { ...OLD_ENV };
+  afterEach(() => {
     vi.clearAllMocks();
   });
 
@@ -32,111 +27,69 @@ describe('useAuth', () => {
     <RecoilRoot>{children}</RecoilRoot>
   );
 
-  test('should call signIn with SSO and no configs', async () => {
+  it('should set isSignedIn to true when authenticated with sso', async () => {
     const { result } = renderHook(() => useAuth(), {
       wrapper: contextWrapper,
     });
 
     await act(async () => {
-      result.current.signIn(true);
-    });
-    expect(result.current.signIn).toBeTruthy();
-  });
-
-  test('should call signIn with SSO and available configs', async () => {
-    process.env.SSO_AUTHORITY = 'http://localhost';
-    process.env.SSO_CLIENT_ID = 'dev-client';
-
-    const { result } = renderHook(() => useAuth(), {
-      wrapper: contextWrapper,
-    });
-
-    await act(async () => {
-      result.current.signIn(true);
-    });
-    expect(result.current.signIn).toBeTruthy();
-  });
-
-  it('should set isSignedIn to true when authenticated with sso', () => {
-    const { result } = renderHook(() => useAuth(), {
-      wrapper: contextWrapper,
-    });
-
-    act(() => {
       result.current.signIn(true);
     });
 
     expect(result.current.isSignedIn).toBe(true);
   });
 
-  // it('should not authenticated with sso and error', () => {
-  //   vi.mock('react-oidc-context', () => ({
-  //     useAuth: vi.fn().mockImplementation(() => ({
-  //       signinRedirect: vi.fn().mockRejectedValue(true),
-  //       signoutRedirect: vi.fn(),
-  //       isAuthenticated: false,
-  //     })),
-  //   }));
-  //   const { result } = renderHook(() => useAuth(), {
-  //     wrapper: contextWrapper,
-  //   });
+  it('should set isSignedIn to true when authenticated without sso', () => {
+    const { result } = renderHook(() => useAuth(), {
+      wrapper: contextWrapper,
+    });
 
-  //   act(() => {
-  //     result.current.signIn(true);
-  //   });
+    act(() => {
+      result.current.signIn(false);
+    });
 
-  //   expect(result.current.isSignedIn).toBe(true);
-  // });
+    expect(result.current.isSignedIn).toBe(true);
+  });
 
-  // it('should set isSignedIn to true when authenticated without sso', () => {
-  //   const { result } = renderHook(() => useAuth(), {
-  //     wrapper: contextWrapper,
-  //   });
+  it('should sign out and set isSignedIn to false when authenticated', () => {
+    const { result } = renderHook(() => useAuth(), {
+      wrapper: contextWrapper,
+    });
 
-  //   act(() => {
-  //     result.current.signIn(false);
-  //   });
+    act(() => {
+      result.current.signOut();
+    });
 
-  //   expect(result.current.isSignedIn).toBe(true);
-  // });
+    expect(result.current.isSignedIn).toBe(false);
+  });
 
-  // it('should sign out and set isSignedIn to false when authenticated', () => {
-  //   const { result } = renderHook(() => useAuth(), {
-  //     wrapper: contextWrapper,
-  //   });
+  it('should set isSignedIn to true when authenticated and with profile', async () => {
+    vi.mock('react-oidc-context', () => ({
+      useAuth: () => ({
+        isAuthenticated: true,
+        isLoading: false,
+        user: {
+          profile: {
+            firstName: 'John',
+            lastName: 'Doe',
+            displayName: 'John Doe',
+            emailAddress: 'jdoe@test.com',
+            phoneNumber: '1234567890',
+          },
+        },
+        signinRedirect: vi.fn(),
+        signoutRedirect: vi.fn(),
+      }),
+    }));
 
-  //   act(() => {
-  //     result.current.signOut();
-  //   });
+    const { result } = renderHook(() => useAuth(), {
+      wrapper: contextWrapper,
+    });
 
-  //   expect(result.current.isSignedIn).toBe(false);
-  // });
+    await act(async () => {
+      result.current.signIn(true);
+    });
 
-  // it('should set isSignedIn to true when authenticated and with profile', () => {
-  //   vi.mock('react-oidc-context', () => ({
-  //     useAuth: vi.fn().mockImplementation(() => ({
-  //       signinRedirect: vi.fn().mockResolvedValue(true),
-  //       signoutRedirect: vi.fn().mockResolvedValue(true),
-  //       isAuthenticated: true,
-  //       user: {
-  //         profile: {
-  //           firstName: 'John',
-  //           lastName: 'Doe',
-  //           displayName: 'John Doe',
-  //           emailAddress: 'jdoe@test.com',
-  //           phoneNumber: '1234567890',
-  //         },
-  //       },
-  //     })),
-  //   }));
-  //   const { result } = renderHook(() => useAuth(), {
-  //     wrapper: contextWrapper,
-  //   });
-
-  //   act(() => {
-  //     result.current.signIn(false);
-  //   });
-
-  //   expect(result.current.isSignedIn).toBe(true);
-  // });
+    expect(result.current.isSignedIn).toBe(true);
+  });
 });
