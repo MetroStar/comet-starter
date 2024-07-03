@@ -57,7 +57,7 @@ npm run test
 Ensure to review the coverage directory for code coverage details.
 
 ```sh
-npm run coverage
+npm run test:coverage
 ```
 
 ## Running Code Quality Checks
