@@ -55,6 +55,7 @@ export default defineConfig({
     },
     css: false,
     alias: {
+      // This is necessary to prevent cjs/esm conflicts
       '@metrostar/comet-uswds': path.resolve(
         __dirname,
         'node_modules/@metrostar/comet-uswds/dist/esm/index.js',
