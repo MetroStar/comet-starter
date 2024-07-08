@@ -11,7 +11,7 @@ const useAuth = () => {
   const [isSignedIn, setIsSignedIn] = useRecoilState<boolean>(signedIn);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>();
-  const [currentUserData, setCurrentUserDate] = useRecoilState<
+  const [currentUserData, setCurrentUserData] = useRecoilState<
     User | undefined
   >(currentUser);
 
@@ -32,12 +32,12 @@ const useAuth = () => {
 
   useEffect(() => {
     setIsLoading(auth.isLoading);
-  }, [auth.isLoading, setIsSignedIn]);
+  }, [auth.isLoading, setIsLoading]);
 
   useEffect(() => {
     const profile = auth.user?.profile;
-    if (profile) {
-      setCurrentUserDate({
+    if (profile && !currentUserData) {
+      setCurrentUserData({
         firstName: profile.given_name,
         lastName: profile.family_name,
         displayName: profile.name,
@@ -45,35 +45,34 @@ const useAuth = () => {
         phoneNumber: profile.phone_number,
       });
     }
-  }, [auth.user?.profile, setCurrentUserDate]);
+  }, [auth.user?.profile, currentUserData, setCurrentUserData]);
+
+  useEffect(() => {
+    if (auth.error) {
+      setError(auth.error.message);
+      setIsSignedIn(false);
+    }
+  }, [auth.error, setIsSignedIn]);
 
   const signIn = (isSso: boolean): void => {
     if (isSso) {
-      auth
-        .signinRedirect({ redirect_uri: getSignInRedirectUrl() })
-        .catch((err) => {
-          setError(err);
-        });
+      auth.signinRedirect({ redirect_uri: getSignInRedirectUrl() });
     } else {
       setIsSignedIn(true);
-      setCurrentUserDate(userData);
+      setCurrentUserData(userData);
     }
   };
 
   const signOut = (): void => {
     setIsSignedIn(false);
-    setCurrentUserDate({} as User);
+    setCurrentUserData({} as User);
     if (auth.isAuthenticated) {
-      auth
-        .signoutRedirect({
-          post_logout_redirect_uri: getSignInRedirectUrl(),
-        })
-        .catch((err) => {
-          setError(err);
-        });
+      auth.signoutRedirect({
+        post_logout_redirect_uri: getSignInRedirectUrl(),
+      });
     } else {
       setIsSignedIn(false);
-      setCurrentUserDate({} as User);
+      setCurrentUserData({} as User);
     }
   };
 

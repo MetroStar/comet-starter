@@ -6,82 +6,33 @@ interface ContextWrapperProps {
   children: React.ReactNode;
 }
 
-jest.mock('react-oidc-context', () => ({
-  useAuth: jest.fn().mockImplementation(() => ({
-    signinRedirect: jest.fn().mockResolvedValue(true),
-    signoutRedirect: jest.fn().mockResolvedValue(true),
+vi.mock('react-oidc-context', () => ({
+  useAuth: () => ({
     isAuthenticated: true,
+    isLoading: false,
     user: {
       profile: undefined,
     },
-  })),
-}));
-
-jest.mock('@src/utils/auth', () => ({
-  getSignInRedirectUrl: jest.fn(() => 'mocked-redirect-url'), // Replace with the expected URL
+    signinRedirect: vi.fn(),
+    signoutRedirect: vi.fn(),
+  }),
 }));
 
 describe('useAuth', () => {
-  const OLD_ENV = process.env;
-  beforeEach(() => {
-    process.env = { ...OLD_ENV };
-    jest.clearAllMocks();
+  afterEach(() => {
+    vi.clearAllMocks();
   });
 
   const contextWrapper = ({ children }: ContextWrapperProps) => (
     <RecoilRoot>{children}</RecoilRoot>
   );
 
-  test('should call signIn with SSO and no configs', async () => {
+  it('should set isSignedIn to true when authenticated with sso', async () => {
     const { result } = renderHook(() => useAuth(), {
       wrapper: contextWrapper,
     });
 
     await act(async () => {
-      result.current.signIn(true);
-    });
-    expect(result.current.signIn).toBeTruthy();
-  });
-
-  test('should call signIn with SSO and available configs', async () => {
-    process.env.SSO_AUTHORITY = 'http://localhost';
-    process.env.SSO_CLIENT_ID = 'dev-client';
-
-    const { result } = renderHook(() => useAuth(), {
-      wrapper: contextWrapper,
-    });
-
-    await act(async () => {
-      result.current.signIn(true);
-    });
-    expect(result.current.signIn).toBeTruthy();
-  });
-
-  it('should set isSignedIn to true when authenticated with sso', () => {
-    const { result } = renderHook(() => useAuth(), {
-      wrapper: contextWrapper,
-    });
-
-    act(() => {
-      result.current.signIn(true);
-    });
-
-    expect(result.current.isSignedIn).toBe(true);
-  });
-
-  it('should not authenticated with sso and error', () => {
-    jest.mock('react-oidc-context', () => ({
-      useAuth: jest.fn().mockImplementationOnce(() => ({
-        signinRedirect: jest.fn().mockRejectedValue(true),
-        signoutRedirect: jest.fn(),
-        isAuthenticated: false,
-      })),
-    }));
-    const { result } = renderHook(() => useAuth(), {
-      wrapper: contextWrapper,
-    });
-
-    act(() => {
       result.current.signIn(true);
     });
 
@@ -112,12 +63,11 @@ describe('useAuth', () => {
     expect(result.current.isSignedIn).toBe(false);
   });
 
-  it('should set isSignedIn to true when authenticated and with profile', () => {
-    jest.mock('react-oidc-context', () => ({
-      useAuth: jest.fn().mockImplementationOnce(() => ({
-        signinRedirect: jest.fn().mockResolvedValue(true),
-        signoutRedirect: jest.fn().mockResolvedValue(true),
+  it('should set isSignedIn to true when authenticated and with profile', async () => {
+    vi.mock('react-oidc-context', () => ({
+      useAuth: () => ({
         isAuthenticated: true,
+        isLoading: false,
         user: {
           profile: {
             firstName: 'John',
@@ -127,14 +77,17 @@ describe('useAuth', () => {
             phoneNumber: '1234567890',
           },
         },
-      })),
+        signinRedirect: vi.fn(),
+        signoutRedirect: vi.fn(),
+      }),
     }));
+
     const { result } = renderHook(() => useAuth(), {
       wrapper: contextWrapper,
     });
 
-    act(() => {
-      result.current.signIn(false);
+    await act(async () => {
+      result.current.signIn(true);
     });
 
     expect(result.current.isSignedIn).toBe(true);

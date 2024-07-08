@@ -28,13 +28,13 @@ describe('Home', () => {
   });
 
   test('should render with mock data', async () => {
-    jest.spyOn(useAuthMock, 'default').mockReturnValue({
+    vi.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       isLoading: false,
       currentUserData: { firstName: 'John', lastName: 'Doe' } as User,
       error: null,
-      signIn: jest.fn(),
-      signOut: jest.fn(),
+      signIn: vi.fn(),
+      signOut: vi.fn(),
     });
     const { baseElement } = render(componentWrapper);
     await act(async () => {

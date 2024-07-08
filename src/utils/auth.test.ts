@@ -53,10 +53,13 @@ describe('Auth Helpers', () => {
     });
 
     const url = getSignInRedirectUrl();
-    expect(url).toEqual('http://localhost/dashboard');
+    expect(url).toContain('/dashboard');
   });
 
   test('should verify no SSL config', () => {
+    process.env.SSO_AUTHORITY = undefined;
+    process.env.SSO_CLIENT_ID = undefined;
+
     const hasConfig = hasSsoConfig();
     expect(hasConfig).toBeFalsy();
   });

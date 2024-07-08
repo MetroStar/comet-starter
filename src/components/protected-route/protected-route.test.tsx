@@ -25,13 +25,13 @@ describe('ProtectedRoute', () => {
   });
 
   test('should render successfully when signed in', async () => {
-    jest.spyOn(useAuthMock, 'default').mockReturnValue({
+    vi.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       isLoading: false,
       currentUserData: {} as User,
       error: null,
-      signIn: jest.fn(),
-      signOut: jest.fn(),
+      signIn: vi.fn(),
+      signOut: vi.fn(),
     });
 
     const { baseElement } = render(wrapperComponent);
@@ -41,13 +41,13 @@ describe('ProtectedRoute', () => {
   });
 
   test('should render loading when not signed in and loading', async () => {
-    jest.spyOn(useAuthMock, 'default').mockReturnValue({
+    vi.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: false,
       isLoading: true,
       currentUserData: {} as User,
       error: null,
-      signIn: jest.fn(),
-      signOut: jest.fn(),
+      signIn: vi.fn(),
+      signOut: vi.fn(),
     });
 
     const { baseElement, getByText } = render(wrapperComponent);

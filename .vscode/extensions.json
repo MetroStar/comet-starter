@@ -7,6 +7,6 @@
     "wix.vscode-import-cost",
     "esbenp.prettier-vscode",
     "pflannery.vscode-versionlens",
-    "orta.vscode-jest"
+    "vitest.explorer"
   ]
 }

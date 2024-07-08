@@ -43,13 +43,13 @@ describe('Dashboard', () => {
   test('should render successfully', async () => {
     mock.onGet(new RegExp('/spacecraft')).reply(200, mockData);
     queryClient.setQueryData(['dashboard'], mockData.items);
-    jest.spyOn(useAuthMock, 'default').mockReturnValue({
+    vi.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       isLoading: false,
       currentUserData: {} as User,
       error: null,
-      signIn: jest.fn(),
-      signOut: jest.fn(),
+      signIn: vi.fn(),
+      signOut: vi.fn(),
     });
 
     const { baseElement } = render(componentWrapper);

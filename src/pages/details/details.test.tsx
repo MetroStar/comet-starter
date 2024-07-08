@@ -10,10 +10,15 @@ import * as useAuthMock from '../../hooks/use-auth';
 import { User } from '../../types/user';
 import { Details } from './details';
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useParams: jest.fn().mockReturnValue({ id: '1' }),
-}));
+vi.mock('react-router-dom', async () => {
+  // Require the actual module to spread its properties
+  const actual = await vi.importActual('react-router-dom');
+
+  return {
+    ...actual,
+    useParams: vi.fn().mockReturnValue({ id: '1' }),
+  };
+});
 
 describe('Details', () => {
   const queryClient = new QueryClient({
@@ -48,13 +53,13 @@ describe('Details', () => {
   test('should render successfully', async () => {
     mock.onGet(new RegExp('/spacecraft/*')).reply(200, mockData.items[0]);
     queryClient.setQueryData(['details'], mockData.items[0]);
-    jest.spyOn(useAuthMock, 'default').mockReturnValue({
+    vi.spyOn(useAuthMock, 'default').mockReturnValue({
       isSignedIn: true,
       isLoading: false,
       currentUserData: {} as User,
       error: null,
-      signIn: jest.fn(),
-      signOut: jest.fn(),
+      signIn: vi.fn(),
+      signOut: vi.fn(),
     });
     const { baseElement } = render(componentWrapper);
     expect(baseElement).toBeTruthy();
