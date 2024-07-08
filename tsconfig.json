@@ -17,7 +17,7 @@
     "jsx": "react-jsx",
 
     /* Testing */
-    "types": ["vite/client", "vitest/globals"],
+    "types": ["vite/client", "vitest/globals", "@testing-library/jest-dom"],
 
     /* Linting */
     "strict": true,
