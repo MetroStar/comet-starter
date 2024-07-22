@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@metrostar/comet-data-viz": "1.1.5",
-    "@metrostar/comet-extras": "1.3.5",
+    "@metrostar/comet-extras": "1.4.0",
     "@metrostar/comet-uswds": "2.2.0",
     "@tanstack/react-query": "5.51.1",
     "@tanstack/react-table": "8.19.3",
