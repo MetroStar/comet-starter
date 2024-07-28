@@ -19,7 +19,7 @@ describe('Footer', () => {
   });
 
   test('should scroll to top', async () => {
-    window.scrollTo = vi.fn();
+    vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
     render(<Footer />);
 
     window.scrollTo(100, 100);
