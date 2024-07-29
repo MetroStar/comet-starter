@@ -78,7 +78,7 @@
     "sass": "1.77.8",
     "ts-node": "10.9.2",
     "tsconfig-paths": "4.2.0",
-    "typescript": "5.5.3",
+    "typescript": "5.5.4",
     "unlighthouse": "0.13.2",
     "vite": "^5.3.5",
     "vite-plugin-environment": "1.1.3",
