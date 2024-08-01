@@ -108,4 +108,26 @@ describe('Header', () => {
     const menuButton = screen.getByText('Menu');
     fireEvent.click(menuButton);
   });
+
+  test('should perform a search', async () => {
+    vi.spyOn(useAuthMock, 'default').mockReturnValue({
+      isSignedIn: true,
+      isLoading: false,
+      currentUserData: {} as User,
+      error: null,
+      signIn: vi.fn(),
+      signOut: vi.fn(),
+    });
+
+    render(headerComponent);
+    await userEvent.type(
+      screen.getByLabelText('Search', { selector: 'input' }),
+      'test',
+    );
+
+    await userEvent.click(
+      document.querySelector('button[type=submit') as HTMLElement,
+    );
+    expect(window.location.pathname).toBe('/results');
+  });
 });
