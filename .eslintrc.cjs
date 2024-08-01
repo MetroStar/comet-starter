@@ -18,6 +18,7 @@ module.exports = {
       { allowConstantExport: true },
     ],
     '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/no-unused-expressions': 'off',
     'prettier/prettier': [
       'error',
       {
