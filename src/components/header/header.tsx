@@ -1,7 +1,8 @@
 import { Banner, Icon, Search } from '@metrostar/comet-uswds';
+import { SearchFormElements } from '@src/types/form';
 import { APP_TITLE } from '@src/utils/constants';
 import navigation from '@uswds/uswds/js/usa-header';
-import React, { SyntheticEvent, useEffect, useState } from 'react';
+import React, { FormEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/use-auth';
 
@@ -45,6 +46,15 @@ export const Header = (): React.ReactElement => {
     } else {
       navigate('/signin');
     }
+  };
+
+  const handleSearch = (event: FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement & {
+      elements: SearchFormElements;
+    };
+    navigate(`/results?q=${form.elements.search.value}`);
+    form.reset();
   };
 
   return (
@@ -115,7 +125,12 @@ export const Header = (): React.ReactElement => {
               </li>
             </ul>
             <section aria-label="Search component">
-              <Search id="search" type="small" placeholder="Search our Site" />
+              <Search
+                id="search"
+                type="small"
+                placeholder="Search our Site"
+                onSearch={handleSearch}
+              />
             </section>
           </nav>
         </div>

@@ -7,6 +7,7 @@ import { ProtectedRoute } from './components/protected-route/protected-route';
 import { Dashboard } from './pages/dashboard/dashboard';
 import Details from './pages/details/details';
 import { Home } from './pages/home/home';
+import { SearchResults } from './pages/search-results/search-results';
 import { SignIn } from './pages/sign-in/sign-in';
 
 const queryClient = new QueryClient();
@@ -20,9 +21,8 @@ export const App = (): React.ReactElement => (
         <Route path="/" element={<Home />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
-        </Route>
-        <Route element={<ProtectedRoute />}>
           <Route path="/details/:id" element={<Details />} />
+          <Route path="/results" element={<SearchResults />} />
         </Route>
       </Routes>
     </main>
