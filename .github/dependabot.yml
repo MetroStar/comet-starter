@@ -25,6 +25,10 @@ updates:
         patterns:
           - '@metrostar/comet-extras'
           - '@tanstack/react-table'
+      vitest:
+        patterns:
+          - '@vitest/coverage-v8'
+          - 'vitest'
     ignore:
       - dependency-name: react
         versions:
