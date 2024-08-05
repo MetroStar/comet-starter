@@ -9,7 +9,7 @@ The goal of this project is to provide a React with TypeScript starter applicati
 - State Management: [Recoil](https://recoiljs.org/)
 - Form Validation: [React Hook Form](https://react-hook-form.com/)
 - Unit Testing: [Vitest](https://vitest.dev/) with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
-- Code Analysis: [ES Lint](https://eslint.org/)
+- Code Analysis: [ESLint](https://eslint.org/)
 - Code Formatting: [Prettier](https://prettier.io/)
 - End-to-End (E2E) Testing: [Cypress](https://www.cypress.io/) with [cypress-axe](https://www.npmjs.com/package/cypress-axe)
 - Accessibility Testing: [Unlighthouse](https://unlighthouse.dev/)
