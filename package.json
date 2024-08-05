@@ -16,8 +16,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "npx eslint src/ --fix --config eslint.config.js",
     "preview": "vite preview",
+    "lint": "npx eslint src/ --fix --config eslint.config.js",
     "format": "npx prettier src --write",
     "test": "vitest --run",
     "test:coverage": "vitest --run --coverage",
