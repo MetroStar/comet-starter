@@ -13,10 +13,6 @@ updates:
     labels:
       - 'dependencies'
     groups:
-      typescript-eslint:
-        patterns:
-          - '@typescript-eslint/eslint-plugin'
-          - '@typescript-eslint/parser'
       comet-uswds:
         patterns:
           - '@metrostar/comet-uswds'
