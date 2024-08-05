@@ -21,6 +21,10 @@ updates:
         patterns:
           - '@metrostar/comet-extras'
           - '@tanstack/react-table'
+      eslint:
+        patterns:
+          - '@eslint/js'
+          - 'eslint'
       vitest:
         patterns:
           - '@vitest/coverage-v8'
