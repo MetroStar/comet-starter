@@ -31,7 +31,7 @@ export const Header = (): React.ReactElement => {
 
   useEffect(() => {
     const ref = document.body.style;
-    showMenu ? (ref.overflow = 'hidden') : (ref.overflow = 'visible');
+    ref.overflow = showMenu ? 'hidden' : 'visible';
   }, [showMenu]);
 
   useEffect(() => {
