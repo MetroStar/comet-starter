@@ -1,12 +1,12 @@
-import { Banner, Icon, Search } from '@metrostar/comet-uswds';
+import { Banner, Icon, Search, useHeader } from '@metrostar/comet-uswds';
 import { SearchFormElements } from '@src/types/form';
 import { APP_TITLE } from '@src/utils/constants';
-import navigation from '@uswds/uswds/js/usa-header';
 import React, { FormEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/use-auth';
 
 export const Header = (): React.ReactElement => {
+  const { on, off } = useHeader();
   const [showMenu, setShowMenu] = useState(false);
 
   const navigate = useNavigate();
@@ -21,11 +21,11 @@ export const Header = (): React.ReactElement => {
   // Ensure navigation JS is loaded
   useEffect(() => {
     const bodyElement = document.body;
-    navigation.on(bodyElement);
+    on(bodyElement);
 
     // Ensure cleanup after the effect
     return () => {
-      navigation.off(bodyElement);
+      off(bodyElement);
     };
   });
 
