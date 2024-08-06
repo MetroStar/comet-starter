@@ -13,14 +13,14 @@ export const SearchResults = (): React.ReactElement => {
   const { error, data: items } = useQuery<Spacecraft[], { message: string }>({
     queryKey: ['results', searchParams.get('q')],
     queryFn: () =>
-      // axios
-      //   .get('/search?q=' + searchParams.get('q'))
-      //   .then((response) => {
-      //     return response.data;
-      //   })
-      //   .then((data) => {
-      //     return data.items;
-      //   }),
+    // axios
+    //   .get('/search?q=' + searchParams.get('q'))
+    //   .then((response) => {
+    //     return response.data;
+    //   })
+    //   .then((data) => {
+    //     return data.items;
+    //   }),
 
       // TODO: Remove this mock response and uncomment above if API available
       Promise.resolve(filterResults(mockData.items)),

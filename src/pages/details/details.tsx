@@ -15,9 +15,9 @@ export const Details = (): React.ReactElement => {
   const { isLoading, error, data } = useQuery<Spacecraft, { message: string }>({
     queryKey: ['details', id],
     queryFn: () =>
-      // axios.get(`/spacecraft/${id}`).then((response) => {
-      //   return response.data;
-      // }),
+    // axios.get(`/spacecraft/${id}`).then((response) => {
+    //   return response.data;
+    // }),
 
       // TODO: Remove this mock response and uncomment above if API available
       Promise.resolve(

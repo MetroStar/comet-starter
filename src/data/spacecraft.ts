@@ -50,7 +50,7 @@ const data: Spacecraft[] = [
     id: 6,
     name: 'TIE Reaper',
     description:
-      "The TIE/rp Reaper attack lander, also known simply as the TIE Reaper, was a troop carrier variant of Sienar Fleet Systems' TIE line used by the Galactic Empire. The TIE Reaper differed from the standard craft of the TIE line in that it was a troop carrier; designed for ferrying troops amidst the heat of battle, such as the death troopers on Scarif.",
+      'The TIE/rp Reaper attack lander, also known simply as the TIE Reaper, was a troop carrier variant of Sienar Fleet Systems\' TIE line used by the Galactic Empire. The TIE Reaper differed from the standard craft of the TIE line in that it was a troop carrier; designed for ferrying troops amidst the heat of battle, such as the death troopers on Scarif.',
     affiliation: 'Galactic Empire',
     dimensions: '22.5m x 16.5m x 4.3m',
     appearances: 1,
