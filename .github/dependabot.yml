@@ -13,22 +13,10 @@ updates:
     labels:
       - 'dependencies'
     groups:
-      comet-uswds:
+      minors:
         patterns:
-          - '@metrostar/comet-uswds'
-          - '@uswds/uswds'
-      comet-extras:
-        patterns:
-          - '@metrostar/comet-extras'
-          - '@tanstack/react-table'
-      eslint:
-        patterns:
-          - '@eslint/js'
-          - 'eslint'
-      vitest:
-        patterns:
-          - '@vitest/coverage-v8'
-          - 'vitest'
+          - 'patch'
+          - 'minor'
     ignore:
       - dependency-name: react
         versions:
