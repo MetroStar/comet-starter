@@ -20,14 +20,14 @@ export const Dashboard = (): React.ReactElement => {
   } = useQuery<Spacecraft[], { message: string }>({
     queryKey: ['dashboard'],
     queryFn: () =>
-    // axios
-    //   .get('/spacecraft')
-    //   .then((response) => {
-    //     return response.data;
-    //   })
-    //   .then((data) => {
-    //     return data.items;
-    //   }),
+      // axios
+      //   .get('/spacecraft')
+      //   .then((response) => {
+      //     return response.data;
+      //   })
+      //   .then((data) => {
+      //     return data.items;
+      //   }),
 
       // TODO: Remove this mock response and uncomment above if API available
       Promise.resolve(mockData.items),
