@@ -2,10 +2,7 @@ import {
   Alert,
   Button,
   ButtonGroup,
-  ErrorMessages,
   Form,
-  FormGroup,
-  Label,
   TextInput,
 } from '@metrostar/comet-uswds';
 import { FormInput } from '@src/types/form';
@@ -58,36 +55,44 @@ export const SignIn = (): React.ReactElement => {
             </Alert>
           )}
           <Form id="login-form" onSubmit={handleSubmit(onSubmit)}>
-            <FormGroup>
-              <Label htmlFor="username">Username</Label>
-              <Controller
-                name="username"
-                control={control}
-                rules={REQUIRED_FORM_FIELDS_RULES}
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                render={({ field: { ref: _, ...field } }) => (
-                  <TextInput {...field} id="username" autoFocus />
-                )}
-              />
-              {errors.username?.message && (
-                <ErrorMessages errors={[errors.username.message]} />
+            <Controller
+              name="username"
+              control={control}
+              rules={REQUIRED_FORM_FIELDS_RULES}
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              render={({ field: { ref: _, ...field } }) => (
+                <TextInput
+                  {...field}
+                  id="username"
+                  label="Username"
+                  errors={
+                    errors.username?.message
+                      ? errors.username.message
+                      : undefined
+                  }
+                  autoFocus
+                />
               )}
-            </FormGroup>
-            <FormGroup>
-              <Label htmlFor="password">Password</Label>
-              <Controller
-                name="password"
-                control={control}
-                rules={PASSWORD_RULES}
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                render={({ field: { ref: _, ...field } }) => (
-                  <TextInput {...field} id="password" type="password" />
-                )}
-              />
-              {errors.password?.message && (
-                <ErrorMessages errors={[errors.password.message]} />
+            />
+            <Controller
+              name="password"
+              control={control}
+              rules={PASSWORD_RULES}
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              render={({ field: { ref: _, ...field } }) => (
+                <TextInput
+                  {...field}
+                  id="password"
+                  type="password"
+                  label="Password"
+                  errors={
+                    errors.password?.message
+                      ? errors.password.message
+                      : undefined
+                  }
+                />
               )}
-            </FormGroup>
+            />
             <ButtonGroup>
               <Button
                 id="submit"
