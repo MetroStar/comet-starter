@@ -51,6 +51,9 @@ const useAuth = () => {
     if (auth.error) {
       setError(auth.error.message);
       setIsSignedIn(false);
+
+      // eslint-disable-next-line no-console
+      console.error('Error:', auth.error);
     }
   }, [auth.error, setIsSignedIn]);
 

@@ -51,7 +51,7 @@ export const SignIn = (): React.ReactElement => {
           <h1>Sign In</h1>
           {error && (
             <Alert id="loginAlert" type="error" heading="Error">
-              Incorrect email or password was entered.
+              There was an error signing in. Please try again.
             </Alert>
           )}
           <Form id="login-form" onSubmit={handleSubmit(onSubmit)}>
