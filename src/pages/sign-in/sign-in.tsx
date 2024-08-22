@@ -54,7 +54,11 @@ export const SignIn = (): React.ReactElement => {
               There was an error signing in. Please try again.
             </Alert>
           )}
-          <Form id="login-form" onSubmit={handleSubmit(onSubmit)}>
+          <Form
+            id="login-form"
+            className="maxw-mobile-lg"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <Controller
               name="username"
               control={control}
