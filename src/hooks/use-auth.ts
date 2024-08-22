@@ -51,6 +51,9 @@ const useAuth = () => {
     if (auth.error) {
       setError(auth.error.message);
       setIsSignedIn(false);
+
+      // eslint-disable-next-line no-console
+      console.error('Error:', auth.error);
     }
   }, [auth.error, setIsSignedIn]);
 
@@ -58,6 +61,7 @@ const useAuth = () => {
     if (isSso) {
       auth.signinRedirect({ redirect_uri: getSignInRedirectUrl() });
     } else {
+      auth.error = undefined;
       setIsSignedIn(true);
       setCurrentUserData(userData);
     }
