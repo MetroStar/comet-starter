@@ -33,14 +33,20 @@ The goal of this project is to provide a React with TypeScript starter applicati
 npm install
 ```
 
-2. To run locally with SSO, add a file called `.env.local` to the `comet-starter` directory. Copy and paste the template below and replace the placeholder values with your own (optional):
+2. To install the [Comet CLI](https://github.com/MetroStar/comet/tree/main/packages/comet-cli#example-commands), run the following (optional):
+
+```sh
+npm install -g @metrostar/comet-cli
+```
+
+3. To run locally with SSO, add a file called `.env.local` to the `comet-starter` directory. Copy and paste the template below and replace the placeholder values with your own (optional):
 
 ```
 SSO_AUTHORITY=[SOME_KEYCLOAK_REALM_URL] # Ex: http://localhost:8088/realms/dev
 SSO_CLIENT_ID=[SOME_CLIENT_ID] # Ex: dev-client
 ```
 
-3. To start the app, run the following:
+4. To start the app, run the following:
 
 ```sh
 npm run dev
