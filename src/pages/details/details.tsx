@@ -1,5 +1,5 @@
 import { Spinner } from '@metrostar/comet-extras';
-import { Card } from '@metrostar/comet-uswds';
+import { Card, CardBody } from '@metrostar/comet-uswds';
 import { mockData } from '@src/data/spacecraft';
 import { Spacecraft } from '@src/types/spacecraft';
 import { useQuery } from '@tanstack/react-query';
@@ -52,23 +52,25 @@ export const Details = (): React.ReactElement => {
               />
             ) : data ? (
               <Card id="details-card">
-                <ul>
-                  <li>
-                    <b>Name:</b> {data.name}
-                  </li>
-                  <li>
-                    <b>Description:</b> {data.description}
-                  </li>
-                  <li>
-                    <b>Affiliation:</b> {data.affiliation}
-                  </li>
-                  <li>
-                    <b>Dimensions:</b> {data.dimensions}
-                  </li>
-                  <li>
-                    <b>Appearances:</b> {data.appearances}
-                  </li>
-                </ul>
+                <CardBody>
+                  <ul>
+                    <li>
+                      <b>Name:</b> {data.name}
+                    </li>
+                    <li>
+                      <b>Description:</b> {data.description}
+                    </li>
+                    <li>
+                      <b>Affiliation:</b> {data.affiliation}
+                    </li>
+                    <li>
+                      <b>Dimensions:</b> {data.dimensions}
+                    </li>
+                    <li>
+                      <b>Appearances:</b> {data.appearances}
+                    </li>
+                  </ul>
+                </CardBody>
               </Card>
             ) : (
               <>No items found</>
