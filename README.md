@@ -13,8 +13,9 @@ The goal of this project is to provide a React with TypeScript starter applicati
 - Code Formatting: [Prettier](https://prettier.io/)
 - End-to-End (E2E) Testing: [Cypress](https://www.cypress.io/) with [cypress-axe](https://www.npmjs.com/package/cypress-axe)
 - Accessibility Testing: [Unlighthouse](https://unlighthouse.dev/)
-- API support: [Axios](https://axios-http.com/) with [React Query](https://tanstack.com/query/v3/)
-- Authentication support: [Keycloak](https://www.keycloak.org/)
+- API Support: [Axios](https://axios-http.com/) with [React Query](https://tanstack.com/query/v3/)
+- API Testing: [Jupyter Notebooks](https://jupyter.org/)
+- Authentication Support: [Keycloak](https://www.keycloak.org/)
 
 ## Table of Contents
 
