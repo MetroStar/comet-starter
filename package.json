@@ -34,7 +34,7 @@
     "@metrostar/comet-data-viz": "1.1.6",
     "@metrostar/comet-extras": "1.4.1",
     "@metrostar/comet-uswds": "3.2.0",
-    "@tanstack/react-query": "5.55.4",
+    "@tanstack/react-query": "5.56.2",
     "@tanstack/react-table": "8.20.5",
     "@uswds/uswds": "3.8.2",
     "axios": "1.7.7",
@@ -44,7 +44,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "7.53.0",
     "react-oidc-context": "^2.3.1",
-    "react-router-dom": "6.26.1",
+    "react-router-dom": "6.26.2",
     "recoil": "0.7.7"
   },
   "devDependencies": {
@@ -55,7 +55,7 @@
     "@types/react": "18.2.17",
     "@types/react-dom": "18.2.7",
     "@vitejs/plugin-react": "4.3.1",
-    "@vitest/coverage-v8": "^2.0.5",
+    "@vitest/coverage-v8": "^2.1.1",
     "autoprefixer": "^10.4.20",
     "axe-core": "4.10.0",
     "cypress": "13.14.2",
@@ -63,7 +63,7 @@
     "eslint": "^9.10.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-react": "^7.35.2",
+    "eslint-plugin-react": "^7.36.1",
     "gh-pages": "^6.1.1",
     "mochawesome": "^7.1.3",
     "mochawesome-merge": "^4.3.0",
@@ -72,17 +72,17 @@
     "prettier-plugin-organize-imports": "4.0.0",
     "sass": "1.78.0",
     "tsconfig-paths": "4.2.0",
-    "typescript": "5.5.4",
-    "typescript-eslint": "^8.4.0",
+    "typescript": "5.6.2",
+    "typescript-eslint": "^8.5.0",
     "unlighthouse": "0.13.2",
-    "vite": "^5.4.3",
+    "vite": "^5.4.5",
     "vite-plugin-environment": "1.1.3",
     "vite-plugin-eslint": "1.8.1",
     "vite-tsconfig-paths": "5.0.1",
     "vitest": "^2.0.5"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "4.21.2"
+    "@rollup/rollup-linux-x64-gnu": "4.21.3"
   },
   "overrides": {
     "xml2js": "0.6.2"
