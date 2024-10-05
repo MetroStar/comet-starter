@@ -81,9 +81,6 @@
     "vitest": "^2.0.5"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "4.22.5"
-  },
-  "overrides": {
-    "xml2js": "0.6.2"
+    "@rollup/rollup-linux-x64-gnu": "4.24.0"
   }
 }
