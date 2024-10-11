@@ -1,6 +1,7 @@
 import pluginJs from '@eslint/js';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import reactPlugin from 'eslint-plugin-react';
+import hooksPlugin from 'eslint-plugin-react-hooks';
 import tseslint from 'typescript-eslint';
 
 export default [
@@ -46,8 +47,12 @@ export default [
     },
   },
   {
+    plugins: {
+      'react-hooks': hooksPlugin,
+    },
     rules: {
       'react/react-in-jsx-scope': 'off',
+      ...hooksPlugin.configs.recommended.rules,
     },
     ignores: ['*.test.tsx'],
   },
