@@ -5,8 +5,14 @@ import hooksPlugin from 'eslint-plugin-react-hooks';
 import tseslint from 'typescript-eslint';
 
 export default [
+  // Flat Configs
+  pluginJs.configs.recommended,
+  ...tseslint.configs.recommended,
+  prettierRecommended,
+  reactPlugin.configs.flat.recommended,
+  // Default Configs
   {
-    files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
+    files: ['**/*.{ts,tsx}'],
     settings: {
       react: {
         version: 'detect',
@@ -19,12 +25,9 @@ export default [
         },
       },
     },
-  },
-  pluginJs.configs.recommended,
-  ...tseslint.configs.recommended,
-  reactPlugin.configs.flat.recommended,
-  prettierRecommended,
-  {
+    plugins: {
+      'react-hooks': hooksPlugin,
+    },
     rules: {
       // Base Warnings
       'no-console': 'warn',
@@ -42,18 +45,9 @@ export default [
         },
       ],
 
-      // TypeScript
-      '@typescript-eslint/no-unused-vars': 'error',
-    },
-  },
-  {
-    plugins: {
-      'react-hooks': hooksPlugin,
-    },
-    rules: {
-      'react/react-in-jsx-scope': 'off',
+      // React
       ...hooksPlugin.configs.recommended.rules,
+      'react/react-in-jsx-scope': 'off',
     },
-    ignores: ['*.test.tsx'],
   },
 ];
