@@ -1,14 +1,14 @@
 import { User } from '@src/types/user';
 import { atom } from 'recoil';
 
-const signedIn = atom({
+const signedInState = atom({
   key: 'signedIn',
   default: false,
 });
 
-const currentUser = atom<User | undefined>({
+const currentUserState = atom<User | undefined>({
   key: 'currentUser',
   default: undefined,
 });
 
-export { currentUser, signedIn };
+export { currentUserState, signedInState };

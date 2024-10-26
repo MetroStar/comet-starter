@@ -3,17 +3,17 @@ import { useEffect, useState } from 'react';
 import { useAuth as useKeycloakAuth } from 'react-oidc-context';
 import { useRecoilState } from 'recoil';
 import { userData } from '../data/user';
-import { currentUser, signedIn } from '../store';
+import { currentUserState, signedInState } from '../store';
 import { User } from '../types/user';
 
 const useAuth = () => {
   const auth = useKeycloakAuth();
-  const [isSignedIn, setIsSignedIn] = useRecoilState<boolean>(signedIn);
+  const [isSignedIn, setIsSignedIn] = useRecoilState<boolean>(signedInState);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>();
   const [currentUserData, setCurrentUserData] = useRecoilState<
     User | undefined
-  >(currentUser);
+  >(currentUserState);
 
   /* TODO: Uncomment for interacting with own API, no need to send tokens to external public API */
   // useEffect(() => {
