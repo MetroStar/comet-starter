@@ -20,6 +20,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
+        api: 'legacy',
         includePaths: ['node_modules/@uswds/uswds/packages'],
       },
     },
