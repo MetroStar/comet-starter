@@ -4,9 +4,9 @@ import axios from '@src/utils/axios';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { act, render } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
+import { Provider } from 'jotai';
 import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
 import * as useAuthMock from '../../hooks/use-auth';
 import { SearchResults } from './search-results';
 
@@ -21,13 +21,13 @@ describe('SearchResults', () => {
 
   const componentWrapper = (
     <AuthProvider>
-      <RecoilRoot>
+      <Provider>
         <BrowserRouter>
           <QueryClientProvider client={queryClient}>
             <SearchResults />
           </QueryClientProvider>
         </BrowserRouter>
-      </RecoilRoot>
+      </Provider>
     </AuthProvider>
   );
 

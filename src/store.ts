@@ -1,14 +1,7 @@
 import { User } from '@src/types/user';
-import { atom } from 'recoil';
+import { atom } from 'jotai';
 
-const signedInState = atom({
-  key: 'signedIn',
-  default: false,
-});
-
-const currentUserState = atom<User | undefined>({
-  key: 'currentUser',
-  default: undefined,
-});
+const signedInState = atom<boolean>(false);
+const currentUserState = atom<User | undefined>(undefined);
 
 export { currentUserState, signedInState };
