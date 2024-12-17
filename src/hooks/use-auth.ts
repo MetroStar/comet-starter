@@ -1,7 +1,7 @@
 import { getSignInRedirectUrl } from '@src/utils/auth';
+import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 import { useAuth as useKeycloakAuth } from 'react-oidc-context';
-import { useAtom } from 'jotai';
 import { userData } from '../data/user';
 import { currentUserState, signedInState } from '../store';
 import { User } from '../types/user';

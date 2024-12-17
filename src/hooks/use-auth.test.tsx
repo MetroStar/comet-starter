@@ -1,7 +1,7 @@
 import keycloak from '@src/utils/keycloak';
 import { act, renderHook } from '@testing-library/react';
-import { AuthProvider } from 'react-oidc-context';
 import { Provider } from 'jotai';
+import { AuthProvider } from 'react-oidc-context';
 import useAuth from './use-auth';
 
 interface ContextWrapperProps {

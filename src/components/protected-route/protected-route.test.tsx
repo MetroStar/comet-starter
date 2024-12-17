@@ -1,8 +1,8 @@
 import { User } from '@src/types/user';
 import { act, render } from '@testing-library/react';
+import { Provider } from 'jotai';
 import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'jotai';
 import * as useAuthMock from '../../hooks/use-auth';
 import { ProtectedRoute } from './protected-route';
 

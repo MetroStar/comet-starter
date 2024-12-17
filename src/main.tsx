@@ -1,8 +1,8 @@
+import { Provider } from 'jotai';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'jotai';
 import { App } from './App.tsx';
 import './styles.scss';
 import keycloak from './utils/keycloak.ts';
