@@ -1,28 +1,28 @@
 import { mockData } from '@src/data/spacecraft';
 import { act, render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
+import { Provider } from 'jotai';
 import { DashboardTable } from './dashboard-table';
 
 describe('DashboardTable', () => {
   test('should render successfully', () => {
     const { baseElement } = render(
-      <RecoilRoot>
+      <Provider>
         <BrowserRouter>
           <DashboardTable items={[]} />
         </BrowserRouter>
-      </RecoilRoot>,
+      </Provider>,
     );
     expect(baseElement).toBeTruthy();
   });
 
   test('should render with mock data', async () => {
     const { baseElement } = render(
-      <RecoilRoot>
+      <Provider>
         <BrowserRouter>
           <DashboardTable items={mockData.items} />
         </BrowserRouter>
-      </RecoilRoot>,
+      </Provider>,
     );
     await act(async () => {
       expect(baseElement).toBeTruthy();

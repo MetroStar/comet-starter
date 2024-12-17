@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 
 import { AuthProvider } from 'react-oidc-context';
-import { RecoilRoot } from 'recoil';
+import { Provider } from 'jotai';
 import * as useAuthMock from '../../hooks/use-auth';
 import { User } from '../../types/user';
 import { SignIn } from './sign-in';
@@ -11,11 +11,11 @@ import { SignIn } from './sign-in';
 describe('SignIn', () => {
   const signInComponent = (
     <AuthProvider>
-      <RecoilRoot>
+      <Provider>
         <BrowserRouter>
           <SignIn />
         </BrowserRouter>
-      </RecoilRoot>
+      </Provider>
     </AuthProvider>
   );
 

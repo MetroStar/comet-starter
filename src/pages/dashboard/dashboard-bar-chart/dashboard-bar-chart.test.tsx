@@ -1,17 +1,17 @@
 import { mockData } from '@src/data/spacecraft';
 import { act, render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
+import { Provider } from 'jotai';
 import { DashboardBarChart } from './dashboard-bar-chart';
 
 describe('DashboardBarChart', () => {
   test('should render successfully', async () => {
     const { baseElement } = render(
-      <RecoilRoot>
+      <Provider>
         <BrowserRouter>
           <DashboardBarChart items={mockData.items} />
         </BrowserRouter>
-      </RecoilRoot>,
+      </Provider>,
     );
     await act(async () => {
       expect(baseElement).toBeTruthy();

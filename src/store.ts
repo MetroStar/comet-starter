@@ -1,5 +1,5 @@
 import { User } from '@src/types/user';
-import { atom } from 'recoil';
+import { atom } from 'jotai';
 
 const signedInState = atom({
   key: 'signedIn',

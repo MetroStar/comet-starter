@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react';
-import { RecoilRoot } from 'recoil';
+import { Provider } from 'jotai';
 import useAuth from './use-auth'; // Import your useAuth function
 
 interface ContextWrapperProps {
@@ -24,7 +24,7 @@ describe('useAuth', () => {
   });
 
   const contextWrapper = ({ children }: ContextWrapperProps) => (
-    <RecoilRoot>{children}</RecoilRoot>
+    <Provider>{children}</Provider>
   );
 
   it('should set isSignedIn to true when authenticated with sso', async () => {

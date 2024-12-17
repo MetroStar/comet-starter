@@ -5,7 +5,7 @@ import { act, render } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
+import { Provider } from 'jotai';
 import * as useAuthMock from '../../hooks/use-auth';
 import { User } from '../../types/user';
 import { Dashboard } from './dashboard';
@@ -20,13 +20,13 @@ describe('Dashboard', () => {
   });
   const componentWrapper = (
     <AuthProvider>
-      <RecoilRoot>
+      <Provider>
         <BrowserRouter>
           <QueryClientProvider client={queryClient}>
             <Dashboard />
           </QueryClientProvider>
         </BrowserRouter>
-      </RecoilRoot>
+      </Provider>
     </AuthProvider>
   );
 

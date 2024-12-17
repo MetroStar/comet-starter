@@ -2,18 +2,18 @@ import { User } from '@src/types/user';
 import { act, render } from '@testing-library/react';
 import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
+import { Provider } from 'jotai';
 import * as useAuthMock from '../../hooks/use-auth';
 import { ProtectedRoute } from './protected-route';
 
 describe('ProtectedRoute', () => {
   const wrapperComponent = (
     <AuthProvider>
-      <RecoilRoot>
+      <Provider>
         <BrowserRouter>
           <ProtectedRoute />
         </BrowserRouter>
-      </RecoilRoot>
+      </Provider>
     </AuthProvider>
   );
 

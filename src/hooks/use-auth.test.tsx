@@ -1,7 +1,7 @@
 import keycloak from '@src/utils/keycloak';
 import { act, renderHook } from '@testing-library/react';
 import { AuthProvider } from 'react-oidc-context';
-import { RecoilRoot } from 'recoil';
+import { Provider } from 'jotai';
 import useAuth from './use-auth';
 
 interface ContextWrapperProps {
@@ -16,7 +16,7 @@ describe('useAuth', () => {
 
   const contextWrapper = ({ children }: ContextWrapperProps) => (
     <AuthProvider {...keycloak}>
-      <RecoilRoot>{children}</RecoilRoot>
+      <Provider>{children}</Provider>
     </AuthProvider>
   );
 

@@ -1,7 +1,7 @@
 import { act, render } from '@testing-library/react';
 import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
+import { Provider } from 'jotai';
 import * as useAuthMock from '../../hooks/use-auth';
 import { User } from '../../types/user';
 import { Home } from './home';
@@ -9,11 +9,11 @@ import { Home } from './home';
 describe('Home', () => {
   const componentWrapper = (
     <AuthProvider>
-      <RecoilRoot>
+      <Provider>
         <BrowserRouter>
           <Home />
         </BrowserRouter>
-      </RecoilRoot>
+      </Provider>
     </AuthProvider>
   );
 

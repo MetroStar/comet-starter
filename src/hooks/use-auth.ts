@@ -1,19 +1,19 @@
 import { getSignInRedirectUrl } from '@src/utils/auth';
 import { useEffect, useState } from 'react';
 import { useAuth as useKeycloakAuth } from 'react-oidc-context';
-import { useRecoilState } from 'recoil';
+import { useAtom } from 'jotai';
 import { userData } from '../data/user';
 import { currentUserState, signedInState } from '../store';
 import { User } from '../types/user';
 
 const useAuth = () => {
   const auth = useKeycloakAuth();
-  const [isSignedIn, setIsSignedIn] = useRecoilState<boolean>(signedInState);
+  const [isSignedIn, setIsSignedIn] = useAtom<boolean>(signedInState);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>();
-  const [currentUserData, setCurrentUserData] = useRecoilState<
-    User | undefined
-  >(currentUserState);
+  const [currentUserData, setCurrentUserData] = useAtom<User | undefined>(
+    currentUserState,
+  );
 
   /* TODO: Uncomment for interacting with own API, no need to send tokens to external public API */
   // useEffect(() => {
