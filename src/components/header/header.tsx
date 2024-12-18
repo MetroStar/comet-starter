@@ -1,6 +1,7 @@
 import { Banner, Icon, Search, useHeader } from '@metrostar/comet-uswds';
 import { SearchFormElements } from '@src/types/form';
 import { APP_TITLE } from '@src/utils/constants';
+import { lowercaseHyphenateString } from '@src/utils/helpers';
 import React, { FormEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/use-auth';
@@ -17,6 +18,26 @@ export const Header = (): React.ReactElement => {
     window.scrollTo({ top: 0 });
     setShowMenu(!showMenu);
   };
+
+  // Header link data for signed in users
+  const HEADER_LINKS_SIGNED_IN = [
+    {
+      name: 'Home',
+      url: '/',
+    },
+    {
+      name: 'Dashboard',
+      url: '/dashboard',
+    },
+  ];
+
+  // Header link data for anonymous users
+  const HEADER_LINKS_SIGNED_OUT = [
+    {
+      name: 'Home',
+      url: '/',
+    },
+  ];
 
   // Ensure navigation JS is loaded
   useEffect(() => {
@@ -87,30 +108,38 @@ export const Header = (): React.ReactElement => {
               <Icon id="menu-icon" type="close" />
             </button>
             <ul className="usa-nav__primary usa-accordion">
-              <li className="usa-nav__primary-item">
-                <NavLink
-                  id="home-link"
-                  to="/"
-                  className={`usa-nav__link ${
-                    location.pathname === '/' ? 'usa-current' : ''
-                  }`}
-                >
-                  Home
-                </NavLink>
-              </li>
-              {isSignedIn && (
-                <li className="usa-nav__primary-item">
-                  <NavLink
-                    id="dashboard-link"
-                    to="/dashboard"
-                    className={`usa-nav__link ${
-                      location.pathname === '/dashboard' ? 'usa-current' : ''
-                    }`}
-                  >
-                    Dashboard
-                  </NavLink>
-                </li>
-              )}
+              {/* This will conditionally render our header links based on isSignedIn */}
+              {isSignedIn
+                ? HEADER_LINKS_SIGNED_IN.map((headerLink) => (
+                    <li key={headerLink.url} className="usa-nav__primary-item">
+                      <NavLink
+                        id={`${lowercaseHyphenateString(headerLink.name)}-link`}
+                        to={headerLink.url}
+                        className={`usa-nav__link ${
+                          location.pathname === headerLink.url
+                            ? 'usa-current'
+                            : ''
+                        }`}
+                      >
+                        {headerLink.name}
+                      </NavLink>
+                    </li>
+                  ))
+                : HEADER_LINKS_SIGNED_OUT.map((headerLink) => (
+                    <li key={headerLink.url} className="usa-nav__primary-item">
+                      <NavLink
+                        id={`${lowercaseHyphenateString(headerLink.name)}-link`}
+                        to={headerLink.url}
+                        className={`usa-nav__link ${
+                          location.pathname === headerLink.url
+                            ? 'usa-current'
+                            : ''
+                        }`}
+                      >
+                        {headerLink.name}
+                      </NavLink>
+                    </li>
+                  ))}
               <li className="usa-nav__primary-item">
                 <Link
                   id="auth-link"
