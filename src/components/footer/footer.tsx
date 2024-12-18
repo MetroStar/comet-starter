@@ -13,6 +13,49 @@ export const Footer = (): React.ReactElement => {
     window.scrollTo(0, 0);
   };
 
+  const FOOTER_LINKS = [
+    {
+      name: 'Home',
+      url: '/',
+    },
+    {
+      name: 'Contact Us',
+      url: '/contact-us',
+    },
+    {
+      name: 'About',
+      url: '/about',
+    },
+  ];
+
+  const SOCIAL_LINKS = [
+    {
+      name: 'Facebook',
+      icon: facebookIcon,
+      url: '/#',
+    },
+    {
+      name: 'Twitter',
+      icon: twitterIcon,
+      url: '/#',
+    },
+    {
+      name: 'YouTube',
+      icon: youtubeIcon,
+      url: '/#',
+    },
+    {
+      name: 'Instagram',
+      icon: instagramIcon,
+      url: '/#',
+    },
+    {
+      name: 'RSS Feed',
+      icon: rssIcon,
+      url: '/#',
+    },
+  ];
+
   return (
     <footer className="usa-footer">
       <div className="grid-container usa-footer__return-to-top">
@@ -28,65 +71,20 @@ export const Footer = (): React.ReactElement => {
       <div className="usa-footer__primary-section">
         <nav className="usa-footer__nav" aria-label="Footer navigation">
           <ul className="grid-row grid-gap">
-            <li
-              className="
+            {FOOTER_LINKS.map((footerLink) => (
+              <li
+                key={footerLink.url}
+                className="
                 mobile-lg:grid-col-4
                 desktop:grid-col-auto
                 usa-footer__primary-content
               "
-            >
-              <a className="usa-footer__primary-link" href="/#">
-                &lt;Primary link&gt;
-              </a>
-            </li>
-
-            <li
-              className="
-                mobile-lg:grid-col-4
-                desktop:grid-col-auto
-                usa-footer__primary-content
-              "
-            >
-              <a className="usa-footer__primary-link" href="/#">
-                &lt;Primary link&gt;
-              </a>
-            </li>
-
-            <li
-              className="
-                mobile-lg:grid-col-4
-                desktop:grid-col-auto
-                usa-footer__primary-content
-              "
-            >
-              <a className="usa-footer__primary-link" href="/#">
-                &lt;Primary link&gt;
-              </a>
-            </li>
-
-            <li
-              className="
-                mobile-lg:grid-col-4
-                desktop:grid-col-auto
-                usa-footer__primary-content
-              "
-            >
-              <a className="usa-footer__primary-link" href="/#">
-                &lt;Primary link&gt;
-              </a>
-            </li>
-
-            <li
-              className="
-                mobile-lg:grid-col-4
-                desktop:grid-col-auto
-                usa-footer__primary-content
-              "
-            >
-              <a className="usa-footer__primary-link" href="/#">
-                &lt;Primary link&gt;
-              </a>
-            </li>
+              >
+                <a className="usa-footer__primary-link" href={footerLink.url}>
+                  {footerLink.name}
+                </a>
+              </li>
+            ))}
           </ul>
         </nav>
       </div>
@@ -114,55 +112,22 @@ export const Footer = (): React.ReactElement => {
             </div>
             <div className="usa-footer__contact-links mobile-lg:grid-col-6">
               <div className="usa-footer__social-links grid-row grid-gap-1">
-                <div className="grid-col-auto">
-                  <a className="usa-social-link" href="/#">
-                    <img
-                      className="usa-social-link__icon"
-                      src={facebookIcon}
-                      alt="Facebook"
-                    />
-                  </a>
-                </div>
-
-                <div className="grid-col-auto">
-                  <a className="usa-social-link" href="/#">
-                    <img
-                      className="usa-social-link__icon"
-                      src={twitterIcon}
-                      alt="Twitter"
-                    />
-                  </a>
-                </div>
-
-                <div className="grid-col-auto">
-                  <a className="usa-social-link" href="/#">
-                    <img
-                      className="usa-social-link__icon"
-                      src={youtubeIcon}
-                      alt="YouTube"
-                    />
-                  </a>
-                </div>
-
-                <div className="grid-col-auto">
-                  <a className="usa-social-link" href="/#">
-                    <img
-                      className="usa-social-link__icon"
-                      src={instagramIcon}
-                      alt="Instagram"
-                    />
-                  </a>
-                </div>
-
-                <div className="grid-col-auto">
-                  <a className="usa-social-link" href="/#">
-                    <img
-                      className="usa-social-link__icon"
-                      src={rssIcon}
-                      alt="RSS"
-                    />
-                  </a>
-                </div>
+                {SOCIAL_LINKS.map((socialLink) => (
+                  <div key={socialLink.name} className="grid-col-auto">
+                    <a
+                      className="usa-social-link"
+                      href={socialLink.url}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <img
+                        className="usa-social-link__icon"
+                        src={`${socialLink.icon}`}
+                        alt={`${socialLink.name} icon'`}
+                      />
+                    </a>
+                  </div>
+                ))}
               </div>
               <h2 className="usa-footer__contact-heading">
                 &lt;Agency Contact Center&gt;
