@@ -11,3 +11,5 @@ export const PASSWORD_RULES = {
   ...REQUIRED_FORM_FIELDS_RULES,
   minLength: { value: MIN_PASSWORD_LENGTH, message: PASSWORD_LENGTH_MESSAGE },
 };
+
+export const SOME_DATA = [ { id: 1, name: 'John' }, { id: 2, name: 'Jane' } ];
