@@ -1,6 +1,10 @@
 import { Banner, Icon, Search, useHeader } from '@metrostar/comet-uswds';
 import { SearchFormElements } from '@src/types/form';
-import { APP_TITLE } from '@src/utils/constants';
+import {
+  APP_TITLE,
+  HEADER_LINKS_SIGNED_IN,
+  HEADER_LINKS_SIGNED_OUT,
+} from '@src/utils/constants';
 import { lowercaseHyphenateString } from '@src/utils/helpers';
 import React, { FormEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
@@ -18,26 +22,6 @@ export const Header = (): React.ReactElement => {
     window.scrollTo({ top: 0 });
     setShowMenu(!showMenu);
   };
-
-  // Header link data for signed in users
-  const HEADER_LINKS_SIGNED_IN = [
-    {
-      name: 'Home',
-      url: '/',
-    },
-    {
-      name: 'Dashboard',
-      url: '/dashboard',
-    },
-  ];
-
-  // Header link data for anonymous users
-  const HEADER_LINKS_SIGNED_OUT = [
-    {
-      name: 'Home',
-      url: '/',
-    },
-  ];
 
   // Ensure navigation JS is loaded
   useEffect(() => {

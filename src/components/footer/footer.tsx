@@ -1,10 +1,5 @@
-import { APP_TITLE } from '@src/utils/constants';
+import { APP_TITLE, FOOTER_LINKS, SOCIAL_LINKS } from '@src/utils/constants';
 import React from 'react';
-import facebookIcon from '~uswds/dist/img/usa-icons/facebook.svg';
-import instagramIcon from '~uswds/dist/img/usa-icons/instagram.svg';
-import rssIcon from '~uswds/dist/img/usa-icons/rss_feed.svg';
-import twitterIcon from '~uswds/dist/img/usa-icons/twitter.svg';
-import youtubeIcon from '~uswds/dist/img/usa-icons/youtube.svg';
 import logo from '/img/logo.png';
 
 export const Footer = (): React.ReactElement => {
@@ -12,49 +7,6 @@ export const Footer = (): React.ReactElement => {
     event.preventDefault();
     window.scrollTo(0, 0);
   };
-
-  const FOOTER_LINKS = [
-    {
-      name: 'Home',
-      url: '/',
-    },
-    {
-      name: 'Contact Us',
-      url: '/contact-us',
-    },
-    {
-      name: 'About',
-      url: '/about',
-    },
-  ];
-
-  const SOCIAL_LINKS = [
-    {
-      name: 'Facebook',
-      icon: facebookIcon,
-      url: '/#',
-    },
-    {
-      name: 'Twitter',
-      icon: twitterIcon,
-      url: '/#',
-    },
-    {
-      name: 'YouTube',
-      icon: youtubeIcon,
-      url: '/#',
-    },
-    {
-      name: 'Instagram',
-      icon: instagramIcon,
-      url: '/#',
-    },
-    {
-      name: 'RSS Feed',
-      icon: rssIcon,
-      url: '/#',
-    },
-  ];
 
   return (
     <footer className="usa-footer">
