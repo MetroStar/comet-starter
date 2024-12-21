@@ -4,5 +4,5 @@ export default defineConfig({
   use: {
     baseURL: 'https://metrostar.github.io/comet-starter/',
   },
-  testDir: 'tests/e2e',
+  testDir: 'e2e',
 });
