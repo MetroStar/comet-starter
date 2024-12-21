@@ -22,6 +22,6 @@ jobs:
         run: npm ci
 
       - name: Run Tests
-        run: npm run e2e:ci
+        run: npx playwright test --reporter=dot
         env:
           APP_BASE_URL: /comet-starter/
