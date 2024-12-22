@@ -39,7 +39,14 @@ jobs:
         run: npm ci
 
       - name: Run Vitest tests with coverage
-        run: npx vitest --run --coverage --reporter=html
+        run: npx vitest --run --coverage --reporter=html --outputFile=vitest-report
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: vitest-report
+          path: vitest-report/
+          retention-days: 30
 
   run-lint-checks:
     runs-on: ubuntu-latest
