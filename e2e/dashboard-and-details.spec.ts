@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 test.describe('Dashboard and Details Page', () => {
   test.beforeEach(async ({ page }) => {
@@ -7,7 +7,7 @@ test.describe('Dashboard and Details Page', () => {
 
   test('verifies access to dashboard after signing in', async ({ page }) => {
     // Navigate to Homepage
-    await page.goto('/');
+    await page.goto('./');
 
     // Verify Homepage
     await expect(page.locator('h1')).toContainText('Welcome Guest');
@@ -19,30 +19,33 @@ test.describe('Dashboard and Details Page', () => {
     await page.click('#submit');
 
     // Mock launch data
-    await page.route('**/api/*', (route) =>
-      route.fulfill({
-        status: 200,
-        body: JSON.stringify({
-          results: [
-            {
-              id: 1,
-              name: 'Test Launch',
-              description: 'Test Description',
-              affiliation: 'Test Affiliation',
-              dimensions: 'Test Dimensions',
-              appearances: 'Test Appearances',
-            },
-          ],
-        }),
-      })
-    );
+    // await page.route('**/api/*', (route) =>
+    //   route.fulfill({
+    //     status: 200,
+    //     body: JSON.stringify({
+    //       results: [
+    //         {
+    //           id: 1,
+    //           name: 'Test Launch',
+    //           description: 'Test Description',
+    //           affiliation: 'Test Affiliation',
+    //           dimensions: 'Test Dimensions',
+    //           appearances: 'Test Appearances',
+    //         },
+    //       ],
+    //     }),
+    //   }),
+    // );
 
     // Navigate to Dashboard
     await page.click('#dashboard-link');
     await expect(page.locator('h1')).toContainText('Dashboard');
 
     // Click on table item and verify details
-    await page.click('[id*="details-link-"]:first');
+    const element = page.locator('[id*="details-link-"]').first();
+    await expect(element).toBeVisible();
+    element.click();
+
     await expect(page.locator('h1')).toContainText('Details');
   });
 });

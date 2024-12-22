@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 test.describe('Sign In Page', () => {
   test.beforeEach(async ({ page }) => {
@@ -7,7 +7,7 @@ test.describe('Sign In Page', () => {
 
   test('navigates to home and signs in', async ({ page }) => {
     // Navigate to Homepage
-    await page.goto('/');
+    await page.goto('./');
 
     // Verify Homepage
     await expect(page.locator('h1')).toContainText('Welcome Guest');

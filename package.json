@@ -23,8 +23,8 @@
     "format:ci": "npx prettier src --check",
     "test": "vitest --run",
     "test:coverage": "vitest --run --coverage",
-    "e2e": "npx playwright test",
-    "e2e:ci": "npx playwright test --reporter=dot",
+    "e2e": "npx playwright test --ui",
+    "e2e:ci": "npx playwright test",
     "a11y": "unlighthouse --config-file unlighthouse.config.ts",
     "predeploy": "vite build --base=/comet-starter/",
     "deploy": "gh-pages -d dist"

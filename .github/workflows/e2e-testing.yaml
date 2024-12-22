@@ -23,5 +23,3 @@ jobs:
 
       - name: Run Tests
         run: npx playwright test --reporter=dot
-        env:
-          APP_BASE_URL: /comet-starter/

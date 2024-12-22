@@ -48,7 +48,6 @@ yarn-error.log
 testem.log
 /typings
 *.local
-cypress/videos
-cypress/screenshots
-cypress/reports
+/test-results
+/playwright-report
 .unlighthouse
