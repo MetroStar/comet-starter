@@ -38,6 +38,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install Vitest UI
+        run: npm install @vitest/ui
+
       - name: Run Vitest tests with coverage
         run: npx vitest --run --coverage --reporter=html --outputFile=vitest-report
 
