@@ -86,6 +86,8 @@ Note: running E2E tests requires the app to be running as well, run the followin
 npm run e2e
 ```
 
+Some update
+
 ## Contributing
 
 1. Fork the Project
