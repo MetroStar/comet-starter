@@ -26,3 +26,10 @@ jobs:
 
       - name: Run Tests
         run: unlighthouse-ci --config-file unlighthouse.config.ts --build-static --reporter jsonExpanded --debug
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: unlighthouse-report
+          path: .unlighthouse/
+          retention-days: 30
