@@ -31,8 +31,8 @@
   },
   "dependencies": {
     "@metrostar/comet-data-viz": "1.2.1",
-    "@metrostar/comet-extras": "1.6.1",
-    "@metrostar/comet-uswds": "3.7.3",
+    "@metrostar/comet-extras": "1.6.2",
+    "@metrostar/comet-uswds": "3.7.4",
     "@tanstack/react-query": "5.62.11",
     "axios": "1.7.9",
     "axios-mock-adapter": "2.1.0",
