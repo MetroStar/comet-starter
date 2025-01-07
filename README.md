@@ -13,7 +13,7 @@ The goal of this project is to provide a React with TypeScript starter applicati
 - Code Formatting: [Prettier](https://prettier.io/)
 - End-to-End (E2E) Testing: [Playwright](https://playwright.dev/)
 - Accessibility Testing: [Unlighthouse](https://unlighthouse.dev/)
-- API Support: [Axios](https://axios-http.com/) with [React Query](https://tanstack.com/query/v3/)
+- API Support: [Axios](https://axios-http.com/) with [Tanstack Query](https://tanstack.com/query/v3/)
 - API Testing: [Jupyter Notebooks](https://jupyter.org/)
 - Authentication Support: [Keycloak](https://www.keycloak.org/)
 
