@@ -83,6 +83,14 @@ You can also see the `.vscode/settings.json` file to find how to enable auto-for
 
 Note: running E2E tests requires the app to be running as well, run the following:
 
+1. To install playwright dependencies, run the following (only required the first time):
+
+```sh
+npx playwright install
+```
+
+2. To run e2e tests, run the following:
+
 ```sh
 npm run e2e
 ```
