@@ -1,44 +1,19 @@
+import { Spinner } from '@metrostar/comet-extras';
 import { Card, CardBody } from '@metrostar/comet-uswds';
 import ErrorNotification from '@src/components/error-notification/error-notification';
-import { mockData } from '@src/data/spacecraft';
-import useAuth from '@src/hooks/use-auth';
-import { Spacecraft } from '@src/types/spacecraft';
-import { useQuery } from '@tanstack/react-query';
+import useSpacecraftApi from '@src/hooks/use-spacecraft-api';
 import React from 'react';
 import { NavLink, useSearchParams } from 'react-router-dom';
 
 export const SearchResults = (): React.ReactElement => {
   const [searchParams] = useSearchParams();
-  const { isSignedIn } = useAuth();
-  const { error, data: items } = useQuery<Spacecraft[], { message: string }>({
-    queryKey: ['results', searchParams.get('q')],
-    queryFn: () =>
-      // axios
-      //   .get('/search?q=' + searchParams.get('q'))
-      //   .then((response) => {
-      //     return response.data;
-      //   })
-      //   .then((data) => {
-      //     return data.items;
-      //   }),
-
-      // TODO: Remove this mock response and uncomment above if API available
-      Promise.resolve(filterResults(mockData.items)),
-    enabled: isSignedIn,
-  });
-
-  const filterResults = (items: Spacecraft[] | undefined) => {
-    const query = searchParams.get('q')?.toLowerCase() || '';
-    if (items) {
-      return items.filter(
-        (result) =>
-          result.name.toLowerCase().includes(query) ||
-          result.description.toLowerCase().includes(query) ||
-          result.affiliation.toLowerCase().includes(query),
-      );
-    }
-    return [];
-  };
+  const { searchItems } = useSpacecraftApi();
+  const {
+    data: items,
+    isLoading,
+    isError,
+    error,
+  } = searchItems(searchParams.get('q') || '');
 
   const getResultsSummary = () => {
     const query = searchParams.get('q') || '';
@@ -58,37 +33,41 @@ export const SearchResults = (): React.ReactElement => {
           <h1>{getResultsSummary()}</h1>
         </div>
       </div>
-      {error && (
+      {isError && (
         <div className="grid-row padding-bottom-2">
           <div className="grid-col">
             <ErrorNotification error={error.message} />
           </div>
         </div>
       )}
-      <div className="grid-row">
-        <div className="grid-col">
-          {items && items.length > 0 ? (
-            items.map((item) => (
-              <Card
-                key={`result-card-${item.id}`}
-                id={`result-card-${item.id}`}
-              >
-                <CardBody>
-                  <NavLink
-                    id={`details-link-${item.id}`}
-                    to={`/details/${item.id}`}
-                  >
-                    <strong>{item.name}</strong>
-                  </NavLink>
-                  <p>{item.description}</p>
-                </CardBody>
-              </Card>
-            ))
-          ) : (
-            <></>
-          )}
+      {isLoading ? (
+        <Spinner id="spinner" type="small" loadingText="Loading..." />
+      ) : (
+        <div className="grid-row">
+          <div className="grid-col">
+            {items && items.length > 0 ? (
+              items.map((item) => (
+                <Card
+                  key={`result-card-${item.id}`}
+                  id={`result-card-${item.id}`}
+                >
+                  <CardBody>
+                    <NavLink
+                      id={`details-link-${item.id}`}
+                      to={`/details/${item.id}`}
+                    >
+                      <strong>{item.name}</strong>
+                    </NavLink>
+                    <p>{item.description}</p>
+                  </CardBody>
+                </Card>
+              ))
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

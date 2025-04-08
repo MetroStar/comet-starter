@@ -1,30 +1,14 @@
 import { Spinner } from '@metrostar/comet-extras';
 import { Card, CardBody } from '@metrostar/comet-uswds';
-import { mockData } from '@src/data/spacecraft';
-import { Spacecraft } from '@src/types/spacecraft';
-import { useQuery } from '@tanstack/react-query';
+import useSpacecraftApi from '@src/hooks/use-spacecraft-api';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import ErrorNotification from '../../components/error-notification/error-notification';
-import useAuth from '../../hooks/use-auth';
-// import axios from '@src/utils/axios';
 
 export const Details = (): React.ReactElement => {
   const { id } = useParams();
-  const { isSignedIn } = useAuth();
-  const { isLoading, error, data } = useQuery<Spacecraft, { message: string }>({
-    queryKey: ['details', id],
-    queryFn: () =>
-      // axios.get(`/spacecraft/${id}`).then((response) => {
-      //   return response.data;
-      // }),
-
-      // TODO: Remove this mock response and uncomment above if API available
-      Promise.resolve(
-        mockData.items.filter((item) => item.id.toString() === id)[0],
-      ),
-    enabled: isSignedIn && !!id,
-  });
+  const { getItem } = useSpacecraftApi();
+  const { isLoading, data, error, isError } = getItem(Number(id));
 
   return (
     <div className="grid-container">
@@ -34,7 +18,7 @@ export const Details = (): React.ReactElement => {
             <h1>Details</h1>
           </div>
         </div>
-        {error && (
+        {isError && (
           <div className="grid-row padding-bottom-2">
             <div className="grid-col">
               <ErrorNotification error={error.message} />

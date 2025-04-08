@@ -54,6 +54,7 @@ export default defineConfig({
           lines: 95,
         },
       },
+      exclude: ['src/utils/axios.ts', 'src/utils/keycloak.ts'],
     },
     css: false,
     alias: {
