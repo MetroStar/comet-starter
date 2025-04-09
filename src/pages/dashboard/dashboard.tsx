@@ -1,38 +1,16 @@
 import { Spinner } from '@metrostar/comet-extras';
 import { Card, CardBody } from '@metrostar/comet-uswds';
-import { mockData } from '@src/data/spacecraft';
-import { Spacecraft } from '@src/types/spacecraft';
-import { useQuery } from '@tanstack/react-query';
+import useSpacecraftApi from '@src/hooks/use-spacecraft-api';
 import React from 'react';
 import ErrorNotification from '../../components/error-notification/error-notification';
-import useAuth from '../../hooks/use-auth';
 import { DashboardBarChart } from './dashboard-bar-chart/dashboard-bar-chart';
 import { DashboardPieChart } from './dashboard-pie-chart/dashboard-pie-chart';
 import { DashboardTable } from './dashboard-table/dashboard-table';
-// import axios from '@src/utils/axios';
 
 export const Dashboard = (): React.ReactElement => {
-  const { isSignedIn } = useAuth();
   const {
-    isLoading,
-    error,
-    data: items,
-  } = useQuery<Spacecraft[], { message: string }>({
-    queryKey: ['dashboard'],
-    queryFn: () =>
-      // axios
-      //   .get('/spacecraft')
-      //   .then((response) => {
-      //     return response.data;
-      //   })
-      //   .then((data) => {
-      //     return data.items;
-      //   }),
-
-      // TODO: Remove this mock response and uncomment above if API available
-      Promise.resolve(mockData.items),
-    enabled: isSignedIn,
-  });
+    getItems: { isLoading, data: items, error, isError },
+  } = useSpacecraftApi();
 
   return (
     <div className="grid-container">
@@ -41,7 +19,7 @@ export const Dashboard = (): React.ReactElement => {
           <h1>Dashboard</h1>
         </div>
       </div>
-      {error && (
+      {isError && (
         <div className="grid-row padding-bottom-2">
           <div className="grid-col">
             <ErrorNotification error={error.message} />
