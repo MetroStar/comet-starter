@@ -2,7 +2,7 @@ import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
   use: {
-    baseURL: 'http://localhost:8080',
+    baseURL: 'https://metrostar.github.io/comet-starter/',
   },
   testDir: 'e2e',
 });
