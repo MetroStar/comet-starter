@@ -18,7 +18,7 @@ import useAuth from '../../hooks/use-auth';
 
 export const SignIn = (): React.ReactElement => {
   const navigate = useNavigate();
-  const { signIn, error } = useAuth();
+  const { signIn, signInWithSso, error } = useAuth();
   const {
     control,
     handleSubmit,
@@ -30,9 +30,12 @@ export const SignIn = (): React.ReactElement => {
     },
   });
 
-  const onSubmit: SubmitHandler<FormInput> = () => {
-    signIn(false);
-    navigate('/dashboard');
+  const onSubmit: SubmitHandler<FormInput> = (formData) => {
+    signIn(formData.username, formData.password).then((response) => {
+      if (response.status === 200) {
+        navigate('/dashboard');
+      }
+    });
   };
 
   const handleCancel = (event: FormEvent): void => {
@@ -41,7 +44,7 @@ export const SignIn = (): React.ReactElement => {
   };
 
   const handleSsoSignIn = (): void => {
-    signIn(true);
+    signInWithSso();
   };
 
   return (

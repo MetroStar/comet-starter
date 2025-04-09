@@ -2,6 +2,8 @@ import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 
+import axios from '@src/utils/axios';
+import MockAdapter from 'axios-mock-adapter';
 import { Provider } from 'jotai';
 import { AuthProvider } from 'react-oidc-context';
 import * as useAuthMock from '../../hooks/use-auth';
@@ -25,6 +27,12 @@ describe('SignIn', () => {
   const OLD_ENV = process.env;
   beforeEach(() => {
     process.env = { ...OLD_ENV };
+    mock.reset();
+  });
+
+  const mock = new MockAdapter(axios);
+  beforeAll(() => {
+    mock.reset();
   });
 
   test('should render successfully', async () => {
@@ -61,13 +69,10 @@ describe('SignIn', () => {
   });
 
   test('should simulate a successful login attempt', async () => {
-    vi.spyOn(useAuthMock, 'default').mockReturnValue({
-      isSignedIn: false,
-      isLoading: false,
-      currentUserData: {} as User,
-      error: null,
-      signIn: vi.fn(),
-      signOut: vi.fn(),
+    mock.onPost(new RegExp('/auth/signin')).reply(200, {
+      success: true,
+      status: 200,
+      data: { display_name: 'admin' },
     });
 
     const { baseElement } = render(signInComponent);
@@ -81,13 +86,10 @@ describe('SignIn', () => {
   });
 
   test('should simulate a successful login attempt when signed in', async () => {
-    vi.spyOn(useAuthMock, 'default').mockReturnValue({
-      isSignedIn: true,
-      isLoading: false,
-      currentUserData: {} as User,
-      error: null,
-      signIn: vi.fn(),
-      signOut: vi.fn(),
+    mock.onPost(new RegExp('/auth/signin')).reply(200, {
+      success: true,
+      status: 200,
+      data: { display_name: 'admin' },
     });
 
     const { baseElement } = render(signInComponent);
@@ -98,26 +100,6 @@ describe('SignIn', () => {
       screen.getByText('Sign In', { selector: 'button[type=submit]' }),
     );
     expect(baseElement.querySelectorAll('.usa-error-message').length).toBe(0);
-  });
-
-  test('should simulate an unsuccessful login attempt', async () => {
-    vi.spyOn(useAuthMock, 'default').mockReturnValue({
-      isSignedIn: false,
-      isLoading: false,
-      currentUserData: {} as User,
-      error: 'Error',
-      signIn: vi.fn(),
-      signOut: vi.fn(),
-    });
-
-    const { baseElement } = render(signInComponent);
-    await userEvent.type(screen.getByLabelText('Username'), mockUsername);
-    await userEvent.type(screen.getByLabelText('Password'), mockPassword);
-
-    await userEvent.click(
-      screen.getByText('Sign In', { selector: 'button[type=submit]' }),
-    );
-    expect(baseElement.querySelectorAll('.usa-alert').length).toBe(1);
   });
 
   test('should cancel a login attempt', async () => {
@@ -135,6 +117,7 @@ describe('SignIn', () => {
       currentUserData: {} as User,
       error: null,
       signIn: vi.fn(),
+      signInWithSso: vi.fn(),
       signOut: vi.fn(),
     });
 

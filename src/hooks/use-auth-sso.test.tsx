@@ -33,7 +33,7 @@ describe('useAuth', () => {
     });
 
     await act(async () => {
-      result.current.signIn(true);
+      result.current.signInWithSso();
     });
 
     expect(result.current.isSignedIn).toBe(true);
@@ -45,7 +45,7 @@ describe('useAuth', () => {
     });
 
     act(() => {
-      result.current.signIn(false);
+      result.current.signInWithSso();
     });
 
     expect(result.current.isSignedIn).toBe(true);
@@ -87,7 +87,7 @@ describe('useAuth', () => {
     });
 
     await act(async () => {
-      result.current.signIn(true);
+      result.current.signInWithSso();
     });
 
     expect(result.current.isSignedIn).toBe(true);

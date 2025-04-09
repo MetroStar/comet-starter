@@ -1,8 +1,9 @@
 import { getSignInRedirectUrl } from '@src/utils/auth';
+import axios from '@src/utils/axios';
+import { AxiosResponse } from 'axios';
 import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 import { useAuth as useKeycloakAuth } from 'react-oidc-context';
-import { userData } from '../data/user';
 import { currentUserState, signedInState } from '../store';
 import { User } from '../types/user';
 
@@ -57,14 +58,42 @@ const useAuth = () => {
     }
   }, [auth.error, setIsSignedIn]);
 
-  const signIn = (isSso: boolean): void => {
-    if (isSso) {
-      auth.signinRedirect({ redirect_uri: getSignInRedirectUrl() });
-    } else {
-      auth.error = undefined;
-      setIsSignedIn(true);
-      setCurrentUserData(userData);
-    }
+  const signIn = async (
+    username: string,
+    password: string,
+  ): Promise<AxiosResponse> => {
+    auth.error = undefined;
+    return axios
+      .post('/auth/signin', {
+        username,
+        password,
+      })
+      .then((response) => {
+        const { data, status } = response;
+        if (status === 200) {
+          setIsSignedIn(true);
+          setCurrentUserData({
+            firstName: data.first_name,
+            lastName: data.last_name,
+            displayName: data.display_name,
+            emailAddress: data.email_address,
+            phoneNumber: data.phone_number,
+          });
+        }
+        return response;
+      })
+      .catch((error) => {
+        setError(error.message);
+        setIsSignedIn(false);
+        setCurrentUserData({} as User);
+        // eslint-disable-next-line no-console
+        console.error('Error:', error);
+        throw error;
+      });
+  };
+
+  const signInWithSso = (): void => {
+    auth.signinRedirect({ redirect_uri: getSignInRedirectUrl() });
   };
 
   const signOut = (): void => {
@@ -80,7 +109,15 @@ const useAuth = () => {
     }
   };
 
-  return { isSignedIn, isLoading, currentUserData, error, signIn, signOut };
+  return {
+    isSignedIn,
+    isLoading,
+    currentUserData,
+    error,
+    signIn,
+    signInWithSso,
+    signOut,
+  };
 };
 
 export default useAuth;

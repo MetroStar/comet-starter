@@ -32,6 +32,36 @@ export default defineConfig({
     open: true,
     port: 8080,
     proxy: {
+      // Provides mocked signin for local development
+      '/api/auth/signin': {
+        target: 'http://0.0.0.0:5000',
+        bypass: (req, res) => {
+          res.setHeader('Content-Type', 'application/json');
+          let data = '';
+
+          req.on('data', (chunk) => {
+            data += chunk;
+          });
+
+          req.on('end', () => {
+            const validUses = ['admin', 'test'];
+            const body = JSON.parse(data);
+            const username = body.username;
+
+            if (!validUses.includes(username)) {
+              return;
+            }
+
+            res.end(
+              JSON.stringify({
+                first_name: 'Test',
+                last_name: 'User',
+              }),
+            );
+          });
+          return;
+        },
+      },
       '/api': {
         target: 'http://0.0.0.0:5000',
         changeOrigin: true,

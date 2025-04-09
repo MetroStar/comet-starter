@@ -6,6 +6,18 @@ test.describe('Dashboard and Details Page', () => {
   });
 
   test('verifies access to dashboard after signing in', async ({ page }) => {
+    // Mock sign-in API
+    await page.route('**/api/auth/signin', async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          first_name: 'John',
+          last_name: 'Doe',
+        }),
+      });
+    });
+
     // Navigate to Homepage
     await page.goto('./');
 
@@ -17,25 +29,6 @@ test.describe('Dashboard and Details Page', () => {
     await page.fill('input[name="username"]', 'test');
     await page.fill('input[name="password"]', '12345678');
     await page.click('#submit');
-
-    // Mock launch data
-    // await page.route('**/api/*', (route) =>
-    //   route.fulfill({
-    //     status: 200,
-    //     body: JSON.stringify({
-    //       results: [
-    //         {
-    //           id: 1,
-    //           name: 'Test Launch',
-    //           description: 'Test Description',
-    //           affiliation: 'Test Affiliation',
-    //           dimensions: 'Test Dimensions',
-    //           appearances: 'Test Appearances',
-    //         },
-    //       ],
-    //     }),
-    //   }),
-    // );
 
     // Navigate to Dashboard
     await page.click('#dashboard-link');
