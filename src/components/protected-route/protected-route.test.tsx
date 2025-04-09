@@ -31,6 +31,7 @@ describe('ProtectedRoute', () => {
       currentUserData: {} as User,
       error: null,
       signIn: vi.fn(),
+      signInWithSso: vi.fn(),
       signOut: vi.fn(),
     });
 
@@ -47,6 +48,7 @@ describe('ProtectedRoute', () => {
       currentUserData: {} as User,
       error: null,
       signIn: vi.fn(),
+      signInWithSso: vi.fn(),
       signOut: vi.fn(),
     });
 

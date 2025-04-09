@@ -33,6 +33,7 @@ describe('Header', () => {
       currentUserData: {} as User,
       error: null,
       signIn: vi.fn(),
+      signInWithSso: vi.fn(),
       signOut: vi.fn(),
     });
 
@@ -49,6 +50,7 @@ describe('Header', () => {
       currentUserData: {} as User,
       error: null,
       signIn: vi.fn(),
+      signInWithSso: vi.fn(),
       signOut: vi.fn(),
     });
 
@@ -66,6 +68,7 @@ describe('Header', () => {
       currentUserData: {} as User,
       error: null,
       signIn: vi.fn(),
+      signInWithSso: vi.fn(),
       signOut: vi.fn(),
     });
 
@@ -116,6 +119,7 @@ describe('Header', () => {
       currentUserData: {} as User,
       error: null,
       signIn: vi.fn(),
+      signInWithSso: vi.fn(),
       signOut: vi.fn(),
     });
 
