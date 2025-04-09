@@ -1,5 +1,6 @@
 import { APP_TITLE, FOOTER_LINKS, SOCIAL_LINKS } from '@src/utils/constants';
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import logo from '/img/logo.png';
 
 export const Footer = (): React.ReactElement => {
@@ -32,9 +33,13 @@ export const Footer = (): React.ReactElement => {
                 usa-footer__primary-content
               "
               >
-                <a className="usa-footer__primary-link" href={footerLink.url}>
+                <NavLink
+                  key={`footer-link-${footerLink.name}`}
+                  className="usa-footer__primary-link"
+                  to={footerLink.url}
+                >
                   {footerLink.name}
-                </a>
+                </NavLink>
               </li>
             ))}
           </ul>

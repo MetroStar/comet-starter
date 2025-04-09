@@ -54,10 +54,9 @@ describe('Details', () => {
     queryClient.setQueryData(['spacecraft', itemId], mockData.items[0]);
     const { baseElement } = render(componentWrapper);
     expect(baseElement).toBeTruthy();
-    expect(baseElement.querySelector('h1')?.textContent).toEqual('Details');
-    await waitFor(async () => {
-      expect(baseElement.querySelectorAll('#details-card li')).toHaveLength(5);
-    });
+    expect(baseElement.querySelector('h1')?.textContent).toEqual(
+      'Millenium Falcon',
+    );
   });
 
   test('should render loading state while fetching data', async () => {
@@ -89,9 +88,10 @@ describe('Details', () => {
 
     const { baseElement } = render(componentWrapper);
     expect(baseElement).toBeTruthy();
-    expect(baseElement.querySelector('h1')?.textContent).toEqual('Details');
+    expect(baseElement.querySelector('h1')?.textContent).not.toEqual(
+      'Millenium Falcon',
+    );
     await waitFor(async () => {
-      expect(baseElement.querySelectorAll('#details-card li')).toHaveLength(0);
       expect(baseElement.querySelector('.usa-alert')).toBeDefined();
       expect(baseElement.querySelector('.usa-alert--error')).toBeDefined();
     });

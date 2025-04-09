@@ -15,7 +15,7 @@ export const Details = (): React.ReactElement => {
       <>
         <div className="grid-row">
           <div className="grid-col">
-            <h1>Details</h1>
+            <h1>{data?.name}</h1>
           </div>
         </div>
         {isError && (
@@ -37,23 +37,32 @@ export const Details = (): React.ReactElement => {
             ) : data ? (
               <Card id="details-card">
                 <CardBody>
-                  <ul>
-                    <li>
-                      <b>Name:</b> {data.name}
-                    </li>
-                    <li>
-                      <b>Description:</b> {data.description}
-                    </li>
-                    <li>
-                      <b>Affiliation:</b> {data.affiliation}
-                    </li>
-                    <li>
-                      <b>Dimensions:</b> {data.dimensions}
-                    </li>
-                    <li>
-                      <b>Appearances:</b> {data.appearances}
-                    </li>
-                  </ul>
+                  <div className="grid-row grid-gap">
+                    <div className="grid-col-12 margin-bottom-2">
+                      <div className="text-bold margin-bottom-05">
+                        Description
+                      </div>
+                      <div>{data.description}</div>
+                    </div>
+                    <div className="tablet:grid-col-6 margin-bottom-2">
+                      <div className="text-bold margin-bottom-05">
+                        Affiliation
+                      </div>
+                      <div>{data.affiliation}</div>
+                    </div>
+                    <div className="tablet:grid-col-6 margin-bottom-2">
+                      <div className="text-bold margin-bottom-05">
+                        Dimensions
+                      </div>
+                      <div>{data.dimensions}</div>
+                    </div>
+                    <div className="tablet:grid-col-6 margin-bottom-2">
+                      <div className="text-bold margin-bottom-05">
+                        Appearances
+                      </div>
+                      <div>{data.appearances}</div>
+                    </div>
+                  </div>
                 </CardBody>
               </Card>
             ) : (

@@ -39,6 +39,6 @@ test.describe('Dashboard and Details Page', () => {
     await expect(element).toBeVisible();
     element.click();
 
-    await expect(page.locator('h1')).toContainText('Details');
+    await expect(page.locator('h1')).toContainText('Millenium Falcon');
   });
 });

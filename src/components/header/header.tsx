@@ -72,7 +72,7 @@ export const Header = (): React.ReactElement => {
       <header className="usa-header usa-header--basic">
         <div className="usa-nav-container">
           <div className="usa-navbar">
-            <div className="usa-logo" id="-logo">
+            <div className="usa-logo" id="logo">
               <em className="usa-logo__text">
                 <NavLink id="logo-link" to="/">
                   {APP_TITLE}
