@@ -32,7 +32,7 @@ describe('useAuth', () => {
     mock.onPost(new RegExp('/auth/signin')).reply(200, {
       success: true,
       status: 200,
-      data: { displayName: 'admin' },
+      data: { display_name: 'admin' },
     });
     const { result } = renderHook(() => useAuth(), {
       wrapper: contextWrapper,

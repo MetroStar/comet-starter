@@ -73,11 +73,11 @@ const useAuth = () => {
         if (status === 200) {
           setIsSignedIn(true);
           setCurrentUserData({
-            firstName: data.firstName,
-            lastName: data.lastName,
-            displayName: data.displayName,
-            emailAddress: data.emailAddress,
-            phoneNumber: data.phoneNumber,
+            firstName: data.first_name,
+            lastName: data.last_name,
+            displayName: data.display_name,
+            emailAddress: data.email_address,
+            phoneNumber: data.phone_number,
           });
         }
         return response;

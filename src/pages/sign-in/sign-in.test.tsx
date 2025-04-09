@@ -72,7 +72,7 @@ describe('SignIn', () => {
     mock.onPost(new RegExp('/auth/signin')).reply(200, {
       success: true,
       status: 200,
-      data: { displayName: 'admin' },
+      data: { display_name: 'admin' },
     });
 
     const { baseElement } = render(signInComponent);
@@ -89,7 +89,7 @@ describe('SignIn', () => {
     mock.onPost(new RegExp('/auth/signin')).reply(200, {
       success: true,
       status: 200,
-      data: { displayName: 'admin' },
+      data: { display_name: 'admin' },
     });
 
     const { baseElement } = render(signInComponent);
