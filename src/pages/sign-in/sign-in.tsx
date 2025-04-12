@@ -72,6 +72,7 @@ export const SignIn = (): React.ReactElement => {
                   {...field}
                   id="username"
                   label="Username"
+                  autoComplete="username"
                   errors={
                     errors.username?.message
                       ? errors.username.message
@@ -92,6 +93,7 @@ export const SignIn = (): React.ReactElement => {
                   id="password"
                   type="password"
                   label="Password"
+                  autoComplete="current-password"
                   errors={
                     errors.password?.message
                       ? errors.password.message
