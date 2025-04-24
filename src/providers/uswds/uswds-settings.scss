@@ -3,6 +3,7 @@
   Additional design token settings can be found here: https://designsystem.digital.gov/documentation/settings/.
   Spacing Units can be found here: https://designsystem.digital.gov/design-tokens/spacing-units/.
 */
+
 @use 'uswds-core' with (
   // General settings
   $theme-show-notifications: false,
@@ -29,7 +30,7 @@
   // Base colors
   $theme-color-base-lightest: #f0f0f0,
   $theme-color-base-lighter: #dfe1e2,
-  $theme-color-base-light: #a9aeb1,
+  $theme-color-base-light: #EDEDED, // ADVANA Background Color
   $theme-color-base: #71767a,
   $theme-color-base-dark: #565c65,
   $theme-color-base-darker: #3d4551,
@@ -38,10 +39,11 @@
   // Primary colors
   $theme-color-primary-lighter: #d9e8f6,
   $theme-color-primary-light: #73b3e7,
-  $theme-color-primary: #005ea2,
+  $theme-color-primary: #2B73E5, //ADVANA BRAND BLUE
   $theme-color-primary-vivid: #0050d8,
-  $theme-color-primary-dark: #1a4480,
+  $theme-color-primary-dark: #1D385B, //ADVANA Dark-Blue
   $theme-color-primary-darker: #162e51,
+
   // Secondary colors
   $theme-color-secondary-lighter: #f8dfe2,
   $theme-color-secondary-light: #f2938c,

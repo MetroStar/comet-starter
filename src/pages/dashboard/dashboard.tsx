@@ -13,7 +13,7 @@ export const Dashboard = (): React.ReactElement => {
   } = useSpacecraftApi();
 
   return (
-    <div className="grid-container">
+    <div className="container">
       <div className="grid-row padding-bottom-2">
         <div className="grid-col">
           <h1>Dashboard</h1>
@@ -22,7 +22,7 @@ export const Dashboard = (): React.ReactElement => {
       {isError && (
         <div className="grid-row padding-bottom-2">
           <div className="grid-col">
-            <ErrorNotification error={error.message} />
+            <ErrorNotification error={error?.message} />
           </div>
         </div>
       )}

@@ -10,7 +10,7 @@ import React, { FormEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/use-auth';
 
-export const Header = (): React.ReactElement => {
+export const Header = (): React.ReactElement | null => {
   const { on, off } = useHeader();
   const [showMenu, setShowMenu] = useState(false);
 
@@ -23,21 +23,19 @@ export const Header = (): React.ReactElement => {
     setShowMenu(!showMenu);
   };
 
-  // Ensure navigation JS is loaded
   useEffect(() => {
     const bodyElement = document.body;
-    on(bodyElement);
 
-    // Ensure cleanup after the effect
+    if (location.pathname !== '/signin') {
+      on(bodyElement);
+    }
+
     return () => {
-      off(bodyElement);
+      if (location.pathname !== '/signin') {
+        off(bodyElement);
+      }
     };
-  });
-
-  useEffect(() => {
-    const ref = document.body.style;
-    ref.overflow = showMenu ? 'hidden' : 'visible';
-  }, [showMenu]);
+  }, [location.pathname, on, off]);
 
   useEffect(() => {
     setShowMenu(false);
@@ -62,6 +60,11 @@ export const Header = (): React.ReactElement => {
     form.reset();
   };
 
+  // Ensure the header is displayed on every page except the sign-in page
+  if (location.pathname === '/signin') {
+    return null;
+  }
+
   return (
     <>
       <a className="usa-skipnav " href="#mainSection">
@@ -69,7 +72,7 @@ export const Header = (): React.ReactElement => {
       </a>
       <Banner id="banner" />
       <div className="usa-overlay"></div>
-      <header className="usa-header usa-header--basic">
+      <header className="usa-header usa-header--basic header-fixed">
         <div className="usa-nav-container">
           <div className="usa-navbar">
             <div className="usa-logo" id="logo">

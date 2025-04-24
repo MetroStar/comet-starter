@@ -1,4 +1,4 @@
-@forward 'providers/uswds/uswds.scss';
+@use './providers/uswds/uswds' as *;
 
 html,
 body {
@@ -21,19 +21,123 @@ body {
 }
 
 .usa-section {
-  padding-top: 1em;
+  padding-top: 2em;
+  background: $theme-color-base-light;
 }
 
 .usa-form .usa-button {
   max-height: 40px;
 }
 
+.usa-sidenav__list {
+  padding-inline-start: 0px;
+  margin-top: 50px;
+}
+
 .loading-text {
   color: #005ea2;
+}
+
+/* Overlay styles */
+.overlay {
+  display: none;
+}
+
+.sign-in-form {
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background: #fff;
+}
+
+// Sign-in page two-column layout
+.sign-in-page {
+  display: flex;
+  height: 100vh;
+}
+
+.sign-in-background {
+  flex: 1;
+  background-image: url('/img/AI.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.sign-in-form-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $theme-color-primary;
+}
+
+// Spread cards to container width with side padding
+.maxw-mobile {
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+// Make USWDS cards fill the full column width with side padding
+.usa-card {
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
 }
 
 @media screen and (max-width: 768px) {
   .usa-form .usa-button-group {
     margin-top: 1.5em;
   }
+}
+
+/* Fixed header styles */
+.header-fixed {
+  position: fixed;
+  top: 20px;
+  width: 100%;
+  z-index: 1000;
+  background-color: #f8f9fa; /* Matches side-navigation background color */
+}
+
+
+// CUSTOM STYLES
+
+#banner {
+  position: fixed;
+  width: 100%;
+  z-index: 1001;
+}
+  // MAIN CONTAINER
+main.usa-section {
+  padding-top: 6rem;
+  padding-left: 200px;
+}
+
+  // SIDE NAVIGATION
+#side-navigation-2 {
+  width: 200px;
+  background: white;
+  position: fixed;
+  top: 92px;
+  height: 100vh
+}
+
+.usa-navbar{
+  right: 460px;
+  position: relative;
+}
+
+// Add a CSS class to make the cards flow horizontally and wrap
+.card-grid {
+  display: flex;
+  // flex-wrap: wrap;
+  // gap: 1rem; /* Adjust spacing between cards */
+  // justify-content: center; /* Center the cards horizontally */
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 16px;
+  row-gap: 16px;
+  justify-content: flex-start;
+  padding-bottom: 48px;
 }

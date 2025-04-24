@@ -9,6 +9,22 @@ import { User } from '../../types/user';
 import { Header } from './header';
 
 describe('Header', () => {
+  vi.spyOn(useAuthMock, 'default').mockReturnValue({
+    isSignedIn: true,
+    isLoading: false,
+    currentUserData: {
+      firstName: 'Test',
+      lastName: 'User',
+      displayName: 'Test User',
+      emailAddress: 'test@example.com',
+      phoneNumber: '123-456-7890',
+    },
+    error: null,
+    signIn: vi.fn(),
+    signInWithSso: vi.fn(),
+    signOut: vi.fn(),
+  });
+
   const headerComponent = (
     <AuthProvider>
       <Provider>
@@ -27,16 +43,6 @@ describe('Header', () => {
   });
 
   test('should navigate away from home', async () => {
-    vi.spyOn(useAuthMock, 'default').mockReturnValue({
-      isSignedIn: true,
-      isLoading: false,
-      currentUserData: {} as User,
-      error: null,
-      signIn: vi.fn(),
-      signInWithSso: vi.fn(),
-      signOut: vi.fn(),
-    });
-
     render(headerComponent);
 
     await userEvent.click(screen.getByText('Dashboard', { selector: 'a' }));
@@ -62,40 +68,30 @@ describe('Header', () => {
   });
 
   test('should handle sign out', async () => {
-    vi.spyOn(useAuthMock, 'default').mockReturnValue({
-      isSignedIn: true,
-      isLoading: false,
-      currentUserData: {} as User,
-      error: null,
-      signIn: vi.fn(),
-      signInWithSso: vi.fn(),
-      signOut: vi.fn(),
+    render(headerComponent);
+
+    const signOutButton = screen.getByText((content, element) => {
+      return element?.tagName === 'BUTTON' && content === 'Sign Out';
     });
 
-    const { baseElement } = render(headerComponent);
+    expect(signOutButton).toBeTruthy();
     await act(async () => {
-      expect(baseElement).toBeTruthy();
-      fireEvent.click(screen.getByText('Sign Out'));
+      fireEvent.click(signOutButton);
     });
   });
 
   test('should display menu when button is clicked', async () => {
-    vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
-    const { baseElement } = render(headerComponent);
-    global.innerWidth = 500;
-    window.dispatchEvent(new Event('resize'));
+    render(headerComponent);
 
-    const button = screen.getByText('Menu');
-    expect(screen.getByText('Menu')).toBeTruthy();
-    userEvent
-      .click(button)
-      .then(() => {
-        // Handle click
-      })
-      .catch(() => {
-        // Handle error
-      });
-    expect(baseElement.querySelector('.usa-nav')).toBeDefined();
+    const menuButton = screen.getByText('Menu');
+    expect(menuButton).toBeTruthy();
+
+    await act(async () => {
+      fireEvent.click(menuButton);
+    });
+
+    const menu = screen.getByRole('navigation');
+    expect(menu).toBeTruthy();
   });
 
   test('should render menu successfully', () => {
@@ -110,28 +106,40 @@ describe('Header', () => {
 
     const menuButton = screen.getByText('Menu');
     fireEvent.click(menuButton);
+
+    const menu = screen.getByRole('navigation');
+    expect(menu).toBeTruthy();
   });
 
   test('should perform a search', async () => {
-    vi.spyOn(useAuthMock, 'default').mockReturnValue({
-      isSignedIn: true,
-      isLoading: false,
-      currentUserData: {} as User,
-      error: null,
-      signIn: vi.fn(),
-      signInWithSso: vi.fn(),
-      signOut: vi.fn(),
+    render(headerComponent);
+
+    const searchInput = screen.getByLabelText('Search', { selector: 'input' });
+    await userEvent.type(searchInput, 'test');
+
+    const searchButton = screen.getByRole('button', { name: /search/i });
+    await userEvent.click(searchButton);
+
+    expect(window.location.pathname).toBe('/results');
+  });
+
+  test('should have a grey background color matching side-navigation', () => {
+    render(headerComponent);
+
+    const header = document.querySelector('.usa-header');
+    expect(header).toHaveStyle('background-color: #f8f9fa');
+  });
+
+  test('footer should not be visible on the sign-in page', async () => {
+    render(headerComponent);
+
+    // Simulate navigation to the sign-in page
+    await act(async () => {
+      window.history.pushState({}, 'Sign In', '/sign-in');
     });
 
-    render(headerComponent);
-    await userEvent.type(
-      screen.getByLabelText('Search', { selector: 'input' }),
-      'test',
-    );
-
-    await userEvent.click(
-      document.querySelector('button[type=submit') as HTMLElement,
-    );
-    expect(window.location.pathname).toBe('/results');
+    // Assert that the footer is not visible
+    const footer = screen.queryByRole('contentinfo');
+    expect(footer).toBeNull();
   });
 });

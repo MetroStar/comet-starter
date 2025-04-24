@@ -6,12 +6,11 @@ import {
   TextInput,
 } from '@metrostar/comet-uswds';
 import { FormInput } from '@src/types/form';
-import { hasSsoConfig } from '@src/utils/auth';
 import {
   PASSWORD_RULES,
   REQUIRED_FORM_FIELDS_RULES,
 } from '@src/utils/constants';
-import React, { FormEvent } from 'react';
+import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/use-auth';
@@ -22,13 +21,21 @@ export const SignIn = (): React.ReactElement => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<FormInput>({
     defaultValues: {
       username: '',
       password: '',
+      termsConsent: false,
     },
+    mode: 'onChange',
   });
+
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const togglePasswordVisibility = (): void => {
+    setShowPassword((prev) => !prev);
+  };
 
   const onSubmit: SubmitHandler<FormInput> = (formData) => {
     signIn(formData.username, formData.password).then((response) => {
@@ -38,20 +45,25 @@ export const SignIn = (): React.ReactElement => {
     });
   };
 
-  const handleCancel = (event: FormEvent): void => {
-    event.preventDefault();
-    navigate('/');
-  };
-
   const handleSsoSignIn = (): void => {
     signInWithSso();
   };
 
   return (
-    <div className="grid-container">
-      <div className="grid-row">
-        <div className="tablet:grid-col-6">
-          <h1>Sign In</h1>
+    <div className="sign-in-page">
+      <div
+        className="sign-in-background"
+        style={{
+          backgroundImage: 'url("/img/ADVANA.png"), url("/img/AI.jpg")',
+          backgroundSize: 'auto, cover',
+          backgroundPosition: 'center, center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+      <div className="sign-in-form-wrapper">
+        <div className="sign-in-form">
+          <h1>Sign in</h1>
+          <h2>Access your account</h2>
           {error && (
             <Alert id="loginAlert" type="error" heading="Error">
               There was an error signing in. Please try again.
@@ -66,18 +78,13 @@ export const SignIn = (): React.ReactElement => {
               name="username"
               control={control}
               rules={REQUIRED_FORM_FIELDS_RULES}
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              render={({ field: { ref: _, ...field } }) => (
+              render={({ field }) => (
                 <TextInput
                   {...field}
                   id="username"
-                  label="Username"
+                  label="Email address"
                   autoComplete="username"
-                  errors={
-                    errors.username?.message
-                      ? errors.username.message
-                      : undefined
-                  }
+                  errors={errors.username?.message}
                   autoFocus
                 />
               )}
@@ -86,51 +93,73 @@ export const SignIn = (): React.ReactElement => {
               name="password"
               control={control}
               rules={PASSWORD_RULES}
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              render={({ field: { ref: _, ...field } }) => (
+              render={({ field }) => (
                 <TextInput
                   {...field}
                   id="password"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   label="Password"
                   autoComplete="current-password"
-                  errors={
-                    errors.password?.message
-                      ? errors.password.message
-                      : undefined
-                  }
+                  errors={errors.password?.message}
                 />
               )}
             />
+            <div className="show-password-link">
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  togglePasswordVisibility();
+                }}
+              >
+                {showPassword ? 'Hide password' : 'Show password'}
+              </a>
+            </div>
             <ButtonGroup>
               <Button
-                id="submit"
-                type="submit"
-                disabled={
-                  !!errors.username?.message || !!errors.password?.message
-                }
+                id="sign-in-sso"
+                type="button"
+                variant="outline"
+                onClick={handleSsoSignIn}
               >
+                CAC Login
+              </Button>
+              <Button id="submit" type="submit" disabled={!isValid}>
                 Sign In
               </Button>
-              <Button
-                id="cancel"
-                type="button"
-                variant="secondary"
-                onClick={handleCancel}
-              >
-                Cancel
-              </Button>
-              {hasSsoConfig() && (
-                <Button
-                  id="sign-in-sso"
-                  type="button"
-                  variant="outline"
-                  onClick={handleSsoSignIn}
-                >
-                  Sign In with SSO
-                </Button>
-              )}
             </ButtonGroup>
+            <div className="forgot-password-link">
+              <a href="#">Forgot password?</a>
+            </div>
+            <Controller
+              name="termsConsent"
+              control={control}
+              rules={{ required: 'You must agree to the terms.' }}
+              render={({ field }) => (
+                <>
+                  <p className="terms-text">
+                    <input
+                      type="checkbox"
+                      id="termsConsent"
+                      name={field.name}
+                      checked={field.value}
+                      onBlur={field.onBlur}
+                      onChange={(e) => field.onChange(e.target.checked)}
+                      className="margin-right-1"
+                    />
+                    <label htmlFor="termsConsent">
+                      I HAVE READ AND CONSENT TO THE TERMS IN THE INFORMATION
+                      SYSTEMS USER AGREEMENT.
+                    </label>
+                  </p>
+                  {errors.termsConsent && (
+                    <span className="usa-error-message">
+                      {errors.termsConsent.message}
+                    </span>
+                  )}
+                </>
+              )}
+            />
           </Form>
         </div>
       </div>
