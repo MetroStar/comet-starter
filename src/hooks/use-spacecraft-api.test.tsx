@@ -19,11 +19,6 @@ describe('useSpacecraftApi', () => {
     },
   });
 
-  const OLD_ENV = process.env;
-  beforeEach(() => {
-    process.env = { ...OLD_ENV };
-  });
-
   const contextWrapper = ({ children }: ContextWrapperProps) => (
     <AuthProvider {...keycloak}>
       <QueryClientProvider client={queryClient}>

@@ -3,11 +3,6 @@ import { User } from '@src/types/user';
 import { getDisplayName, getSignInRedirectUrl, hasSsoConfig } from './auth';
 
 describe('Auth Helpers', () => {
-  const OLD_ENV = process.env;
-  beforeEach(() => {
-    process.env = { ...OLD_ENV };
-  });
-
   test('should get display name with display name', () => {
     const displayName = getDisplayName(userData);
     expect(displayName).toEqual(userData.displayName);
@@ -57,18 +52,18 @@ describe('Auth Helpers', () => {
   });
 
   test('should verify no SSL config', () => {
-    process.env.SSO_AUTHORITY = undefined;
-    process.env.SSO_CLIENT_ID = undefined;
+    vi.stubEnv('VITE_SSO_AUTHORITY', undefined);
+    vi.stubEnv('VITE_SSO_CLIENT_ID', undefined);
 
     const hasConfig = hasSsoConfig();
     expect(hasConfig).toBeFalsy();
   });
 
   test('should verify SSL config', () => {
-    process.env.SSO_AUTHORITY = 'http://localhost';
-    process.env.SSO_CLIENT_ID = 'dev-client';
-
+    vi.stubEnv('VITE_SSO_AUTHORITY', 'http://localhost');
+    vi.stubEnv('VITE_SSO_CLIENT_ID', 'dev-client');
     const hasConfig = hasSsoConfig();
+
     expect(hasConfig).toBeTruthy();
   });
 });

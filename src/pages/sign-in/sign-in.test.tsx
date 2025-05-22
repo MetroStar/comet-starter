@@ -24,9 +24,7 @@ describe('SignIn', () => {
   const mockUsername = 'username1';
   const mockPassword = 'test1234';
 
-  const OLD_ENV = process.env;
   beforeEach(() => {
-    process.env = { ...OLD_ENV };
     mock.reset();
   });
 
@@ -120,9 +118,8 @@ describe('SignIn', () => {
       signInWithSso: vi.fn(),
       signOut: vi.fn(),
     });
-
-    process.env.SSO_AUTHORITY = 'http://localhost';
-    process.env.SSO_CLIENT_ID = 'dev-client';
+    vi.stubEnv('VITE_SSO_AUTHORITY', 'http://localhost');
+    vi.stubEnv('VITE_SSO_CLIENT_ID', 'dev-client');
 
     const { baseElement } = render(signInComponent);
     await userEvent.click(

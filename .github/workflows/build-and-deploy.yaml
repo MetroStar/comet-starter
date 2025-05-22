@@ -22,7 +22,7 @@ jobs:
       - name: Build for GitHub Pages
         run: npm run predeploy
         env:
-          APP_BASE_URL: /comet-starter/
+          VITE_BASE_PATH: /comet-starter/
 
       - name: Deploy
         uses: crazy-max/ghaction-github-pages@v1
