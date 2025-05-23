@@ -11,9 +11,7 @@ interface ContextWrapperProps {
 }
 
 describe('useAuth', () => {
-  const OLD_ENV = process.env;
   beforeEach(() => {
-    process.env = { ...OLD_ENV };
     mock.reset();
   });
 

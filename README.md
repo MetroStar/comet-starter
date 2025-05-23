@@ -24,8 +24,9 @@ The goal of this project is to provide a React with TypeScript starter applicati
 2. [Running Unit Tests](#running-unit-tests)
 3. [Running Code Quality Checks](#running-code-quality-checks)
 4. [Running End-to-End (E2E) Tests](#running-end-to-end-e2e-tests)
-5. [Contributing](#contributing)
-6. [Next Steps](#next-steps)
+5. [Running Accessibility (a11y) Tests](#running-accessibility-a11y-tests)
+6. [Contributing](#contributing)
+7. [Next Steps](#next-steps)
 
 ## Running the Project Locally
 
@@ -81,18 +82,40 @@ You can also see the `.vscode/settings.json` file to find how to enable auto-for
 
 ## Running End-to-End (E2E) Tests
 
-Note: running E2E tests requires the app to be running as well, run the following:
+Note: running E2E tests requires a deployed or running app.
 
-1. To install playwright dependencies, run the following (only required the first time):
+1. To run against a deployed app, add the following to your .env.local (optional):
+
+```
+VITE_BASE_URL=SOME_URL # Ex: 'https://metrostar.github.io/comet-starter/'
+```
+
+2. To install playwright dependencies, run the following (only required the first time):
 
 ```sh
 npx playwright install
 ```
 
-2. To run e2e tests, run the following:
+3. To run e2e tests, run the following:
 
 ```sh
 npm run e2e
+```
+
+## Running Accessibility (a11y) Tests
+
+Note: running accessibility tests requires a deployed or running app.
+
+1. To run against a deployed app, add the following to your .env.local (optional):
+
+```
+VITE_BASE_URL=SOME_URL # Ex: 'https://metrostar.github.io/comet-starter/'
+```
+
+2. To run accessibility tests, run the following:
+
+```sh
+npm run a11y
 ```
 
 ## Contributing

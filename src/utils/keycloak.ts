@@ -2,8 +2,12 @@ import { WebStorageStateStore } from 'oidc-client-ts';
 import { getSignInRedirectUrl } from './auth';
 
 const keycloak = {
-  authority: process.env.SSO_AUTHORITY ? process.env.SSO_AUTHORITY : '',
-  client_id: process.env.SSO_CLIENT_ID ? process.env.SSO_CLIENT_ID : '',
+  authority: import.meta.env.VITE_SSO_AUTHORITY
+    ? import.meta.env.VITE_SSO_AUTHORITY
+    : '',
+  client_id: import.meta.env.VITE_SSO_CLIENT_ID
+    ? import.meta.env.VITE_SSO_CLIENT_ID
+    : '',
   redirect_uri: getSignInRedirectUrl(),
   userStore: new WebStorageStateStore({ store: window.localStorage }),
 };

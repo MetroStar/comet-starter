@@ -36,5 +36,5 @@ export default defineConfig({
     device: 'desktop',
     skipJavascript: false,
   },
-  site: 'https://metrostar.github.io/comet-starter',
+  site: process.env.VITE_BASE_URL || 'http://localhost:8080',
 });
