@@ -45,8 +45,8 @@ npm install -g @metrostar/comet-cli
 3. To run locally with SSO, add a file called `.env.local` to the `comet-starter` directory. Copy and paste the template below and replace the placeholder values with your own (optional):
 
 ```
-SSO_AUTHORITY=[SOME_KEYCLOAK_REALM_URL] # Ex: http://localhost:8088/realms/dev
-SSO_CLIENT_ID=[SOME_CLIENT_ID] # Ex: dev-client
+VITE_SSO_AUTHORITY=[SOME_KEYCLOAK_REALM_URL] # Ex: http://localhost:8088/realms/dev
+VITE_SSO_CLIENT_ID=[SOME_CLIENT_ID] # Ex: dev-client
 ```
 
 4. To start the app, run the following:
