@@ -37,8 +37,9 @@ export const CaseDetails = (): React.ReactElement => {
       middle_name: data?.applicant.middle_name || '',
       last_name: data?.applicant.last_name || '',
       ssn: data?.applicant.ssn || '',
-      date_of_birth:
-        data?.applicant.date_of_birth.toLocaleDateString('en-US') || '',
+      date_of_birth: data?.applicant.date_of_birth
+        ? new Date(data.applicant.date_of_birth).toLocaleDateString('en-US')
+        : '',
       gender: data?.applicant.gender || '',
       home_phone: data?.applicant.home_phone || '',
       mobile_phone: data?.applicant.mobile_phone || '',

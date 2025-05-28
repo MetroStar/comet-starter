@@ -73,7 +73,7 @@ export const DashboardTable = ({
           first_name: item.applicant.first_name,
           status: item.status,
           assigned_to: item.assigned_to || '',
-          created_at: item.created_at.toLocaleDateString('en-US'),
+          created_at: new Date(item.created_at).toLocaleDateString('en-US'),
         });
       });
       setData(newData);

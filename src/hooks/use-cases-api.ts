@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 const getCases = async (): Promise<Case[]> => {
   // const response = await axios.get('/cases');
-  // return response.data;
+  // return response.data.items;
 
   return Promise.resolve(
     mockData.items.filter(
@@ -16,7 +16,7 @@ const getCases = async (): Promise<Case[]> => {
 
 const searchCases = async (query: string): Promise<Case[]> => {
   // const response = await axios.get(`/cases?q=${query}`);
-  // return response.data;
+  // return response.data.items;
 
   return Promise.resolve(
     mockData.items.filter(
