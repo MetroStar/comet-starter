@@ -30,7 +30,7 @@ export const SignIn = (): React.ReactElement => {
     },
   });
 
-  const onSubmit: SubmitHandler<FormInput> = (formData) => {
+  const onSubmit: SubmitHandler<SignInFormInput> = (formData) => {
     signIn(formData.username, formData.password).then((response) => {
       if (response.status === 200) {
         navigate('/dashboard');
