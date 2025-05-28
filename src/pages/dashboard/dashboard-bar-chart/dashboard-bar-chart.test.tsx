@@ -1,4 +1,4 @@
-import { mockData } from '@src/data/spacecraft';
+import { mockData } from '@src/data/case';
 import { act, render } from '@testing-library/react';
 import { Provider } from 'jotai';
 import { BrowserRouter } from 'react-router-dom';

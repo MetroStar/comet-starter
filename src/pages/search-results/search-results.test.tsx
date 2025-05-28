@@ -1,4 +1,4 @@
-import { mockData } from '@src/data/spacecraft';
+import { mockData } from '@src/data/case';
 import axios from '@src/utils/axios';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { act, render } from '@testing-library/react';
@@ -58,11 +58,8 @@ describe('SearchResults', () => {
   test('should render with 0 results with no search', async () => {
     const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
     mockSearchParamsGet.mockReturnValue(null);
-    mock.onGet(new RegExp('/spacecraft')).reply(200, mockData.items);
-    queryClient.setQueryData(
-      ['spacecraft', 'test'],
-      mockData.items.slice(0, 1),
-    );
+    mock.onGet(new RegExp('/cases')).reply(200, null);
+    queryClient.setQueryData(['cases', null], null);
 
     const { baseElement } = render(componentWrapper);
     await act(async () => {
@@ -75,8 +72,8 @@ describe('SearchResults', () => {
   test('should render with 0 results with bad search', async () => {
     const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
     mockSearchParamsGet.mockReturnValue('abcd');
-    mock.onGet(new RegExp('/spacecraft')).reply(200, null);
-    queryClient.setQueryData(['spacecraft', 'abcd'], null);
+    mock.onGet(new RegExp('/cases')).reply(200, null);
+    queryClient.setQueryData(['cases', 'abcd'], null);
 
     const { baseElement } = render(componentWrapper);
     await act(async () => {
@@ -88,31 +85,28 @@ describe('SearchResults', () => {
 
   test('should render with 1 results', async () => {
     const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
-    mockSearchParamsGet.mockReturnValue('test');
-    mock.onGet(new RegExp('/spacecraft')).reply(200, mockData.items);
-    queryClient.setQueryData(
-      ['spacecraft', 'test'],
-      mockData.items.slice(0, 1),
-    );
+    mockSearchParamsGet.mockReturnValue('sarah');
+    mock.onGet(new RegExp('/cases')).reply(200, mockData.items.slice(0, 1));
+    queryClient.setQueryData(['cases', 'sarah'], mockData.items.slice(0, 1));
 
     const { baseElement } = render(componentWrapper);
     await act(async () => {
       expect(baseElement.querySelector('h1')?.textContent).toEqual(
-        'Found 1 search result for "test"',
+        'Found 1 search result for "sarah"',
       );
     });
   });
 
   test('should render with multiple results', async () => {
     const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
-    mockSearchParamsGet.mockReturnValue('test');
-    mock.onGet(new RegExp('/spacecraft')).reply(200, mockData.items);
-    queryClient.setQueryData(['spacecraft', 'test'], mockData.items);
+    mockSearchParamsGet.mockReturnValue('s');
+    mock.onGet(new RegExp('/cases')).reply(200, mockData.items);
+    queryClient.setQueryData(['cases', 's'], mockData.items);
 
     const { baseElement } = render(componentWrapper);
     await act(async () => {
       expect(baseElement.querySelector('h1')?.textContent).toEqual(
-        'Found 11 search results for "test"',
+        'Found 19 search results for "s"',
       );
     });
   });
@@ -120,8 +114,8 @@ describe('SearchResults', () => {
   test('should render with error', async () => {
     const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
     mockSearchParamsGet.mockReturnValue('test');
-    mock.onGet(new RegExp('/spacecraft')).networkError();
-    queryClient.setQueryData(['spacecraft', 'test'], null);
+    mock.onGet(new RegExp('/cases')).networkError();
+    queryClient.setQueryData(['cases'], null);
 
     const { baseElement } = render(componentWrapper);
     await act(async () => {

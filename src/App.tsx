@@ -5,9 +5,9 @@ import { Footer } from './components/footer/footer';
 import { Header } from './components/header/header';
 import { ProtectedRoute } from './components/protected-route/protected-route';
 import { About } from './pages/about/about';
+import { CaseDetails } from './pages/case-details/case-details';
 import { ContactUs } from './pages/contact-us/contact-us';
 import { Dashboard } from './pages/dashboard/dashboard';
-import Details from './pages/details/details';
 import { Home } from './pages/home/home';
 import { NotFound } from './pages/not-found/not-found';
 import { SearchResults } from './pages/search-results/search-results';
@@ -26,7 +26,7 @@ export const App = (): React.ReactElement => (
         <Route path="/" element={<Home />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/details/:id" element={<Details />} />
+          <Route path="/cases/:id" element={<CaseDetails />} />
           <Route path="/results" element={<SearchResults />} />
         </Route>
         <Route path="*" element={<NotFound />} />
