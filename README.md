@@ -131,13 +131,10 @@ npm run a11y
 The following provides a short list of tasks which are potential next steps for this project. These could be steps in making use of this baseline or they could be for learning purposes.
 
 - [ ] Apply/clean-up basic branding (title, header, footer, logo, favicon, etc)
-- [ ] Add/Update Dashboard with applicable content
+- [ ] Add/Update Dashboard, About, Contact Us pages with applicable content
 - [ ] Enhance Dashboard table functionality (filter, search, paging)
-- [ ] Enhance Item Details page with more applicable content and layout
+- [ ] Enhance Search Results page with filtering
+- [ ] Add Profile page and Profile Menu to Header (include Sign In/Sign Out, Profile, etc)
 - [ ] Integrate with some API (Ex. [Comet API](https://github.com/MetroStar/comet-api))
-- [ ] Add User Management Dashboard and Detail pages
-- [ ] Add Profile Menu (include Sign In/Sign Out, User Management, etc)
-- [ ] Add Site Search functionality (add Search Results page and update Header Search)
-- [ ] Integrate with some API to support Basic Authentication
 - [ ] Integrate with some Identity Provider to support Single Sign-On (SSO)
 - [ ] Deploy to cloud infrastructure
