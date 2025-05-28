@@ -37,7 +37,7 @@ test.describe('Dashboard and Details Page', () => {
     // Click on table item and verify details
     const element = page.locator('[id*="case-link-"]').first();
     await expect(element).toBeVisible();
-    element.click();
+    await element.click();
 
     await expect(page.locator('h1')).toContainText('Case');
   });
