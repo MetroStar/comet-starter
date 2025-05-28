@@ -9,6 +9,7 @@ import { ContactUs } from './pages/contact-us/contact-us';
 import { Dashboard } from './pages/dashboard/dashboard';
 import Details from './pages/details/details';
 import { Home } from './pages/home/home';
+import { NotFound } from './pages/not-found/not-found';
 import { SearchResults } from './pages/search-results/search-results';
 import { SignIn } from './pages/sign-in/sign-in';
 
@@ -28,6 +29,7 @@ export const App = (): React.ReactElement => (
           <Route path="/details/:id" element={<Details />} />
           <Route path="/results" element={<SearchResults />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </main>
     <Footer />
