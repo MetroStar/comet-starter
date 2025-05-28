@@ -32,13 +32,13 @@ test.describe('Dashboard and Details Page', () => {
 
     // Navigate to Dashboard
     await page.click('#dashboard-link');
-    await expect(page.locator('h1')).toContainText('Dashboard');
+    await expect(page.locator('h1')).toContainText('Active Cases');
 
     // Click on table item and verify details
-    const element = page.locator('[id*="details-link-"]').first();
+    const element = page.locator('[id*="case-link-"]').first();
     await expect(element).toBeVisible();
-    element.click();
+    await element.click();
 
-    await expect(page.locator('h1')).toContainText('Millenium Falcon');
+    await expect(page.locator('h1')).toContainText('Case');
   });
 });

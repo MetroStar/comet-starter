@@ -1,10 +1,10 @@
 import { BarGraph } from '@metrostar/comet-data-viz';
-import { Spacecraft } from '@src/types/spacecraft';
+import { Case } from '@src/types/case';
 import React, { useEffect, useState } from 'react';
 import { ChartData } from '../types';
 
 interface DashboardBarChartProps {
-  items: Spacecraft[] | undefined;
+  items: Case[] | undefined;
 }
 
 export const DashboardBarChart = ({
@@ -15,13 +15,17 @@ export const DashboardBarChart = ({
     if (items) {
       const newData: ChartData[] = [];
       const set = new Set<string>();
-      items.forEach((item: Spacecraft) => {
-        set.add(item.appearances.toString());
+      items.forEach((item: Case) => {
+        if (!item.applicant.state) {
+          return;
+        }
+
+        set.add(item.applicant.state.toString());
       });
 
       set.forEach((name: string) => {
         const total = items.filter(
-          (item: Spacecraft) => item.appearances.toString() === name,
+          (item: Case) => item.applicant.state?.toString() === name,
         ).length;
         newData.push({ x: name, y: total });
       });
@@ -39,7 +43,7 @@ export const DashboardBarChart = ({
       <BarGraph
         chart={{
           height: 300,
-          title: 'Spacecraft Appearance Bar Graph',
+          title: 'Cases by State Bar Graph',
           width: 375,
         }}
         alignment="start"

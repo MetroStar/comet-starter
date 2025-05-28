@@ -1,10 +1,13 @@
 import { ReactNode } from 'react';
 
-export interface TableData {
-  name: string | ReactNode;
-  affiliation: string;
-  dimensions: string;
-  appearances: number;
+export interface CaseTableData {
+  case_id: number;
+  case_id_link: ReactNode;
+  last_name: string;
+  first_name: string;
+  status: string;
+  assigned_to?: string;
+  created_at: string;
 }
 
 export interface ChartData {

@@ -33,7 +33,7 @@ test.describe('Sign In Page', () => {
     await page.locator('#submit').click();
 
     // Verify Homepage after signin
-    await expect(page.locator('h1')).toContainText('Dashboard');
+    await expect(page.locator('h1')).toContainText('Active Cases');
     await expect(page.locator('#sign-in-alert')).toBeHidden();
   });
 });
