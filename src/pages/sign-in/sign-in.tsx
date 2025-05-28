@@ -5,7 +5,7 @@ import {
   Form,
   TextInput,
 } from '@metrostar/comet-uswds';
-import { FormInput } from '@src/types/form';
+import { SignInFormInput } from '@src/types/form';
 import { hasSsoConfig } from '@src/utils/auth';
 import {
   PASSWORD_RULES,
@@ -23,7 +23,7 @@ export const SignIn = (): React.ReactElement => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormInput>({
+  } = useForm<SignInFormInput>({
     defaultValues: {
       username: '',
       password: '',

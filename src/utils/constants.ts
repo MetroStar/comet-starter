@@ -43,7 +43,7 @@ export const FOOTER_LINKS = [
   },
   {
     name: 'Contact Us',
-    url: '/contact',
+    url: '/contact-us',
   },
   {
     name: 'About',
