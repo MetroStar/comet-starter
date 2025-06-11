@@ -1,20 +1,24 @@
 import { getSignInRedirectUrl } from '@src/utils/auth';
 import axios from '@src/utils/axios';
 import { AxiosResponse } from 'axios';
-import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 import { useAuth as useKeycloakAuth } from 'react-oidc-context';
-import { currentUserState, signedInState } from '../store';
+import {
+  setCurrentUser,
+  setSignedIn,
+  signOut as signOutAction,
+} from '../store';
 import { User } from '../types/user';
+import { useAppDispatch, useAppSelector } from './redux';
 
 const useAuth = () => {
   const auth = useKeycloakAuth();
-  const [isSignedIn, setIsSignedIn] = useAtom<boolean>(signedInState);
+  const dispatch = useAppDispatch();
+  const { isSignedIn, currentUser: currentUserData } = useAppSelector(
+    (state) => state.auth,
+  );
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>();
-  const [currentUserData, setCurrentUserData] = useAtom<User | undefined>(
-    currentUserState,
-  );
 
   /* TODO: Uncomment for interacting with own API, no need to send tokens to external public API */
   // useEffect(() => {
@@ -27,9 +31,9 @@ const useAuth = () => {
 
   useEffect(() => {
     if (auth.isAuthenticated) {
-      setIsSignedIn(true);
+      dispatch(setSignedIn(true));
     }
-  }, [auth.isAuthenticated, setIsSignedIn]);
+  }, [auth.isAuthenticated, dispatch]);
 
   useEffect(() => {
     setIsLoading(auth.isLoading);
@@ -38,25 +42,27 @@ const useAuth = () => {
   useEffect(() => {
     const profile = auth.user?.profile;
     if (profile && !currentUserData) {
-      setCurrentUserData({
-        firstName: profile.given_name,
-        lastName: profile.family_name,
-        displayName: profile.name,
-        emailAddress: profile.email,
-        phoneNumber: profile.phone_number,
-      });
+      dispatch(
+        setCurrentUser({
+          firstName: profile.given_name,
+          lastName: profile.family_name,
+          displayName: profile.name,
+          emailAddress: profile.email,
+          phoneNumber: profile.phone_number,
+        }),
+      );
     }
-  }, [auth.user?.profile, currentUserData, setCurrentUserData]);
+  }, [auth.user?.profile, currentUserData, dispatch]);
 
   useEffect(() => {
     if (auth.error) {
       setError(auth.error.message);
-      setIsSignedIn(false);
+      dispatch(setSignedIn(false));
 
       // eslint-disable-next-line no-console
       console.error('Error:', auth.error);
     }
-  }, [auth.error, setIsSignedIn]);
+  }, [auth.error, dispatch]);
 
   const signIn = async (
     username: string,
@@ -64,28 +70,27 @@ const useAuth = () => {
   ): Promise<AxiosResponse> => {
     auth.error = undefined;
     return axios
-      .post('/auth/signin', {
-        username,
-        password,
-      })
+      .post('/auth/signin', { username, password })
       .then((response) => {
         const { data, status } = response;
         if (status === 200) {
-          setIsSignedIn(true);
-          setCurrentUserData({
-            firstName: data.first_name,
-            lastName: data.last_name,
-            displayName: data.display_name,
-            emailAddress: data.email_address,
-            phoneNumber: data.phone_number,
-          });
+          dispatch(setSignedIn(true));
+          dispatch(
+            setCurrentUser({
+              firstName: data.first_name,
+              lastName: data.last_name,
+              displayName: data.display_name,
+              emailAddress: data.email_address,
+              phoneNumber: data.phone_number,
+            }),
+          );
         }
         return response;
       })
       .catch((error) => {
         setError(error.message);
-        setIsSignedIn(false);
-        setCurrentUserData({} as User);
+        dispatch(setSignedIn(false));
+        dispatch(setCurrentUser({} as User));
         // eslint-disable-next-line no-console
         console.error('Error:', error);
         throw error;
@@ -97,15 +102,13 @@ const useAuth = () => {
   };
 
   const signOut = (): void => {
-    setIsSignedIn(false);
-    setCurrentUserData({} as User);
+    dispatch(signOutAction());
     if (auth.isAuthenticated) {
       auth.signoutRedirect({
         post_logout_redirect_uri: getSignInRedirectUrl(),
       });
     } else {
-      setIsSignedIn(false);
-      setCurrentUserData({} as User);
+      dispatch(signOutAction());
     }
   };
 
