@@ -37,7 +37,7 @@ const useAuth = () => {
 
   useEffect(() => {
     const profile = auth.user?.profile;
-    if (profile && !currentUserData) {
+    if (auth.isAuthenticated && profile && !currentUserData) {
       setCurrentUserData({
         firstName: profile.given_name,
         lastName: profile.family_name,
@@ -46,7 +46,12 @@ const useAuth = () => {
         phoneNumber: profile.phone_number,
       });
     }
-  }, [auth.user?.profile, currentUserData, setCurrentUserData]);
+  }, [
+    auth.isAuthenticated,
+    auth.user?.profile,
+    currentUserData,
+    setCurrentUserData,
+  ]);
 
   useEffect(() => {
     if (auth.error) {
