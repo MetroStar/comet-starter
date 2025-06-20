@@ -41,14 +41,14 @@ export default defineUnlighthouseConfig({
     sitemap: false,
     throttle: true,
     samples: 3,
-    include: [
-      '/',
-      '/about',
-      '/contact-us',
-      '/signin',
-      // '/dashboard',
-      // '/cases/1000002',
-    ],
+    // include: [
+    //   '/',
+    //   '/about',
+    //   '/contact-us',
+    //   '/signin',
+    //   '/dashboard',
+    //   '/cases/1000002',
+    // ],
   },
   // hooks: {
   //   async authenticate(page: Page) {

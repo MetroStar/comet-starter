@@ -25,10 +25,10 @@ jobs:
         run: npm ci
 
       - name: Install global dependencies
-        run: npm install -g @unlighthouse/cli
+        run: npm install -g @unlighthouse/cli puppeteer
 
       - name: Run Tests
-        run: unlighthouse-ci --config-file .unlighthouse.config.ts  --site https://metrostar.github.io/comet-starter/ --build-static --output-path unlighthouse-report
+        run: unlighthouse-ci --config-file .unlighthouse.config.ts --site https://metrostar.github.io/comet-starter/ --build-static --output-path unlighthouse-report --reporter jsonExpanded --debug
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
