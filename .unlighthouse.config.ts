@@ -56,7 +56,7 @@ export default defineUnlighthouseConfig({
   //     console.log('Authentication enabled:', authEnabled);
 
   //     if (authEnabled) {
-  //       const baseUrl = process.env.BASE_URL || 'http://localhost:8080';
+  //       const baseUrl = process.env.VITE_BASE_URL || 'http://localhost:8080';
   //       await page.goto(baseUrl + '/signin');
   //       await page.locator('#sign-in-sso').click();
   //       await page.waitForSelector('#kc-login');
