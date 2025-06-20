@@ -10,6 +10,10 @@ const keycloak = {
     : '',
   redirect_uri: getSignInRedirectUrl(),
   userStore: new WebStorageStateStore({ store: window.localStorage }),
+  onSigninCallback: () => {
+    // Clean up the URL by removing OIDC parameters
+    window.history.replaceState({}, document.title, window.location.pathname);
+  },
 };
 
 export default keycloak;
