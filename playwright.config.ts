@@ -13,4 +13,5 @@ export default defineConfig({
     baseURL: process.env.VITE_BASE_URL || 'http://localhost:8080',
   },
   testDir: 'e2e',
+  outputDir: 'e2e-results',
 });

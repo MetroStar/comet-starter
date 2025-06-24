@@ -23,7 +23,6 @@ node_modules
 !.vscode/extensions.json
 
 # Coverage directory used by tools like istanbul
-coverage
 *.lcov
 
 # System Files
@@ -48,7 +47,9 @@ yarn-error.log
 testem.log
 /typings
 *.local
-/test-results
-/playwright-report
-.unlighthouse
 .puppeteer_data
+
+# Test Results
+coverage
+e2e-results
+.unlighthouse
