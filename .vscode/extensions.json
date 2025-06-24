@@ -1,10 +1,6 @@
 {
   "recommendations": [
-    "mgmcdermott.vscode-language-babel",
-    "editorconfig.editorconfig",
-    "irongeek.vscode-env",
     "dbaeumer.vscode-eslint",
-    "wix.vscode-import-cost",
     "esbenp.prettier-vscode",
     "pflannery.vscode-versionlens",
     "vitest.explorer"
