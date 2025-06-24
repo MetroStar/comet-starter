@@ -40,7 +40,7 @@ This project is built using the following tools and libraries:
 
 ## Unit Testing
 
-- Use Vitest for unit testing, never not use Jest.
+- Use Vitest for unit testing, never use Jest.
 - Use React Testing Library for testing React components.
 - Use 'test' instead of 'it' for test names.
 
