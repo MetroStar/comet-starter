@@ -44,7 +44,7 @@ describe('Dashboard', () => {
     });
 
     expect(baseElement.querySelector('h1')?.textContent).toEqual(
-      'My Dashboard',
+      'IT Operations Dashboard',
     );
   });
 });

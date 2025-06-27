@@ -4,7 +4,7 @@ import rssIcon from '~uswds/dist/img/usa-icons/rss_feed.svg';
 import twitterIcon from '~uswds/dist/img/usa-icons/twitter.svg';
 import youtubeIcon from '~uswds/dist/img/usa-icons/youtube.svg';
 
-export const APP_TITLE = 'Case Management';
+export const APP_TITLE = 'IT Operations Dashboard';
 export const REQUIRED_FIELD_MESSAGE = 'This field is required.';
 export const MIN_PASSWORD_LENGTH = 8;
 export const PASSWORD_LENGTH_MESSAGE = `Password must be at least ${MIN_PASSWORD_LENGTH} characters long`;
