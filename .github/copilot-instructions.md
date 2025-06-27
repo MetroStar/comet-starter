@@ -22,6 +22,8 @@ This project is built using the following tools and libraries:
 - All Comet components should include an `id` attribute.
 - Use arrow functions for components and hooks.
 - Use functional components instead of class components.
+- Use PascalCase for component names.
+- Use kebab-case for file names and directories.
 - Components should return `React.ReactElement`.
 - Use named exports for components and pages.
 - Use custom hooks for calling APIs.
