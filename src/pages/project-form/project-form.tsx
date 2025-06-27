@@ -62,10 +62,6 @@ export const ProjectForm = (): React.ReactElement => {
     navigate('/dashboard');
   };
 
-  const handleReturnToTop = (): void => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
     <>
       <div className="grid-container">
@@ -77,7 +73,7 @@ export const ProjectForm = (): React.ReactElement => {
               <StepIndicator
                 id="project-step-indicator"
                 steps={steps}
-                currentStep={1}
+                currentStep={0}
               />
             </div>
 
@@ -85,15 +81,6 @@ export const ProjectForm = (): React.ReactElement => {
 
             <div className="grid-row">
               <div className="grid-col-12 tablet:grid-col-8 desktop:grid-col-6">
-                <div className="display-flex flex-column margin-bottom-4">
-                  <div className="display-flex flex-align-center margin-bottom-2">
-                    <div className="bg-primary radius-pill width-6 height-6 display-flex flex-align-center flex-justify-center margin-right-2">
-                      <span className="text-white text-bold">1</span>
-                    </div>
-                    <span className="text-base margin-left-1">of 5</span>
-                  </div>
-                </div>
-
                 <form
                   className="usa-form usa-form--large"
                   onSubmit={handleSubmit(onSubmit)}
@@ -110,6 +97,7 @@ export const ProjectForm = (): React.ReactElement => {
                           id="project-name"
                           label="Name"
                           required
+                          autoFocus
                           errors={
                             errors.name?.message
                               ? errors.name.message
@@ -197,16 +185,6 @@ export const ProjectForm = (): React.ReactElement => {
                   </div>
                 </form>
               </div>
-            </div>
-
-            <div className="margin-top-8">
-              <button
-                type="button"
-                className="usa-link"
-                onClick={handleReturnToTop}
-              >
-                Return to top
-              </button>
             </div>
           </div>
         </div>
