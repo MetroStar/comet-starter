@@ -48,3 +48,9 @@ This project is built using the following tools and libraries:
 
 - Use ESLint for code analysis.
 - Use Prettier for code formatting.
+
+## Accessibility
+
+- Ensure HTML is WCAG 2.1 AA and Section 508 compliant.
+- Ensure HTML meets accessibility best practices for screen readers, keyboard navigation, and color contrast.
+- Use semantic HTML and ARIA roles appropriately.
