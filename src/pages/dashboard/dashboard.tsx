@@ -12,8 +12,11 @@ import {
   Table,
 } from '@metrostar/comet-uswds';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const Dashboard = (): React.ReactElement => {
+  const navigate = useNavigate();
+
   // Mock data for the System Uptime chart
   const systemUptimeData = [
     { x: 'Jan', y: 15 },
@@ -59,6 +62,10 @@ export const Dashboard = (): React.ReactElement => {
       updated: { value: '2025-06-26' },
     },
   ];
+
+  const handleCreateProject = (): void => {
+    navigate('/projects/new');
+  };
 
   return (
     <>
@@ -226,7 +233,11 @@ export const Dashboard = (): React.ReactElement => {
                     <Button id="view-all-projects-btn" variant="unstyled">
                       View All Projects
                     </Button>
-                    <Button id="create-new-project-btn" variant="default">
+                    <Button
+                      id="create-new-project-btn"
+                      variant="default"
+                      onClick={handleCreateProject}
+                    >
                       Create New Project
                     </Button>
                   </ButtonGroup>

@@ -10,6 +10,7 @@ import { ContactUs } from './pages/contact-us/contact-us';
 import { Dashboard } from './pages/dashboard/dashboard';
 import { Home } from './pages/home/home';
 import { NotFound } from './pages/not-found/not-found';
+import { ProjectForm } from './pages/project-form/project-form';
 import { SearchResults } from './pages/search-results/search-results';
 import { SignIn } from './pages/sign-in/sign-in';
 
@@ -26,6 +27,7 @@ export const App = (): React.ReactElement => (
         <Route path="/" element={<Home />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/projects/new" element={<ProjectForm />} />
           <Route path="/cases/:id" element={<CaseDetails />} />
           <Route path="/results" element={<SearchResults />} />
         </Route>
