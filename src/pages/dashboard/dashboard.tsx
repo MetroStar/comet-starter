@@ -3,6 +3,7 @@ import { TabPanel, Tabs } from '@metrostar/comet-extras';
 import {
   Alert,
   Button,
+  ButtonGroup,
   Card,
   CardBody,
   CardFooter,
@@ -202,7 +203,7 @@ export const Dashboard = (): React.ReactElement => {
                   </p>
                   <PieChart
                     title="Security Alert Distribution"
-                    height={400}
+                    height={300}
                     width={400}
                     colors="warm"
                     data={securityAlertData}
@@ -220,12 +221,16 @@ export const Dashboard = (): React.ReactElement => {
             <div className="display-flex flex-justify">
               <h2 className="margin-bottom-4">Recent Projects</h2>
               <div className="display-flex flex-gap-4">
-                <Button id="view-all-projects-btn" variant="unstyled">
-                  View All Projects
-                </Button>
-                <Button id="create-new-project-btn" variant="default">
-                  Create New Project
-                </Button>
+                <div>
+                  <ButtonGroup>
+                    <Button id="view-all-projects-btn" variant="unstyled">
+                      View All Projects
+                    </Button>
+                    <Button id="create-new-project-btn" variant="default">
+                      Create New Project
+                    </Button>
+                  </ButtonGroup>
+                </div>
               </div>
             </div>
             <div className="bg-base-lightest padding-4 radius-lg border border-base-lighter">
@@ -236,6 +241,8 @@ export const Dashboard = (): React.ReactElement => {
                     columns={projectColumns}
                     data={projectData}
                     id="projects-table"
+                    className="width-full"
+                    sortable
                   />
                 </TabPanel>
                 <TabPanel id="active-tab" label="Active">
@@ -244,6 +251,8 @@ export const Dashboard = (): React.ReactElement => {
                     columns={projectColumns}
                     data={projectData.slice(0, 2)}
                     id="active-projects-table"
+                    className="width-full"
+                    sortable
                   />
                 </TabPanel>
                 <TabPanel id="completed-tab" label="Completed">
@@ -252,6 +261,8 @@ export const Dashboard = (): React.ReactElement => {
                     columns={projectColumns}
                     data={projectData.slice(2)}
                     id="completed-projects-table"
+                    className="width-full"
+                    sortable
                   />
                 </TabPanel>
               </Tabs>
