@@ -18,6 +18,7 @@ This project is built using the following tools and libraries:
 
 - Use TypeScript for type safety.
 - Use the Comet Component Library for UI components.
+- Comet components are documented at [Comet Documentation](https://metrostar.github.io/comet).
 - Use the Comet Icon component for icons.
 - All Comet components should include an `id` attribute.
 - Use arrow functions for components and hooks.
