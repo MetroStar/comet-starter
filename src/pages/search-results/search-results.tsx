@@ -2,25 +2,52 @@ import { Spinner } from '@metrostar/comet-extras';
 import { Card, CardBody } from '@metrostar/comet-uswds';
 import ErrorNotification from '@src/components/error-notification/error-notification';
 import useCasesApi from '@src/hooks/use-cases-api';
+import { CaseSearchFilters } from '@src/types/case';
 import React from 'react';
 import { NavLink, useSearchParams } from 'react-router-dom';
 
 export const SearchResults = (): React.ReactElement => {
   const [searchParams] = useSearchParams();
   const { searchCases } = useCasesApi();
-  const { data, isLoading, isError, error } = searchCases(
-    searchParams.get('q') || '',
-  );
+
+  const filters: CaseSearchFilters = {
+    id: searchParams.get('caseId') || undefined,
+    last_name: searchParams.get('lastName') || undefined,
+    first_name: searchParams.get('firstName') || undefined,
+    status:
+      (searchParams.get('status') as CaseSearchFilters['status']) || undefined,
+    assigned_to: searchParams.get('assignedTo') || undefined,
+    created_before: searchParams.get('createdBefore') || undefined,
+    created_after: searchParams.get('createdAfter') || undefined,
+  };
+
+  const { data, isLoading, isError, error } = searchCases(filters);
 
   const getResultsSummary = () => {
-    const query = searchParams.get('q') || '';
+    // Build a summary string based on filters
+    const summaryParts = [];
+    if (filters.id) summaryParts.push(`Case ID: "${filters.id}"`);
+    if (filters.last_name)
+      summaryParts.push(`Last Name: "${filters.last_name}"`);
+    if (filters.first_name)
+      summaryParts.push(`First Name: "${filters.first_name}"`);
+    if (filters.status) summaryParts.push(`Status: "${filters.status}"`);
+    if (filters.assigned_to)
+      summaryParts.push(`Assigned To: "${filters.assigned_to}"`);
+    if (filters.created_before)
+      summaryParts.push(`Created Before: "${filters.created_before}"`);
+    if (filters.created_after)
+      summaryParts.push(`Created After: "${filters.created_after}"`);
+    const summary =
+      summaryParts.length > 0 ? summaryParts.join(', ') : 'All Cases';
+
     if (!data) {
-      return `Found 0 search results for "${query}"`;
+      return `Found 0 search results for "${summary}"`;
     }
 
     return data.length === 1
-      ? `Found 1 search result for "${query}"`
-      : `Found ${data.length} search results for "${query}"`;
+      ? `Found 1 search result for "${summary}"`
+      : `Found ${data.length} search results for "${summary}"`;
   };
 
   return (

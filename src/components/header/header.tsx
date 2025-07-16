@@ -1,4 +1,5 @@
 import { Banner, Icon, Search, useHeader } from '@metrostar/comet-uswds';
+import { CaseSearchFilters } from '@src/types/case';
 import { SearchFormElements } from '@src/types/form';
 import {
   APP_TITLE,
@@ -9,10 +10,13 @@ import { lowercaseHyphenateString } from '@src/utils/helpers';
 import React, { FormEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/use-auth';
+import { AdvancedSearchPanel } from '../advanced-search-panel/advanced-search-panel';
 
 export const Header = (): React.ReactElement => {
   const { on, off } = useHeader();
   const [showMenu, setShowMenu] = useState(false);
+  const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
+  const [advancedFilters, setAdvancedFilters] = useState<CaseSearchFilters>({});
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -21,6 +25,36 @@ export const Header = (): React.ReactElement => {
   const handleMenuClick = (): void => {
     window.scrollTo({ top: 0 });
     setShowMenu(!showMenu);
+  };
+
+  const handleAdvancedSearchOpen = (): void => {
+    setShowAdvancedSearch(true);
+  };
+
+  const handleAdvancedSearchClose = (): void => {
+    setShowAdvancedSearch(false);
+  };
+
+  const handleAdvancedSearch = (filters: CaseSearchFilters): void => {
+    // Build query string from filters
+    const params = new URLSearchParams();
+    if (filters.id) params.append('caseId', filters.id);
+    if (filters.last_name) params.append('lastName', filters.last_name);
+    if (filters.first_name) params.append('firstName', filters.first_name);
+    if (filters.status) params.append('status', filters.status);
+    if (filters.assigned_to) params.append('assignedTo', filters.assigned_to);
+    if (filters.created_before)
+      params.append('createdBefore', filters.created_before);
+    if (filters.created_after)
+      params.append('createdAfter', filters.created_after);
+
+    setAdvancedFilters(filters);
+    navigate(`/results?${params.toString()}`);
+    setShowAdvancedSearch(false);
+  };
+
+  const handleAdvancedClear = (): void => {
+    setAdvancedFilters({});
   };
 
   // Ensure navigation JS is loaded
@@ -137,13 +171,45 @@ export const Header = (): React.ReactElement => {
                 </Link>
               </li>
             </ul>
-            <section aria-label="Search component">
-              <Search
-                id="search"
-                type="small"
-                placeholder="Search our Site"
-                onSearch={handleSearch}
-              />
+            <section
+              aria-label="Search component"
+              className="usa-search-section"
+            >
+              <div className="grid-container">
+                <div className="grid-row flex-justify-center">
+                  <div className="display-flex flex-align-center">
+                    <button
+                      id="filter-btn"
+                      type="button"
+                      className="usa-button usa-button--unstyled margin-right-1"
+                      aria-label="Show advanced search filters"
+                      onClick={handleAdvancedSearchOpen}
+                    >
+                      <Icon id="filter-icon" type="filter_alt" />
+                    </button>
+                    <Search
+                      id="search"
+                      type="small"
+                      placeholder="Search our Site"
+                      onSearch={handleSearch}
+                    />
+                  </div>
+                </div>
+                {showAdvancedSearch && (
+                  <div
+                    className="advanced-search-panel-overlay"
+                    role="dialog"
+                    aria-modal="true"
+                  >
+                    <AdvancedSearchPanel
+                      initialFilters={advancedFilters}
+                      onSearch={handleAdvancedSearch}
+                      onClear={handleAdvancedClear}
+                      onClose={handleAdvancedSearchClose}
+                    />
+                  </div>
+                )}
+              </div>
             </section>
           </nav>
         </div>

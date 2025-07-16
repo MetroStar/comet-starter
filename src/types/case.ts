@@ -34,3 +34,13 @@ export interface CaseItems {
   prev_page: number | null;
   next_page: number | null;
 }
+
+export interface CaseSearchFilters {
+  id?: string;
+  last_name?: string;
+  first_name?: string;
+  status?: 'Not Started' | 'In Progress' | 'Approved' | 'Denied';
+  assigned_to?: string;
+  created_before?: string; // ISO date string
+  created_after?: string; // ISO date string
+}

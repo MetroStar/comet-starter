@@ -1,5 +1,5 @@
 import { mockData } from '@src/data/case';
-import { Case } from '@src/types/case';
+import { Case, CaseSearchFilters } from '@src/types/case';
 import axios from '@src/utils/axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -14,18 +14,54 @@ const getCases = async (): Promise<Case[]> => {
   );
 };
 
-const searchCases = async (query: string): Promise<Case[]> => {
+const searchCases = async (filters: CaseSearchFilters): Promise<Case[]> => {
   // const response = await axios.get(`/cases?q=${query}`);
   // return response.data.items;
 
   return Promise.resolve(
-    mockData.items.filter(
-      (item) =>
+    mockData.items.filter((item) => {
+      if (filters.id && !item.id.toString().includes(filters.id)) return false;
+      if (
+        filters.last_name &&
+        !item.applicant.last_name
+          .toLowerCase()
+          .includes(filters.last_name.toLowerCase())
+      )
+        return false;
+      if (
+        filters.first_name &&
+        !item.applicant.first_name
+          .toLowerCase()
+          .includes(filters.first_name.toLowerCase())
+      )
+        return false;
+      if (filters.status && item.status !== filters.status) return false;
+      if (
+        filters.assigned_to &&
+        (!item.assigned_to ||
+          !item.assigned_to
+            .toLowerCase()
+            .includes(filters.assigned_to.toLowerCase()))
+      )
+        return false;
+      if (
+        filters.created_before &&
+        new Date(item.created_at) >= new Date(filters.created_before)
+      )
+        return false;
+      if (
+        filters.created_after &&
+        new Date(item.created_at) <= new Date(filters.created_after)
+      )
+        return false;
+      return true;
+      /*
         item.applicant.last_name.toLowerCase().includes(query) ||
         item.applicant.first_name.toLowerCase().includes(query) ||
         item.applicant.email?.toLowerCase().includes(query) ||
         item.id.toString().includes(query),
-    ),
+        */
+    }),
   );
 };
 
@@ -61,11 +97,11 @@ const useCasesApi = () => {
     queryFn: getCases,
   });
 
-  const searchCasesQuery = (query: string) =>
+  const searchCasesQuery = (filters: CaseSearchFilters) =>
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useQuery({
-      queryKey: ['cases', query],
-      queryFn: () => searchCases(query),
+      queryKey: ['cases', filters],
+      queryFn: () => searchCases(filters),
     });
 
   const caseQuery = (id: number) =>
