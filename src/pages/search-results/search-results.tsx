@@ -1,14 +1,18 @@
 import { Spinner } from '@metrostar/comet-extras';
-import { Card, CardBody } from '@metrostar/comet-uswds';
+import { Card, CardBody, Search } from '@metrostar/comet-uswds';
 import ErrorNotification from '@src/components/error-notification/error-notification';
 import useCasesApi from '@src/hooks/use-cases-api';
 import { CaseSearchFilters } from '@src/types/case';
-import React from 'react';
-import { NavLink, useSearchParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { NavLink, useNavigate, useSearchParams } from 'react-router-dom';
+import { AdvancedSearchPanel } from './advanced-search-panel';
 
 export const SearchResults = (): React.ReactElement => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const { searchCases } = useCasesApi();
+
+  const [simpleQuery, setSimpleQuery] = useState(searchParams.get('q') || '');
 
   const filters: CaseSearchFilters = {
     id: searchParams.get('caseId') || undefined,
@@ -19,13 +23,59 @@ export const SearchResults = (): React.ReactElement => {
     assigned_to: searchParams.get('assignedTo') || undefined,
     created_before: searchParams.get('createdBefore') || undefined,
     created_after: searchParams.get('createdAfter') || undefined,
+    q: searchParams.get('q') || undefined, // Add q for simple search
   };
 
-  const { data, isLoading, isError, error } = searchCases(filters);
+  // Pass both simple and advanced filters to the API
+  const { data, isLoading, isError, error } = searchCases({
+    ...filters,
+    q: simpleQuery || undefined,
+  });
+
+  // Simple search handler
+  const handleSimpleSearch = (
+    event: React.FormEvent<HTMLFormElement>,
+    searchText: string,
+  ) => {
+    event.preventDefault();
+    setSimpleQuery(searchText);
+    const params = new URLSearchParams(searchParams);
+    if (searchText) {
+      params.set('q', searchText);
+    } else {
+      params.delete('q');
+    }
+    navigate(`/results?${params.toString()}`);
+  };
+
+  // Advanced search handler
+  const handleAdvancedSearch = (newFilters: CaseSearchFilters) => {
+    const params = new URLSearchParams();
+    if (newFilters.id) params.append('caseId', newFilters.id);
+    if (newFilters.last_name) params.append('lastName', newFilters.last_name);
+    if (newFilters.first_name)
+      params.append('firstName', newFilters.first_name);
+    if (newFilters.status) params.append('status', newFilters.status);
+    if (newFilters.assigned_to)
+      params.append('assignedTo', newFilters.assigned_to);
+    if (newFilters.created_before)
+      params.append('createdBefore', newFilters.created_before);
+    if (newFilters.created_after)
+      params.append('createdAfter', newFilters.created_after);
+    // Preserve simple query if present
+    if (simpleQuery) params.append('q', simpleQuery);
+    setSearchParams(params);
+  };
+
+  const handleAdvancedClear = () => {
+    setSearchParams({});
+    setSimpleQuery('');
+  };
 
   const getResultsSummary = () => {
     // Build a summary string based on filters
     const summaryParts = [];
+    if (simpleQuery) summaryParts.push(`Search: "${simpleQuery}"`);
     if (filters.id) summaryParts.push(`Case ID: "${filters.id}"`);
     if (filters.last_name)
       summaryParts.push(`Last Name: "${filters.last_name}"`);
@@ -52,51 +102,74 @@ export const SearchResults = (): React.ReactElement => {
 
   return (
     <div className="grid-container">
-      <div className="grid-row padding-bottom-2">
-        <div className="grid-col">
-          <h1>{getResultsSummary()}</h1>
+      <div className="grid-row">
+        {/* Advanced Search Panel on the left */}
+        <div className="grid-col-3">
+          <AdvancedSearchPanel
+            initialFilters={filters}
+            onSearch={handleAdvancedSearch}
+            onClear={handleAdvancedClear}
+            onClose={() => {}}
+          />
+        </div>
+        {/* Search Results and Simple Search on the right */}
+        <div className="grid-col-9">
+          <div className="padding-bottom-2 display-flex flex-align-center">
+            <Search
+              id="simple-search"
+              type="small"
+              placeholder="Search cases"
+              value={simpleQuery}
+              onSearch={handleSimpleSearch}
+            />
+          </div>
+          <div className="grid-row padding-bottom-2">
+            <div className="grid-col">
+              <h1>{getResultsSummary()}</h1>
+            </div>
+          </div>
+          {isError && (
+            <div className="grid-row padding-bottom-2">
+              <div className="grid-col">
+                <ErrorNotification error={error.message} />
+              </div>
+            </div>
+          )}
+          {isLoading ? (
+            <Spinner id="spinner" type="small" loadingText="Loading..." />
+          ) : (
+            <div className="grid-row">
+              <div className="grid-col">
+                {data && data.length > 0 ? (
+                  data.map((item) => (
+                    <Card
+                      key={`result-card-${item.id}`}
+                      id={`result-card-${item.id}`}
+                    >
+                      <CardBody>
+                        Case:{' '}
+                        <NavLink
+                          id={`case-link-${item.id}`}
+                          to={`/cases/${item.id}`}
+                        >
+                          <strong>{item.id}</strong>
+                        </NavLink>
+                        <div>
+                          Applicant: {item.applicant.first_name}{' '}
+                          {item.applicant.last_name}
+                        </div>
+                        <div>Status: {item.status}</div>
+                      </CardBody>
+                    </Card>
+                  ))
+                ) : (
+                  <></>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
-      {isError && (
-        <div className="grid-row padding-bottom-2">
-          <div className="grid-col">
-            <ErrorNotification error={error.message} />
-          </div>
-        </div>
-      )}
-      {isLoading ? (
-        <Spinner id="spinner" type="small" loadingText="Loading..." />
-      ) : (
-        <div className="grid-row">
-          <div className="grid-col">
-            {data && data.length > 0 ? (
-              data.map((item) => (
-                <Card
-                  key={`result-card-${item.id}`}
-                  id={`result-card-${item.id}`}
-                >
-                  <CardBody>
-                    Case:{' '}
-                    <NavLink
-                      id={`case-link-${item.id}`}
-                      to={`/cases/${item.id}`}
-                    >
-                      <strong>{item.id}</strong>
-                    </NavLink>
-                    <div>
-                      Applicant: {item.applicant.first_name}{' '}
-                      {item.applicant.last_name}
-                    </div>
-                    <div>Status: {item.status}</div>
-                  </CardBody>
-                </Card>
-              ))
-            ) : (
-              <></>
-            )}
-          </div>
-        </div>
-      )}
     </div>
   );
 };

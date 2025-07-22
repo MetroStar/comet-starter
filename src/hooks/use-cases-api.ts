@@ -15,11 +15,23 @@ const getCases = async (): Promise<Case[]> => {
 };
 
 const searchCases = async (filters: CaseSearchFilters): Promise<Case[]> => {
-  // const response = await axios.get(`/cases?q=${query}`);
-  // return response.data.items;
-
   return Promise.resolve(
     mockData.items.filter((item) => {
+      // Simple search logic
+      if (filters.q) {
+        const q = filters.q.toLowerCase();
+        if (
+          !(
+            item.id.toString().includes(q) ||
+            item.applicant.last_name.toLowerCase().includes(q) ||
+            item.applicant.first_name.toLowerCase().includes(q) ||
+            item.applicant.email?.toLowerCase().includes(q)
+          )
+        ) {
+          return false;
+        }
+      }
+      // Advanced filters
       if (filters.id && !item.id.toString().includes(filters.id)) return false;
       if (
         filters.last_name &&
@@ -55,12 +67,6 @@ const searchCases = async (filters: CaseSearchFilters): Promise<Case[]> => {
       )
         return false;
       return true;
-      /*
-        item.applicant.last_name.toLowerCase().includes(query) ||
-        item.applicant.first_name.toLowerCase().includes(query) ||
-        item.applicant.email?.toLowerCase().includes(query) ||
-        item.id.toString().includes(query),
-        */
     }),
   );
 };
