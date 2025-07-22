@@ -35,3 +35,7 @@ updates:
         versions:
           - '>=19.0.0'
       - dependency-name: '@rollup/rollup-linux-x64-gnu'
+      # Remove this ignore rule when USWDS moves to CSS variables
+      - dependency-name: 'vite'
+        versions:
+          - '>=7.0.0'
