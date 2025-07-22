@@ -2,6 +2,7 @@ import { BarGraph } from '@metrostar/comet-data-viz';
 import { Case } from '@src/types/case';
 import React, { useEffect, useState } from 'react';
 import { ChartData } from '../types';
+import './dashboard-bar-chart.scss';
 
 interface DashboardBarChartProps {
   items: Case[] | undefined;
@@ -34,18 +35,9 @@ export const DashboardBarChart = ({
   }, [items]);
 
   return data ? (
-    <div
-      style={{
-        height: '300px',
-        width: '400px',
-      }}
-    >
+    <div className="bar-chart-container">
       <BarGraph
-        chart={{
-          height: 300,
-          title: 'Cases by State Bar Graph',
-          width: 375,
-        }}
+        chart={{ title: 'Cases by State Bar Graph' }}
         alignment="start"
         data={data}
         color="#0d7ea2"
