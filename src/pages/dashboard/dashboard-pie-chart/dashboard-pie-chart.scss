@@ -1,0 +1,9 @@
+.pie-chart-container {
+  height: 400px;
+  width: 100%;
+
+  // Target the wrapper div created by the component library
+  > div {
+    height: 400px !important;
+  }
+}
