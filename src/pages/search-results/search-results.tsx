@@ -1,19 +1,21 @@
 import { Spinner } from '@metrostar/comet-extras';
-import { Card, CardBody, Search } from '@metrostar/comet-uswds';
+import { Card, CardBody } from '@metrostar/comet-uswds';
 import ErrorNotification from '@src/components/error-notification/error-notification';
 import useCasesApi from '@src/hooks/use-cases-api';
 import { CaseSearchFilters } from '@src/types/case';
-import { SearchFormElements } from '@src/types/form';
-import React, { useState } from 'react';
-import { NavLink, useNavigate, useSearchParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { NavLink, useSearchParams } from 'react-router-dom';
 import { AdvancedSearchPanel } from './advanced-search-panel';
 
 export const SearchResults = (): React.ReactElement => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
   const { searchCases } = useCasesApi();
 
   const [simpleQuery, setSimpleQuery] = useState(searchParams.get('q') || '');
+
+  useEffect(() => {
+    setSimpleQuery(searchParams.get('q') || '');
+  }, [searchParams]);
 
   const filters: CaseSearchFilters = {
     id: searchParams.get('caseId') || undefined,
@@ -32,17 +34,6 @@ export const SearchResults = (): React.ReactElement => {
     ...filters,
     q: simpleQuery || undefined,
   });
-
-  const handleSimpleSearch = (
-    event: React.FormEvent<HTMLFormElement>,
-  ): void => {
-    event.preventDefault();
-    const form = event.target as HTMLFormElement & {
-      elements: SearchFormElements;
-    };
-    navigate(`/results?q=${form.elements.search.value}`);
-    form.reset();
-  };
 
   // Advanced search handler
   const handleAdvancedSearch = (newFilters: CaseSearchFilters) => {
@@ -110,15 +101,15 @@ export const SearchResults = (): React.ReactElement => {
         </div>
         {/* Search Results and Simple Search on the right */}
         <div className="grid-col-9">
-          <div className="padding-bottom-2 display-flex flex-align-center">
+          {/* <div className="padding-bottom-2 display-flex flex-align-center">
             <Search
               id="search"
               type="small"
               placeholder="Search cases"
               value={simpleQuery}
-              onSearch={handleSimpleSearch}
+              onSearch={handleSearch}
             />
-          </div>
+          </div> */}
           <div className="grid-row padding-bottom-2">
             <div className="grid-col">
               <h1>{getResultsSummary()}</h1>
