@@ -3,6 +3,7 @@ import { Card, CardBody, Search } from '@metrostar/comet-uswds';
 import ErrorNotification from '@src/components/error-notification/error-notification';
 import useCasesApi from '@src/hooks/use-cases-api';
 import { CaseSearchFilters } from '@src/types/case';
+import { SearchFormElements } from '@src/types/form';
 import React, { useState } from 'react';
 import { NavLink, useNavigate, useSearchParams } from 'react-router-dom';
 import { AdvancedSearchPanel } from './advanced-search-panel';
@@ -32,20 +33,15 @@ export const SearchResults = (): React.ReactElement => {
     q: simpleQuery || undefined,
   });
 
-  // Simple search handler
   const handleSimpleSearch = (
     event: React.FormEvent<HTMLFormElement>,
-    searchText: string,
-  ) => {
+  ): void => {
     event.preventDefault();
-    setSimpleQuery(searchText);
-    const params = new URLSearchParams(searchParams);
-    if (searchText) {
-      params.set('q', searchText);
-    } else {
-      params.delete('q');
-    }
-    navigate(`/results?${params.toString()}`);
+    const form = event.target as HTMLFormElement & {
+      elements: SearchFormElements;
+    };
+    navigate(`/results?q=${form.elements.search.value}`);
+    form.reset();
   };
 
   // Advanced search handler
@@ -116,7 +112,7 @@ export const SearchResults = (): React.ReactElement => {
         <div className="grid-col-9">
           <div className="padding-bottom-2 display-flex flex-align-center">
             <Search
-              id="simple-search"
+              id="search"
               type="small"
               placeholder="Search cases"
               value={simpleQuery}
