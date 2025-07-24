@@ -37,7 +37,7 @@ export interface CaseItems {
 
 export interface CaseSearchFilters {
   id?: string;
-  status?: 'Not Started' | 'In Progress' | 'Approved' | 'Denied';
+  status?: string[] | undefined;
   assigned_to?: string;
   created_before?: string; // ISO date string
   created_after?: string; // ISO date string

@@ -33,7 +33,12 @@ const searchCases = async (filters: CaseSearchFilters): Promise<Case[]> => {
       }
       // Advanced filters
       if (filters.id && !item.id.toString().includes(filters.id)) return false;
-      if (filters.status && item.status !== filters.status) return false;
+      if (
+        filters.status &&
+        filters.status.length > 0 &&
+        !filters.status.includes(item.status)
+      )
+        return false;
       if (
         filters.assigned_to &&
         (!item.assigned_to ||

@@ -20,11 +20,12 @@ export const SearchResults = (): React.ReactElement => {
   const filters: CaseSearchFilters = {
     id: searchParams.get('caseId') || undefined,
     status:
-      (searchParams.get('status') as CaseSearchFilters['status']) || undefined,
+      (searchParams.getAll('status') as CaseSearchFilters['status']) ||
+      undefined,
     assigned_to: searchParams.get('assignedTo') || undefined,
     created_before: searchParams.get('createdBefore') || undefined,
     created_after: searchParams.get('createdAfter') || undefined,
-    q: searchParams.get('q') || undefined, // Add q for simple search
+    q: searchParams.get('q') || undefined,
   };
 
   // Pass both simple and advanced filters to the API
@@ -37,7 +38,11 @@ export const SearchResults = (): React.ReactElement => {
   const handleAdvancedSearch = (newFilters: CaseSearchFilters) => {
     const params = new URLSearchParams();
     if (newFilters.id) params.append('caseId', newFilters.id);
-    if (newFilters.status) params.append('status', newFilters.status);
+    if (newFilters.status) {
+      for (const status of newFilters.status) {
+        params.append('status', status);
+      }
+    }
     if (newFilters.assigned_to)
       params.append('assignedTo', newFilters.assigned_to);
     if (newFilters.created_before)
@@ -57,15 +62,16 @@ export const SearchResults = (): React.ReactElement => {
   const getResultsSummary = () => {
     // Build a summary string based on filters
     const summaryParts = [];
-    if (simpleQuery) summaryParts.push(`Search: "${simpleQuery}"`);
-    if (filters.id) summaryParts.push(`Case ID: "${filters.id}"`);
-    if (filters.status) summaryParts.push(`Status: "${filters.status}"`);
+    if (simpleQuery) summaryParts.push(`Search: ${simpleQuery}`);
+    if (filters.id) summaryParts.push(`Case ID: ${filters.id}`);
+    if (filters.status && filters.status.length > 0)
+      summaryParts.push(`Status: ${filters.status}`);
     if (filters.assigned_to)
-      summaryParts.push(`Assigned To: "${filters.assigned_to}"`);
+      summaryParts.push(`Assigned To: ${filters.assigned_to}`);
     if (filters.created_before)
-      summaryParts.push(`Created Before: "${filters.created_before}"`);
+      summaryParts.push(`Created Before: ${filters.created_before}`);
     if (filters.created_after)
-      summaryParts.push(`Created After: "${filters.created_after}"`);
+      summaryParts.push(`Created After: ${filters.created_after}`);
     const summary =
       summaryParts.length > 0 ? summaryParts.join(', ') : 'All Cases';
 
