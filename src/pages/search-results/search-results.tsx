@@ -19,8 +19,6 @@ export const SearchResults = (): React.ReactElement => {
 
   const filters: CaseSearchFilters = {
     id: searchParams.get('caseId') || undefined,
-    last_name: searchParams.get('lastName') || undefined,
-    first_name: searchParams.get('firstName') || undefined,
     status:
       (searchParams.get('status') as CaseSearchFilters['status']) || undefined,
     assigned_to: searchParams.get('assignedTo') || undefined,
@@ -39,9 +37,6 @@ export const SearchResults = (): React.ReactElement => {
   const handleAdvancedSearch = (newFilters: CaseSearchFilters) => {
     const params = new URLSearchParams();
     if (newFilters.id) params.append('caseId', newFilters.id);
-    if (newFilters.last_name) params.append('lastName', newFilters.last_name);
-    if (newFilters.first_name)
-      params.append('firstName', newFilters.first_name);
     if (newFilters.status) params.append('status', newFilters.status);
     if (newFilters.assigned_to)
       params.append('assignedTo', newFilters.assigned_to);
@@ -64,10 +59,6 @@ export const SearchResults = (): React.ReactElement => {
     const summaryParts = [];
     if (simpleQuery) summaryParts.push(`Search: "${simpleQuery}"`);
     if (filters.id) summaryParts.push(`Case ID: "${filters.id}"`);
-    if (filters.last_name)
-      summaryParts.push(`Last Name: "${filters.last_name}"`);
-    if (filters.first_name)
-      summaryParts.push(`First Name: "${filters.first_name}"`);
     if (filters.status) summaryParts.push(`Status: "${filters.status}"`);
     if (filters.assigned_to)
       summaryParts.push(`Assigned To: "${filters.assigned_to}"`);
@@ -101,15 +92,6 @@ export const SearchResults = (): React.ReactElement => {
         </div>
         {/* Search Results and Simple Search on the right */}
         <div className="grid-col-9">
-          {/* <div className="padding-bottom-2 display-flex flex-align-center">
-            <Search
-              id="search"
-              type="small"
-              placeholder="Search cases"
-              value={simpleQuery}
-              onSearch={handleSearch}
-            />
-          </div> */}
           <div className="grid-row padding-bottom-2">
             <div className="grid-col">
               <h1>{getResultsSummary()}</h1>

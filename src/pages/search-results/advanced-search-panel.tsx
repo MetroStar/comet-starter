@@ -59,26 +59,6 @@ export const AdvancedSearchPanel = ({
           <div className="grid-row">
             <div className="grid-col-12">
               <TextInput
-                id="last_name"
-                label="Last Name"
-                value={filters.last_name || ''}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          <div className="grid-row">
-            <div className="grid-col-12">
-              <TextInput
-                id="first_name"
-                label="First Name"
-                value={filters.first_name || ''}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          <div className="grid-row">
-            <div className="grid-col-12">
-              <TextInput
                 id="assigned_to"
                 label="Assigned To"
                 value={filters.assigned_to || ''}
@@ -94,7 +74,6 @@ export const AdvancedSearchPanel = ({
                 value={filters.status || ''}
                 onChange={handleChange}
                 options={[
-                  { value: '', label: '- Select -' },
                   { value: 'Not Started', label: 'Not Started' },
                   { value: 'In Progress', label: 'In Progress' },
                   { value: 'Approved', label: 'Approved' },
