@@ -21,6 +21,7 @@ export const AdvancedSearchPanel = ({
   onClear,
 }: AdvancedSearchPanelProps): React.ReactElement => {
   const [filters, setFilters] = useState<CaseSearchFilters>(initialFilters);
+  const [datePickerKey, setDatePickerKey] = useState(0);
 
   useEffect(() => {
     onSearch(filters);
@@ -31,6 +32,17 @@ export const AdvancedSearchPanel = ({
   ) => {
     const { id, value } = e.target;
     setFilters((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleGenderChange = (value: string, checked: boolean) => {
+    setFilters((prev) => {
+      const prevGender = Array.isArray(prev.gender) ? prev.gender : [];
+      if (checked) {
+        return { ...prev, gender: [...prevGender, value] };
+      } else {
+        return { ...prev, gender: prevGender.filter((g) => g !== value) };
+      }
+    });
   };
 
   const handleStatusChange = (value: string, checked: boolean) => {
@@ -50,6 +62,7 @@ export const AdvancedSearchPanel = ({
 
   const handleClear = () => {
     setFilters({});
+    setDatePickerKey((prev) => prev + 1); // Reset date picker key to re-render
     onClear();
   };
 
@@ -77,6 +90,31 @@ export const AdvancedSearchPanel = ({
                 label="Assigned To"
                 value={filters.assigned_to || ''}
                 onChange={handleChange}
+              />
+            </div>
+          </div>
+          <div className="grid-row">
+            <div className="grid-col-12">
+              <label id="gender-label" className="usa-label" htmlFor="gender">
+                Gender
+              </label>
+              <Checkbox
+                id="gender-male"
+                label="Male"
+                checked={
+                  Array.isArray(filters.gender) &&
+                  filters.gender.includes('Male')
+                }
+                onChange={(e) => handleGenderChange('Male', e.target.checked)}
+              />
+              <Checkbox
+                id="gender-female"
+                label="Female"
+                checked={
+                  Array.isArray(filters.gender) &&
+                  filters.gender.includes('Female')
+                }
+                onChange={(e) => handleGenderChange('Female', e.target.checked)}
               />
             </div>
           </div>
@@ -133,6 +171,7 @@ export const AdvancedSearchPanel = ({
             <div className="grid-col-12">
               <DatePicker
                 id="created_after"
+                key={`created_after-${datePickerKey}`}
                 label="Created After"
                 value={filters.created_after || ''}
                 onChange={(e) =>
@@ -151,6 +190,7 @@ export const AdvancedSearchPanel = ({
             <div className="grid-col-12 margin-bottom-3">
               <DatePicker
                 id="created_before"
+                key={`created_before-${datePickerKey}`}
                 label="Created Before"
                 value={filters.created_before || ''}
                 onChange={(e) =>

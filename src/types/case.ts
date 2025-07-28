@@ -37,6 +37,7 @@ export interface CaseItems {
 
 export interface CaseSearchFilters {
   id?: string;
+  gender?: string;
   status?: string[] | undefined;
   assigned_to?: string;
   created_before?: string; // ISO date string

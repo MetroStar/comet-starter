@@ -19,6 +19,9 @@ export const SearchResults = (): React.ReactElement => {
 
   const filters: CaseSearchFilters = {
     id: searchParams.get('caseId') || undefined,
+    gender:
+      (searchParams.getAll('gender') as CaseSearchFilters['gender']) ||
+      undefined,
     status:
       (searchParams.getAll('status') as CaseSearchFilters['status']) ||
       undefined,
@@ -38,6 +41,11 @@ export const SearchResults = (): React.ReactElement => {
   const handleAdvancedSearch = (newFilters: CaseSearchFilters) => {
     const params = new URLSearchParams();
     if (newFilters.id) params.append('caseId', newFilters.id);
+    if (newFilters.gender) {
+      for (const gender of newFilters.gender) {
+        params.append('gender', gender);
+      }
+    }
     if (newFilters.status) {
       for (const status of newFilters.status) {
         params.append('status', status);
@@ -64,6 +72,8 @@ export const SearchResults = (): React.ReactElement => {
     const summaryParts = [];
     if (simpleQuery) summaryParts.push(`Search: ${simpleQuery}`);
     if (filters.id) summaryParts.push(`Case ID: ${filters.id}`);
+    if (filters.gender && filters.gender.length > 0)
+      summaryParts.push(`Gender: ${filters.gender}`);
     if (filters.status && filters.status.length > 0)
       summaryParts.push(`Status: ${filters.status}`);
     if (filters.assigned_to)

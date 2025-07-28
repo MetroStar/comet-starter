@@ -34,6 +34,12 @@ const searchCases = async (filters: CaseSearchFilters): Promise<Case[]> => {
       // Advanced filters
       if (filters.id && !item.id.toString().includes(filters.id)) return false;
       if (
+        filters.gender &&
+        filters.gender.length > 0 &&
+        !filters.gender.includes(item.applicant.gender)
+      )
+        return false;
+      if (
         filters.status &&
         filters.status.length > 0 &&
         !filters.status.includes(item.status)
