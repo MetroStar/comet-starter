@@ -1,5 +1,7 @@
 import {
   Button,
+  Card,
+  CardBody,
   Checkbox,
   DatePicker,
   TextInput,
@@ -67,160 +69,105 @@ export const AdvancedSearchPanel = ({
   };
 
   return (
-    <form className="advanced-search-panel" aria-label="Advanced search panel">
-      <div className="advanced-search-panel__content">
-        <div className="filters-header" id="filters-header">
-          Filters
-        </div>
-        <div className="grid-container">
-          <div className="grid-row">
-            <div className="grid-col-12">
-              <TextInput
-                id="id"
-                label="Case ID"
-                value={filters.id || ''}
-                onChange={handleChange}
-              />
+    <Card id="advanced-search-card" className="custom-card-width">
+      <CardBody>
+        <form aria-label="Advanced search panel">
+          <div className="filters-header" id="filters-header">
+            Filters
+          </div>
+          <div className="padding-1 display-flex flex-column gap-2">
+            <TextInput
+              id="id"
+              label="Case ID"
+              value={filters.id || ''}
+              onChange={handleChange}
+            />
+            <TextInput
+              id="assigned_to"
+              label="Assigned To"
+              value={filters.assigned_to || ''}
+              onChange={handleChange}
+            />
+            <label id="gender-label" className="usa-label">
+              Gender
+            </label>
+            <Checkbox
+              id="gender-male"
+              label="Male"
+              checked={
+                Array.isArray(filters.gender) && filters.gender.includes('Male')
+              }
+              onChange={(e) => handleGenderChange('Male', e.target.checked)}
+            />
+            <Checkbox
+              id="gender-female"
+              label="Female"
+              checked={
+                Array.isArray(filters.gender) &&
+                filters.gender.includes('Female')
+              }
+              onChange={(e) => handleGenderChange('Female', e.target.checked)}
+            />
+            <label id="status-label" className="usa-label">
+              Status
+            </label>
+            {['Not Started', 'In Progress', 'Approved', 'Denied'].map(
+              (status) => (
+                <Checkbox
+                  key={status}
+                  id={`status-${status.toLowerCase().replace(/\s+/g, '-')}`}
+                  label={status}
+                  checked={
+                    Array.isArray(filters.status) &&
+                    filters.status.includes(status)
+                  }
+                  onChange={(e) => handleStatusChange(status, e.target.checked)}
+                />
+              ),
+            )}
+            <DatePicker
+              id="created_after"
+              key={`created_after-${datePickerKey}`}
+              label="Created After"
+              value={filters.created_after || ''}
+              onChange={(e) =>
+                handleDateChange(
+                  'created_after',
+                  (e &&
+                    'target' in e &&
+                    (e.target as HTMLInputElement).value) ||
+                    '',
+                )
+              }
+            />
+            <DatePicker
+              id="created_before"
+              key={`created_before-${datePickerKey}`}
+              label="Created Before"
+              value={filters.created_before || ''}
+              onChange={(e) =>
+                handleDateChange(
+                  'created_before',
+                  (e &&
+                    'target' in e &&
+                    (e.target as HTMLInputElement).value) ||
+                    '',
+                )
+              }
+            />
+            <div className="margin-top-3">
+              <Button
+                id="clear-btn"
+                type="button"
+                onClick={handleClear}
+                variant="secondary"
+              >
+                Clear
+              </Button>
             </div>
           </div>
-          <div className="grid-row">
-            <div className="grid-col-12">
-              <TextInput
-                id="assigned_to"
-                label="Assigned To"
-                value={filters.assigned_to || ''}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          <div className="grid-row">
-            <div className="grid-col-12">
-              <label id="gender-label" className="usa-label" htmlFor="gender">
-                Gender
-              </label>
-              <Checkbox
-                id="gender-male"
-                label="Male"
-                checked={
-                  Array.isArray(filters.gender) &&
-                  filters.gender.includes('Male')
-                }
-                onChange={(e) => handleGenderChange('Male', e.target.checked)}
-              />
-              <Checkbox
-                id="gender-female"
-                label="Female"
-                checked={
-                  Array.isArray(filters.gender) &&
-                  filters.gender.includes('Female')
-                }
-                onChange={(e) => handleGenderChange('Female', e.target.checked)}
-              />
-            </div>
-          </div>
-          <div className="grid-row">
-            <div className="grid-col-12">
-              <label id="status-label" className="usa-label" htmlFor="status">
-                Status
-              </label>
-              <Checkbox
-                id="status-not-started"
-                label="Not Started"
-                checked={
-                  Array.isArray(filters.status) &&
-                  filters.status.includes('Not Started')
-                }
-                onChange={(e) =>
-                  handleStatusChange('Not Started', e.target.checked)
-                }
-              />
-              <Checkbox
-                id="status-in-progress"
-                label="In Progress"
-                checked={
-                  Array.isArray(filters.status) &&
-                  filters.status.includes('In Progress')
-                }
-                onChange={(e) =>
-                  handleStatusChange('In Progress', e.target.checked)
-                }
-              />
-              <Checkbox
-                id="status-approved"
-                label="Approved"
-                checked={
-                  Array.isArray(filters.status) &&
-                  filters.status.includes('Approved')
-                }
-                onChange={(e) =>
-                  handleStatusChange('Approved', e.target.checked)
-                }
-              />
-              <Checkbox
-                id="status-denied"
-                label="Denied"
-                checked={
-                  Array.isArray(filters.status) &&
-                  filters.status.includes('Denied')
-                }
-                onChange={(e) => handleStatusChange('Denied', e.target.checked)}
-              />
-            </div>
-          </div>
-          <div className="grid-row">
-            <div className="grid-col-12">
-              <DatePicker
-                id="created_after"
-                key={`created_after-${datePickerKey}`}
-                label="Created After"
-                value={filters.created_after || ''}
-                onChange={(e) =>
-                  handleDateChange(
-                    'created_after',
-                    (e &&
-                      'target' in e &&
-                      (e.target as HTMLInputElement).value) ||
-                      '',
-                  )
-                }
-              />
-            </div>
-          </div>
-          <div className="grid-row">
-            <div className="grid-col-12 margin-bottom-3">
-              <DatePicker
-                id="created_before"
-                key={`created_before-${datePickerKey}`}
-                label="Created Before"
-                value={filters.created_before || ''}
-                onChange={(e) =>
-                  handleDateChange(
-                    'created_before',
-                    (e &&
-                      'target' in e &&
-                      (e.target as HTMLInputElement).value) ||
-                      '',
-                  )
-                }
-              />
-            </div>
-          </div>
-          <div className="grid-row">
-            <div className="grid-col-12 display-flex flex-align-end">
-              <div className="advanced-search-panel__actions">
-                <Button
-                  id="clear-btn"
-                  type="button"
-                  onClick={handleClear}
-                  variant="secondary"
-                >
-                  Clear
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
+        </form>
+      </CardBody>
+    </Card>
   );
 };
