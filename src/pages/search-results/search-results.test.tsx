@@ -1,12 +1,6 @@
 import axios from '@src/utils/axios';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import {
-  cleanup,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import { Provider } from 'jotai';
 import { AuthProvider } from 'react-oidc-context';
@@ -42,11 +36,6 @@ describe('SearchResults', () => {
   beforeEach(() => {
     queryClient.clear();
     mock.reset();
-  });
-
-  afterEach(() => {
-    cleanup();
-    vi.restoreAllMocks();
   });
 
   test('should render successfully', async () => {
