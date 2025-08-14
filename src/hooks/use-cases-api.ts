@@ -46,14 +46,6 @@ const searchCases = async (filters: CaseSearchFilters): Promise<Case[]> => {
       )
         return false;
       if (
-        filters.assigned_to &&
-        (!item.assigned_to ||
-          !item.assigned_to
-            .toLowerCase()
-            .includes(filters.assigned_to.toLowerCase()))
-      )
-        return false;
-      if (
         filters.created_before &&
         new Date(item.created_at) >= new Date(filters.created_before)
       )

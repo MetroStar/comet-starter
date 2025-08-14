@@ -25,7 +25,6 @@ export const SearchResults = (): React.ReactElement => {
     status:
       (searchParams.getAll('status') as CaseSearchFilters['status']) ||
       undefined,
-    assigned_to: searchParams.get('assignedTo') || undefined,
     created_before: searchParams.get('createdBefore') || undefined,
     created_after: searchParams.get('createdAfter') || undefined,
     q: searchParams.get('q') || undefined,
@@ -51,8 +50,6 @@ export const SearchResults = (): React.ReactElement => {
         params.append('status', status);
       }
     }
-    if (newFilters.assigned_to)
-      params.append('assignedTo', newFilters.assigned_to);
     if (newFilters.created_before)
       params.append('createdBefore', newFilters.created_before);
     if (newFilters.created_after)
@@ -76,14 +73,12 @@ export const SearchResults = (): React.ReactElement => {
       summaryParts.push(`Gender: ${filters.gender}`);
     if (filters.status && filters.status.length > 0)
       summaryParts.push(`Status: ${filters.status}`);
-    if (filters.assigned_to)
-      summaryParts.push(`Assigned To: ${filters.assigned_to}`);
     if (filters.created_before)
       summaryParts.push(`Created Before: ${filters.created_before}`);
     if (filters.created_after)
       summaryParts.push(`Created After: ${filters.created_after}`);
     const summary =
-      summaryParts.length > 0 ? summaryParts.join(', ') : 'All Cases';
+      summaryParts.length > 0 ? summaryParts.join('; ') : 'All Cases';
 
     if (!data) {
       return `Found 0 search results for "${summary}"`;
@@ -98,12 +93,11 @@ export const SearchResults = (): React.ReactElement => {
     <div className="grid-container">
       <div className="grid-row">
         {/* Advanced Search Panel on the left */}
-        <div className="grid-col-3">
+        <div className="grid-col-3 display-none desktop:display-block">
           <AdvancedSearchPanel
             initialFilters={filters}
             onSearch={handleAdvancedSearch}
             onClear={handleAdvancedClear}
-            onClose={() => {}}
           />
         </div>
         {/* Search Results and Simple Search on the right */}

@@ -14,7 +14,6 @@ interface AdvancedSearchPanelProps {
   initialFilters: CaseSearchFilters;
   onSearch: (filters: CaseSearchFilters) => void;
   onClear: () => void;
-  onClose: () => void;
 }
 
 export const AdvancedSearchPanel = ({
@@ -29,9 +28,7 @@ export const AdvancedSearchPanel = ({
     onSearch(filters);
   }, [filters]);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setFilters((prev) => ({ ...prev, [id]: value }));
   };
@@ -80,12 +77,6 @@ export const AdvancedSearchPanel = ({
               id="id"
               label="Case ID"
               value={filters.id || ''}
-              onChange={handleChange}
-            />
-            <TextInput
-              id="assigned_to"
-              label="Assigned To"
-              value={filters.assigned_to || ''}
               onChange={handleChange}
             />
             <label id="gender-label" className="usa-label">
