@@ -1,12 +1,16 @@
-import { mockData } from '@src/data/case';
 import axios from '@src/utils/axios';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import { Provider } from 'jotai';
 import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
-import { Header } from '../../components/header/header';
 import { SearchResults } from './search-results';
 
 describe('SearchResults', () => {
@@ -22,7 +26,6 @@ describe('SearchResults', () => {
     <AuthProvider>
       <Provider>
         <BrowserRouter>
-          <Header />
           <QueryClientProvider client={queryClient}>
             <SearchResults />
           </QueryClientProvider>
@@ -42,19 +45,20 @@ describe('SearchResults', () => {
   });
 
   afterEach(() => {
+    cleanup();
     vi.restoreAllMocks();
   });
 
   test('should render successfully', async () => {
     const { baseElement } = render(componentWrapper);
-    await act(async () => {
+    await waitFor(async () => {
       expect(baseElement).toBeTruthy();
     });
   });
 
   test('should render with 0 results', async () => {
     const { baseElement } = render(componentWrapper);
-    await act(async () => {
+    await waitFor(async () => {
       expect(baseElement.querySelector('h1')?.textContent).toEqual(
         'Found 0 search results for "All Cases"',
       );
@@ -68,7 +72,7 @@ describe('SearchResults', () => {
     queryClient.setQueryData(['cases', null], null);
 
     const { baseElement } = render(componentWrapper);
-    await act(async () => {
+    await waitFor(async () => {
       expect(baseElement.querySelector('h1')?.textContent).toEqual(
         'Found 0 search results for "All Cases"',
       );
@@ -85,30 +89,33 @@ describe('SearchResults', () => {
     queryClient.setQueryData(['cases', 'abcd'], null);
 
     const { baseElement } = render(componentWrapper);
-    await act(async () => {
+    await waitFor(async () => {
       expect(baseElement.querySelector('h1')?.textContent).toEqual(
         'Found 0 search results for "Search: abcd"',
       );
     });
   });
 
-  // test('should render with 1 results', async () => {
-  //   const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
-  //   mockSearchParamsGet.mockImplementation((key: string) => {
-  //     if (key === 'q') return 'sarah';
-  //     return null;
-  //   });
+  test('should render with 1 results', async () => {
+    const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
+    mockSearchParamsGet.mockImplementation((key: string) => {
+      if (key === 'q') return 'sarah';
+      return null;
+    });
 
-  //   mock.onGet(new RegExp('/cases')).reply(200, mockData.items.slice(0, 1));
-  //   queryClient.setQueryData(['cases', 'sarah'], mockData.items.slice(0, 1));
+    //mock.onGet(new RegExp('/cases')).reply(200, mockData.items.slice(0, 1));
+    // queryClient.setQueryData(
+    //   ['cases', { q: 'sarah' }],
+    //   mockData.items.slice(0, 1),
+    // );
 
-  //   const { baseElement } = render(componentWrapper);
-  //   await act(async () => {
-  //     expect(baseElement.querySelector('h1')?.textContent).toEqual(
-  //       'Found 1 search result for "Search: sarah"',
-  //     );
-  //   });
-  // });
+    const { baseElement } = render(componentWrapper);
+    await waitFor(async () => {
+      expect(baseElement.querySelector('h1')?.textContent).toEqual(
+        'Found 1 search result for "Search: sarah"',
+      );
+    });
+  });
 
   test('should render with multiple results', async () => {
     const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
@@ -116,11 +123,11 @@ describe('SearchResults', () => {
       if (key === 'q') return 's';
       return null;
     });
-    //mock.onGet(new RegExp('/cases')).reply(200, mockData.items);
-    queryClient.setQueryData(['cases', { q: 's' }], mockData.items);
+    // mock.onGet(new RegExp('/cases')).reply(200, mockData.items);
+    // queryClient.setQueryData(['cases', { q: 's' }], mockData.items);
 
     const { baseElement } = render(componentWrapper);
-    await act(async () => {
+    await waitFor(async () => {
       expect(baseElement.querySelector('h1')?.textContent).toEqual(
         'Found 10 search results for "Search: s"',
       );
@@ -133,11 +140,11 @@ describe('SearchResults', () => {
       if (key === 'q') return 'test';
       return null;
     });
-    mock.onGet(new RegExp('/cases')).networkError();
-    queryClient.setQueryData(['cases'], null);
+    // mock.onGet(new RegExp('/cases')).networkError();
+    // queryClient.setQueryData(['cases'], null);
 
     const { baseElement } = render(componentWrapper);
-    await act(async () => {
+    await waitFor(async () => {
       expect(baseElement.querySelector('h1')?.textContent).toEqual(
         'Found 0 search results for "Search: test"',
       );
@@ -145,6 +152,12 @@ describe('SearchResults', () => {
   });
 
   test('should filter results by multiple status values', async () => {
+    const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
+    mockSearchParamsGet.mockImplementation((key: string) => {
+      if (key === 'status') return ['Approved', 'Denied'].join(',');
+      return null;
+    });
+
     const { baseElement } = render(componentWrapper);
 
     const statusApproved = await screen.findByLabelText('Approved');
@@ -152,15 +165,23 @@ describe('SearchResults', () => {
     fireEvent.click(statusApproved);
     fireEvent.click(statusDenied);
 
-    await act(async () => {
-      // You may want to check for the correct number of cards or summary text
-      expect(baseElement.querySelector('h1')?.textContent).toContain(
-        'Status: Approved,Denied',
+    await waitFor(async () => {
+      expect(baseElement.querySelector('h1')?.textContent).toEqual(
+        'Found 1 search result for "Status: Approved,Denied"',
       );
     });
+
+    const clearBtn = await screen.findByRole('button', { name: /clear/i });
+    fireEvent.click(clearBtn);
   });
 
   test('should filter results by multiple gender values', async () => {
+    const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
+    mockSearchParamsGet.mockImplementation((key: string) => {
+      if (key === 'gender') return ['Male', 'Female'].join(',');
+      return null;
+    });
+
     const { baseElement } = render(componentWrapper);
 
     const genderMale = await screen.findByLabelText('Male');
@@ -168,11 +189,36 @@ describe('SearchResults', () => {
     fireEvent.click(genderMale);
     fireEvent.click(genderFemale);
 
-    await act(async () => {
+    await waitFor(async () => {
       expect(baseElement.querySelector('h1')?.textContent).toContain(
-        'Gender: Male,Female',
+        'Found 19 search results for "Gender: Male,Female"',
       );
     });
+
+    const clearBtn = await screen.findByRole('button', { name: /clear/i });
+    fireEvent.click(clearBtn);
+  });
+
+  test('should filter results by male gender', async () => {
+    const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
+    mockSearchParamsGet.mockImplementation((key: string) => {
+      if (key === 'gender') return 'Male';
+      return null;
+    });
+
+    const { baseElement } = render(componentWrapper);
+
+    const genderMale = await screen.findByLabelText('Male');
+    fireEvent.click(genderMale);
+
+    await waitFor(async () => {
+      expect(baseElement.querySelector('h1')?.textContent).toContain(
+        'Found 9 search results for "Gender: Male"',
+      );
+    });
+
+    const clearBtn = await screen.findByRole('button', { name: /clear/i });
+    fireEvent.click(clearBtn);
   });
 
   test('should clear all filters when Clear is clicked', async () => {
@@ -185,10 +231,117 @@ describe('SearchResults', () => {
     fireEvent.click(clearBtn);
 
     // All filters should be reset
-    await act(async () => {
+    await waitFor(async () => {
       expect((statusApproved as HTMLInputElement).checked).toBe(false);
       // Optionally check other fields are cleared
       expect(baseElement.querySelector('input#id')?.textContent).toBe('');
+      expect(baseElement.querySelector('h1')?.textContent).toContain(
+        'Found 19 search results for "All Cases"',
+      );
     });
+  });
+
+  test('should filter results by case ID', async () => {
+    const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
+    mockSearchParamsGet.mockImplementation((key: string) => {
+      if (key === 'caseId') return '123';
+      return null;
+    });
+
+    const { baseElement } = render(componentWrapper);
+
+    const caseIdInput = await screen.findByLabelText('Case ID');
+    fireEvent.change(caseIdInput, { target: { value: '123' } });
+
+    await waitFor(async () => {
+      expect(baseElement.querySelector('h1')?.textContent).toContain(
+        'Found 0 search results for "Case ID: 123"',
+      );
+    });
+
+    const clearBtn = await screen.findByRole('button', { name: /clear/i });
+    fireEvent.click(clearBtn);
+  });
+
+  test('should filter results by created after date', async () => {
+    const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
+    mockSearchParamsGet.mockImplementation((key: string) => {
+      if (key === 'createdAfter') return '2024-01-01';
+      return null;
+    });
+
+    const { baseElement } = render(componentWrapper);
+
+    const createdAfterInput = await screen.findByLabelText('Created After');
+    fireEvent.change(createdAfterInput, { target: { value: '2024-01-01' } });
+
+    await waitFor(async () => {
+      expect(baseElement.querySelector('h1')?.textContent).toContain(
+        'Found 5 search results for "Created After: 2024-01-01"',
+      );
+    });
+
+    const clearBtn = await screen.findByRole('button', { name: /clear/i });
+    fireEvent.click(clearBtn);
+  });
+
+  test('should filter results by created before date', async () => {
+    const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
+    mockSearchParamsGet.mockImplementation((key: string) => {
+      if (key === 'createdBefore') return '2023-12-31';
+      return null;
+    });
+
+    const { baseElement } = render(componentWrapper);
+
+    const createdBeforeInput = await screen.findByLabelText('Created Before');
+    fireEvent.change(createdBeforeInput, { target: { value: '2023-12-31' } });
+
+    await waitFor(async () => {
+      expect(baseElement.querySelector('h1')?.textContent).toContain(
+        'Found 14 search results for "Created Before: 2023-12-31"',
+      );
+    });
+
+    const clearBtn = await screen.findByRole('button', { name: /clear/i });
+    fireEvent.click(clearBtn);
+  });
+
+  test('should filter results based on multiple filters', async () => {
+    const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
+    mockSearchParamsGet.mockImplementation((key: string) => {
+      if (key === 'caseId') return '100001';
+      if (key === 'gender') return 'Male';
+      if (key === 'status') return 'Not Started';
+      if (key === 'createdAfter') return '2024-01-01';
+      if (key === 'createdBefore') return '2024-03-01';
+      return null;
+    });
+
+    const { baseElement } = render(componentWrapper);
+
+    const caseIdInput = await screen.findByLabelText('Case ID');
+    fireEvent.change(caseIdInput, { target: { value: '100001' } });
+
+    const genderMale = await screen.findByLabelText('Male');
+    fireEvent.click(genderMale);
+
+    const statusNotStarted = await screen.findByLabelText('Not Started');
+    fireEvent.click(statusNotStarted);
+
+    const createdAfterInput = await screen.findByLabelText('Created After');
+    fireEvent.change(createdAfterInput, { target: { value: '2024-01-01' } });
+
+    const createdBeforeInput = await screen.findByLabelText('Created Before');
+    fireEvent.change(createdBeforeInput, { target: { value: '2024-03-01' } });
+
+    await waitFor(async () => {
+      expect(baseElement.querySelector('h1')?.textContent).toContain(
+        'Found 1 search result for "Case ID: 100001; Gender: Male; Status: Not Started; Created Before: 2024-03-01; Created After: 2024-01-01"',
+      );
+    });
+
+    const clearBtn = await screen.findByRole('button', { name: /clear/i });
+    fireEvent.click(clearBtn);
   });
 });
