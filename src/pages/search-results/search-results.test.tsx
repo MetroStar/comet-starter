@@ -164,6 +164,30 @@ describe('SearchResults', () => {
     fireEvent.click(clearBtn);
   });
 
+  test('should filter results by multiple status values', async () => {
+    const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
+    mockSearchParamsGet.mockImplementation((key: string) => {
+      if (key === 'status') return ['Approved', 'Denied'].join(',');
+      return null;
+    });
+
+    const { baseElement } = render(componentWrapper);
+
+    const statusApproved = await screen.findByLabelText('Approved');
+    const statusDenied = await screen.findByLabelText('Denied');
+    fireEvent.click(statusApproved);
+    fireEvent.click(statusDenied);
+
+    await waitFor(async () => {
+      expect(baseElement.querySelector('h1')?.textContent).toEqual(
+        'Found 1 search result for "Status: Approved,Denied"',
+      );
+    });
+
+    fireEvent.click(statusApproved);
+    fireEvent.click(statusDenied);
+  });
+
   test('should filter results by multiple gender values', async () => {
     const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
     mockSearchParamsGet.mockImplementation((key: string) => {
@@ -183,9 +207,6 @@ describe('SearchResults', () => {
         'Found 19 search results for "Gender: Male,Female"',
       );
     });
-
-    const clearBtn = await screen.findByRole('button', { name: /clear/i });
-    fireEvent.click(clearBtn);
   });
 
   test('should filter results by male gender', async () => {
@@ -197,8 +218,8 @@ describe('SearchResults', () => {
 
     const { baseElement } = render(componentWrapper);
 
-    const genderMale = await screen.findByLabelText('Male');
-    fireEvent.click(genderMale);
+    const genderFemale = await screen.findByLabelText('Female');
+    fireEvent.click(genderFemale); //Deselect Female checkbox from previous test
 
     await waitFor(async () => {
       expect(baseElement.querySelector('h1')?.textContent).toContain(
@@ -219,10 +240,8 @@ describe('SearchResults', () => {
     const clearBtn = await screen.findByRole('button', { name: /clear/i });
     fireEvent.click(clearBtn);
 
-    // All filters should be reset
     await waitFor(async () => {
       expect((statusApproved as HTMLInputElement).checked).toBe(false);
-      // Optionally check other fields are cleared
       expect(baseElement.querySelector('input#id')?.textContent).toBe('');
       expect(baseElement.querySelector('h1')?.textContent).toContain(
         'Found 19 search results for "All Cases"',
@@ -248,8 +267,7 @@ describe('SearchResults', () => {
       );
     });
 
-    const clearBtn = await screen.findByRole('button', { name: /clear/i });
-    fireEvent.click(clearBtn);
+    fireEvent.change(caseIdInput, { target: { value: '' } });
   });
 
   test('should filter results by created after date', async () => {
@@ -289,6 +307,34 @@ describe('SearchResults', () => {
     await waitFor(async () => {
       expect(baseElement.querySelector('h1')?.textContent).toContain(
         'Found 14 search results for "Created Before: 2023-12-31"',
+      );
+    });
+
+    const clearBtn = await screen.findByRole('button', { name: /clear/i });
+    fireEvent.click(clearBtn);
+  });
+
+  test('should clear created after and created before dates', async () => {
+    const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
+    mockSearchParamsGet.mockImplementation((key: string) => {
+      if (key === 'createdAfter') return '';
+      if (key === 'createdBefore') return '';
+      return null;
+    });
+    const { baseElement } = render(componentWrapper);
+
+    const createdAfterInput = await screen.findByLabelText('Created After');
+    fireEvent.change(createdAfterInput, { target: { value: '2023-01-01' } });
+    fireEvent.change(createdAfterInput, { target: { value: '' } });
+
+    const createdBeforeInput = await screen.findByLabelText('Created Before');
+    fireEvent.change(createdBeforeInput, { target: { value: '2023-01-01' } });
+    fireEvent.change(createdBeforeInput, { target: { value: '' } });
+
+    await waitFor(() => {
+      // Your assertion here, e.g.:
+      expect(baseElement.querySelector('h1')?.textContent).toContain(
+        'Found 19 search results for "All Cases"',
       );
     });
 

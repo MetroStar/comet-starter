@@ -19,12 +19,8 @@ export const SearchResults = (): React.ReactElement => {
 
   const filters: CaseSearchFilters = {
     id: searchParams.get('caseId') || undefined,
-    gender:
-      (searchParams.getAll('gender') as CaseSearchFilters['gender']) ||
-      undefined,
-    status:
-      (searchParams.getAll('status') as CaseSearchFilters['status']) ||
-      undefined,
+    gender: searchParams.getAll('gender'),
+    status: searchParams.getAll('status'),
     created_before: searchParams.get('createdBefore') || undefined,
     created_after: searchParams.get('createdAfter') || undefined,
     q: searchParams.get('q') || undefined,
