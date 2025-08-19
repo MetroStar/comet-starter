@@ -21,12 +21,13 @@ The goal of this project is to provide a React with TypeScript starter applicati
 ## Table of Contents
 
 1. [Running the Project Locally](#running-the-project-locally)
-2. [Running Unit Tests](#running-unit-tests)
-3. [Running Code Quality Checks](#running-code-quality-checks)
-4. [Running End-to-End (E2E) Tests](#running-end-to-end-e2e-tests)
-5. [Running Accessibility (a11y) Tests](#running-accessibility-a11y-tests)
-6. [Contributing](#contributing)
-7. [Next Steps](#next-steps)
+2. [Running with Docker](#running-with-docker)
+3. [Running Unit Tests](#running-unit-tests)
+4. [Running Code Quality Checks](#running-code-quality-checks)
+5. [Running End-to-End (E2E) Tests](#running-end-to-end-e2e-tests)
+6. [Running Accessibility (a11y) Tests](#running-accessibility-a11y-tests)
+7. [Contributing](#contributing)
+8. [Next Steps](#next-steps)
 
 ## Running the Project Locally
 
@@ -56,6 +57,22 @@ VITE_SSO_CLIENT_ID=[SOME_CLIENT_ID] # Ex: dev-client
 ```sh
 npm run dev
 ```
+
+## Running with Docker
+
+1. To build the image, run the following:
+
+```sh
+docker build . -t comet-starter
+```
+
+2. To run the container, run the following:
+
+```sh
+docker run -p 8080:8080 --name comet-starter comet-starter
+```
+
+3. Access the app by navigating to: `http://localhost:8080`
 
 ## Running Unit Tests
 
