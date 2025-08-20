@@ -18,11 +18,11 @@ export const SearchResults = (): React.ReactElement => {
   }, [searchParams]);
 
   const filters: CaseSearchFilters = {
-    id: searchParams.get('caseId') || undefined,
+    id: searchParams.get('case_id') || undefined,
     gender: searchParams.getAll('gender'),
     status: searchParams.getAll('status'),
-    created_before: searchParams.get('createdBefore') || undefined,
-    created_after: searchParams.get('createdAfter') || undefined,
+    created_before: searchParams.get('created_before') || undefined,
+    created_after: searchParams.get('created_after') || undefined,
     q: searchParams.get('q') || undefined,
   };
 
@@ -35,7 +35,7 @@ export const SearchResults = (): React.ReactElement => {
   // Advanced search handler
   const handleAdvancedSearch = (newFilters: CaseSearchFilters) => {
     const params = new URLSearchParams();
-    if (newFilters.id) params.append('caseId', newFilters.id);
+    if (newFilters.id) params.append('case_id', newFilters.id);
     if (newFilters.gender) {
       for (const gender of newFilters.gender) {
         params.append('gender', gender);
@@ -47,9 +47,9 @@ export const SearchResults = (): React.ReactElement => {
       }
     }
     if (newFilters.created_before)
-      params.append('createdBefore', newFilters.created_before);
+      params.append('created_before', newFilters.created_before);
     if (newFilters.created_after)
-      params.append('createdAfter', newFilters.created_after);
+      params.append('created_after', newFilters.created_after);
     // Preserve simple query if present
     if (simpleQuery) params.append('q', simpleQuery);
     setSearchParams(params);

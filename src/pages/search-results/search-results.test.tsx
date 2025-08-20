@@ -252,14 +252,14 @@ describe('SearchResults', () => {
   test('should filter results by case ID', async () => {
     const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
     mockSearchParamsGet.mockImplementation((key: string) => {
-      if (key === 'caseId') return '123';
+      if (key === 'case_id') return '123';
       return null;
     });
 
     const { baseElement } = render(componentWrapper);
 
     const caseIdInput = await screen.findByLabelText('Case ID');
-    fireEvent.change(caseIdInput, { target: { value: '123' } });
+    fireEvent.change(caseIdInput, { target: { defaultValue: '123' } });
 
     await waitFor(async () => {
       expect(baseElement.querySelector('h1')?.textContent).toContain(
@@ -267,20 +267,22 @@ describe('SearchResults', () => {
       );
     });
 
-    fireEvent.change(caseIdInput, { target: { value: '' } });
+    fireEvent.change(caseIdInput, { target: { defaultValue: '' } });
   });
 
   test('should filter results by created after date', async () => {
     const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
     mockSearchParamsGet.mockImplementation((key: string) => {
-      if (key === 'createdAfter') return '2024-01-01';
+      if (key === 'created_after') return '2024-01-01';
       return null;
     });
 
     const { baseElement } = render(componentWrapper);
 
     const createdAfterInput = await screen.findByLabelText('Created After');
-    fireEvent.change(createdAfterInput, { target: { value: '2024-01-01' } });
+    fireEvent.change(createdAfterInput, {
+      target: { defaultValue: '2024-01-01' },
+    });
 
     await waitFor(async () => {
       expect(baseElement.querySelector('h1')?.textContent).toContain(
@@ -295,14 +297,16 @@ describe('SearchResults', () => {
   test('should filter results by created before date', async () => {
     const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
     mockSearchParamsGet.mockImplementation((key: string) => {
-      if (key === 'createdBefore') return '2023-12-31';
+      if (key === 'created_before') return '2023-12-31';
       return null;
     });
 
     const { baseElement } = render(componentWrapper);
 
     const createdBeforeInput = await screen.findByLabelText('Created Before');
-    fireEvent.change(createdBeforeInput, { target: { value: '2023-12-31' } });
+    fireEvent.change(createdBeforeInput, {
+      target: { defaultValue: '2023-12-31' },
+    });
 
     await waitFor(async () => {
       expect(baseElement.querySelector('h1')?.textContent).toContain(
@@ -317,19 +321,23 @@ describe('SearchResults', () => {
   test('should clear created after and created before dates', async () => {
     const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
     mockSearchParamsGet.mockImplementation((key: string) => {
-      if (key === 'createdAfter') return '';
-      if (key === 'createdBefore') return '';
+      if (key === 'created_after') return '';
+      if (key === 'created_before') return '';
       return null;
     });
     const { baseElement } = render(componentWrapper);
 
     const createdAfterInput = await screen.findByLabelText('Created After');
-    fireEvent.change(createdAfterInput, { target: { value: '2023-01-01' } });
-    fireEvent.change(createdAfterInput, { target: { value: '' } });
+    fireEvent.change(createdAfterInput, {
+      target: { defaultValue: '2023-01-01' },
+    });
+    fireEvent.change(createdAfterInput, { target: { defaultValue: '' } });
 
     const createdBeforeInput = await screen.findByLabelText('Created Before');
-    fireEvent.change(createdBeforeInput, { target: { value: '2023-01-01' } });
-    fireEvent.change(createdBeforeInput, { target: { value: '' } });
+    fireEvent.change(createdBeforeInput, {
+      target: { defaultValue: '2023-01-01' },
+    });
+    fireEvent.change(createdBeforeInput, { target: { defaultValue: '' } });
 
     await waitFor(() => {
       // Your assertion here, e.g.:
@@ -345,18 +353,18 @@ describe('SearchResults', () => {
   test('should filter results based on multiple filters', async () => {
     const mockSearchParamsGet = vi.spyOn(URLSearchParams.prototype, 'get');
     mockSearchParamsGet.mockImplementation((key: string) => {
-      if (key === 'caseId') return '100001';
+      if (key === 'case_id') return '100001';
       if (key === 'gender') return 'Male';
       if (key === 'status') return 'Not Started';
-      if (key === 'createdAfter') return '2024-01-01';
-      if (key === 'createdBefore') return '2024-03-01';
+      if (key === 'created_after') return '2024-01-01';
+      if (key === 'created_before') return '2024-03-01';
       return null;
     });
 
     const { baseElement } = render(componentWrapper);
 
     const caseIdInput = await screen.findByLabelText('Case ID');
-    fireEvent.change(caseIdInput, { target: { value: '100001' } });
+    fireEvent.change(caseIdInput, { target: { defaultValue: '100001' } });
 
     const genderMale = await screen.findByLabelText('Male');
     fireEvent.click(genderMale);
@@ -365,10 +373,14 @@ describe('SearchResults', () => {
     fireEvent.click(statusNotStarted);
 
     const createdAfterInput = await screen.findByLabelText('Created After');
-    fireEvent.change(createdAfterInput, { target: { value: '2024-01-01' } });
+    fireEvent.change(createdAfterInput, {
+      target: { defaultValue: '2024-01-01' },
+    });
 
     const createdBeforeInput = await screen.findByLabelText('Created Before');
-    fireEvent.change(createdBeforeInput, { target: { value: '2024-03-01' } });
+    fireEvent.change(createdBeforeInput, {
+      target: { defaultValue: '2024-03-01' },
+    });
 
     await waitFor(async () => {
       expect(baseElement.querySelector('h1')?.textContent).toContain(

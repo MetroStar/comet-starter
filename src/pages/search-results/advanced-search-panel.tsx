@@ -66,17 +66,17 @@ export const AdvancedSearchPanel = ({
   };
 
   return (
-    <Card id="advanced-search-card" className="custom-card-width">
+    <Card id="advanced-search-card" className="advanced-search-card-width">
       <CardBody>
         <form aria-label="Advanced search panel">
-          <div className="filters-header" id="filters-header">
+          <div className="advanced-search-filters-header" id="header">
             Filters
           </div>
           <div className="padding-1 display-flex flex-column gap-2">
             <TextInput
               id="id"
               label="Case ID"
-              value={filters.id || ''}
+              defaultValue={filters.id || ''}
               onChange={handleChange}
             />
             <label id="gender-label" className="usa-label">
@@ -120,7 +120,7 @@ export const AdvancedSearchPanel = ({
               id="created_after"
               key={`created_after-${datePickerKey}`}
               label="Created After"
-              value={filters.created_after || ''}
+              defaultValue={filters.created_after || ''}
               onChange={(e) =>
                 handleDateChange(
                   'created_after',
@@ -135,7 +135,7 @@ export const AdvancedSearchPanel = ({
               id="created_before"
               key={`created_before-${datePickerKey}`}
               label="Created Before"
-              value={filters.created_before || ''}
+              defaultValue={filters.created_before || ''}
               onChange={(e) =>
                 handleDateChange(
                   'created_before',
