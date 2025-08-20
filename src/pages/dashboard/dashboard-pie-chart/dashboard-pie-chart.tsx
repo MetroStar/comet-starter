@@ -2,6 +2,7 @@ import { PieChart } from '@metrostar/comet-data-viz';
 import { Case } from '@src/types/case';
 import React, { useEffect, useState } from 'react';
 import { ChartData } from '../types';
+import './dashboard-pie-chart.scss';
 
 interface DashboardPieChartProps {
   items: Case[] | undefined;
@@ -28,17 +29,10 @@ export const DashboardPieChart = ({
   }, [items]);
 
   return data ? (
-    <div
-      style={{
-        height: '300px',
-        width: '400px',
-      }}
-    >
+    <div className="pie-chart-container">
       <PieChart
         title="Cases by Status Pie Chart"
-        innerRadius={60}
-        width={375}
-        height={300}
+        innerRadius={90}
         data={data}
         colors={['#0d7ea2', '#cd425b']}
       />

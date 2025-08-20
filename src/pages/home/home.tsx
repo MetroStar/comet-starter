@@ -17,7 +17,7 @@ export const Home = (): React.ReactElement => {
       </div>
       {!isSignedIn && (
         <div className="grid-row">
-          <div className="grid-col">
+          <div className="grid-col maxw-desktop">
             <Alert id="sign-in-alert" type="info">
               You are not currently signed in. Please Sign In to access the
               Dashboard.
