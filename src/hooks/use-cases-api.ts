@@ -1,5 +1,5 @@
 import { mockData } from '@src/data/case';
-import { Case } from '@src/types/case';
+import { Case, CaseSearchFilters } from '@src/types/case';
 import axios from '@src/utils/axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -14,18 +14,49 @@ const getCases = async (): Promise<Case[]> => {
   );
 };
 
-const searchCases = async (query: string): Promise<Case[]> => {
-  // const response = await axios.get(`/cases?q=${query}`);
-  // return response.data.items;
-
+const searchCases = async (filters: CaseSearchFilters): Promise<Case[]> => {
   return Promise.resolve(
-    mockData.items.filter(
-      (item) =>
-        item.applicant.last_name.toLowerCase().includes(query) ||
-        item.applicant.first_name.toLowerCase().includes(query) ||
-        item.applicant.email?.toLowerCase().includes(query) ||
-        item.id.toString().includes(query),
-    ),
+    mockData.items.filter((item) => {
+      // Simple search logic
+      if (filters.q) {
+        const q = filters.q.toLowerCase();
+        if (
+          !(
+            item.id.toString().includes(q) ||
+            item.applicant.last_name.toLowerCase().includes(q) ||
+            item.applicant.first_name.toLowerCase().includes(q) ||
+            item.applicant.email?.toLowerCase().includes(q)
+          )
+        ) {
+          return false;
+        }
+      }
+      // Advanced filters
+      if (filters.id && !item.id.toString().includes(filters.id)) return false;
+      if (
+        filters.gender &&
+        filters.gender.length > 0 &&
+        !filters.gender.includes(item.applicant.gender)
+      )
+        return false;
+      if (
+        filters.status &&
+        filters.status.length > 0 &&
+        !filters.status.includes(item.status)
+      )
+        return false;
+      if (
+        filters.created_before &&
+        new Date(item.created_at) >= new Date(filters.created_before)
+      )
+        return false;
+      if (
+        filters.created_after &&
+        new Date(item.created_at) <= new Date(filters.created_after)
+      )
+        return false;
+      return true;
+    }),
   );
 };
 
@@ -61,11 +92,11 @@ const useCasesApi = () => {
     queryFn: getCases,
   });
 
-  const searchCasesQuery = (query: string) =>
+  const searchCasesQuery = (filters: CaseSearchFilters) =>
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useQuery({
-      queryKey: ['cases', query],
-      queryFn: () => searchCases(query),
+      queryKey: ['cases', filters],
+      queryFn: () => searchCases(filters),
     });
 
   const caseQuery = (id: number) =>

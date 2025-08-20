@@ -34,3 +34,12 @@ export interface CaseItems {
   prev_page: number | null;
   next_page: number | null;
 }
+
+export interface CaseSearchFilters {
+  id?: string;
+  gender?: string[];
+  status?: string[];
+  created_before?: string; // ISO date string
+  created_after?: string; // ISO date string
+  q?: string; // Simple search query
+}
