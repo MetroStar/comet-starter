@@ -9,7 +9,7 @@ updates:
     directory: '/'
     schedule:
       interval: 'cron'
-      cronjob: '0 8 * * 1'
+      cronjob: '0 9 * * 1'
       timezone: 'US/Eastern'
     open-pull-requests-limit: 10
     labels:
@@ -35,3 +35,7 @@ updates:
         versions:
           - '>=19.0.0'
       - dependency-name: '@rollup/rollup-linux-x64-gnu'
+      # Remove this ignore rule when USWDS moves to CSS variables
+      - dependency-name: 'vite'
+        versions:
+          - '>=7.0.0'
