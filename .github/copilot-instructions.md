@@ -21,7 +21,8 @@ This project is built using the following tools and libraries:
 - Do not use any third-party libraries that are not already included in the project.
 - Comet components are documented at [Comet Documentation](https://metrostar.github.io/comet).
 - Use the Comet Icon component for icons.
-- All Comet components should include an `id` attribute.
+- All comet-uswds and comet-extras components should include an `id` attribute.
+- Use comet-data-viz components for BarGraph, AreaGraph, LineGraph, PolarAxis, PieChart, ScatterGraph, StackGraph.
 - Use arrow functions for components and hooks.
 - Use functional components instead of class components.
 - Use PascalCase for component names.
