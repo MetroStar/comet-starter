@@ -37,11 +37,7 @@ The goal of this project is to provide a React with TypeScript starter applicati
 npm install
 ```
 
-2. To install the [Comet CLI](https://github.com/MetroStar/comet/tree/main/packages/comet-cli#example-commands), run the following (optional):
-
-```sh
-npm install -g @metrostar/comet-cli
-```
+2. Install the [Comet MCP](https://github.com/MetroStar/comet/tree/main/packages/comet-mcp) (optional):
 
 3. Install Recommended VS Code Extensions (optional)
 
