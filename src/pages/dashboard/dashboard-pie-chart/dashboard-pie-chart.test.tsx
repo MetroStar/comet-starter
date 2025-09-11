@@ -1,4 +1,4 @@
-import { mockData } from '@src/data/case';
+import { caseData } from '@src/data/cases';
 import { act, render } from '@testing-library/react';
 import { Provider } from 'jotai';
 import { BrowserRouter } from 'react-router-dom';
@@ -9,7 +9,7 @@ describe('DashboardPieChart', () => {
     const { baseElement } = render(
       <Provider>
         <BrowserRouter>
-          <DashboardPieChart items={mockData.items} />
+          <DashboardPieChart items={caseData.items} />
         </BrowserRouter>
       </Provider>,
     );

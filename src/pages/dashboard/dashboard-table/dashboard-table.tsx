@@ -1,5 +1,5 @@
 import { DataTable } from '@metrostar/comet-extras';
-import { Case } from '@src/types/case';
+import { Case } from '@src/types';
 import { ColumnDef } from '@tanstack/react-table';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';

@@ -1,9 +1,9 @@
+import { User } from '@src/types';
 import { act, render } from '@testing-library/react';
 import { Provider } from 'jotai';
 import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
 import * as useAuthMock from '../../hooks/use-auth';
-import { User } from '../../types/user';
 import { Home } from './home';
 
 describe('Home', () => {

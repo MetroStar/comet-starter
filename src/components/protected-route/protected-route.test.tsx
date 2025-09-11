@@ -1,4 +1,4 @@
-import { User } from '@src/types/user';
+import { User } from '@src/types';
 import { act, render } from '@testing-library/react';
 import { Provider } from 'jotai';
 import { AuthProvider } from 'react-oidc-context';

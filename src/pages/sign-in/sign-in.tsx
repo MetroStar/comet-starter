@@ -5,7 +5,6 @@ import {
   Form,
   TextInput,
 } from '@metrostar/comet-uswds';
-import { SignInFormInput } from '@src/types/form';
 import { hasSsoConfig } from '@src/utils/auth';
 import {
   PASSWORD_RULES,
@@ -15,6 +14,11 @@ import React, { FormEvent } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/use-auth';
+
+interface SignInFormInput {
+  username: string;
+  password: string;
+}
 
 export const SignIn = (): React.ReactElement => {
   const navigate = useNavigate();

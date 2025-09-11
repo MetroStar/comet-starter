@@ -1,3 +1,4 @@
+import { User } from '@src/types';
 import { getSignInRedirectUrl } from '@src/utils/auth';
 import axios from '@src/utils/axios';
 import { AxiosResponse } from 'axios';
@@ -5,7 +6,6 @@ import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 import { useAuth as useKeycloakAuth } from 'react-oidc-context';
 import { currentUserState, signedInState } from '../store';
-import { User } from '../types/user';
 
 const useAuth = () => {
   const auth = useKeycloakAuth();

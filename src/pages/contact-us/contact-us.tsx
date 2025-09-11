@@ -5,10 +5,15 @@ import {
   TextArea,
   TextInput,
 } from '@metrostar/comet-uswds';
-import { ContactFormInput } from '@src/types/form';
 import { REQUIRED_FORM_FIELDS_RULES } from '@src/utils/constants';
 import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+
+interface ContactFormInput {
+  name: string;
+  email: string;
+  message: string;
+}
 
 export const ContactUs = (): React.ReactElement => {
   const [submitted, setSubmitted] = React.useState(false);

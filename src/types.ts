@@ -1,3 +1,4 @@
+// Case Types
 export interface Applicant {
   id: number;
   first_name: string;
@@ -42,4 +43,13 @@ export interface CaseSearchFilters {
   created_before?: string; // ISO date string
   created_after?: string; // ISO date string
   q?: string; // Simple search query
+}
+
+// User Types
+export interface User {
+  firstName: string | undefined;
+  lastName: string | undefined;
+  displayName: string | undefined;
+  emailAddress: string | undefined;
+  phoneNumber: string | undefined;
 }

@@ -1,4 +1,4 @@
-import { mockData } from '@src/data/case';
+import { caseData } from '@src/data/cases';
 import axios from '@src/utils/axios';
 import keycloak from '@src/utils/keycloak';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -55,7 +55,7 @@ describe('useCasesApi', () => {
     });
 
     await act(async () => {
-      result.current.createCase.mutate(mockData.items[0]);
+      result.current.createCase.mutate(caseData.items[0]);
     });
     expect(result.current.createCase).toBeDefined();
   });
@@ -66,7 +66,7 @@ describe('useCasesApi', () => {
     });
 
     await act(async () => {
-      result.current.updateCase.mutate(mockData.items[0]);
+      result.current.updateCase.mutate(caseData.items[0]);
     });
     expect(result.current.updateCase).toBeDefined();
   });

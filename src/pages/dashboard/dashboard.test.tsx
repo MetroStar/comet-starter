@@ -1,4 +1,4 @@
-import { mockData } from '@src/data/case';
+import { caseData } from '@src/data/cases';
 import axios from '@src/utils/axios';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { act, render, waitFor } from '@testing-library/react';
@@ -39,8 +39,8 @@ describe('Dashboard', () => {
   });
 
   test('should render successfully', async () => {
-    mock.onGet(new RegExp('/cases')).reply(200, mockData);
-    queryClient.setQueryData(['cases'], mockData.items);
+    mock.onGet(new RegExp('/cases')).reply(200, caseData);
+    queryClient.setQueryData(['cases'], caseData.items);
 
     const { baseElement } = render(componentWrapper);
     await act(async () => {
@@ -61,7 +61,7 @@ describe('Dashboard', () => {
     mock.onGet(new RegExp('/cases')).reply(() => {
       return new Promise((resolve) => {
         // Don't resolve immediately to ensure loading state is shown
-        setTimeout(() => resolve([200, mockData]), 100);
+        setTimeout(() => resolve([200, caseData]), 100);
       });
     });
 

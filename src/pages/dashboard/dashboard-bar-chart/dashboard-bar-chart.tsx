@@ -1,5 +1,5 @@
 import { BarGraph } from '@metrostar/comet-data-viz';
-import { Case } from '@src/types/case';
+import { Case } from '@src/types';
 import React, { useEffect, useState } from 'react';
 import { ChartData } from '../types';
 import './dashboard-bar-chart.scss';

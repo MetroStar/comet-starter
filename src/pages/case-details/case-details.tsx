@@ -13,13 +13,24 @@ import {
   TextInput,
 } from '@metrostar/comet-uswds';
 import useCasesApi from '@src/hooks/use-cases-api';
-import { Case } from '@src/types/case';
-import { CaseFormInput } from '@src/types/form';
+import { Case } from '@src/types';
 import { REQUIRED_FORM_FIELDS_RULES } from '@src/utils/constants';
 import React, { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import ErrorNotification from '../../components/error-notification/error-notification';
+
+interface CaseFormInput {
+  first_name: string;
+  middle_name: string;
+  last_name: string;
+  ssn: string;
+  date_of_birth: string;
+  gender: string;
+  home_phone: string;
+  mobile_phone: string;
+  email: string;
+}
 
 export const CaseDetails = (): React.ReactElement => {
   const { id } = useParams();

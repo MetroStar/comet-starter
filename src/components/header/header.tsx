@@ -1,5 +1,4 @@
 import { Banner, Icon, Search, useHeader } from '@metrostar/comet-uswds';
-import { SearchFormElements } from '@src/types/form';
 import {
   APP_TITLE,
   HEADER_LINKS_SIGNED_IN,
@@ -9,6 +8,10 @@ import { lowercaseHyphenateString } from '@src/utils/helpers';
 import React, { FormEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/use-auth';
+
+type SearchFormElements = {
+  search: { value: string };
+};
 
 export const Header = (): React.ReactElement => {
   const { on, off } = useHeader();
