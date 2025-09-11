@@ -148,7 +148,6 @@ The following provides a short list of tasks which are potential next steps for 
 - [ ] Apply/clean-up basic branding (title, header, footer, logo, favicon, etc)
 - [ ] Add/Update Dashboard, About, Contact Us pages with applicable content
 - [ ] Enhance Dashboard table functionality (filter, search, paging)
-- [ ] Enhance Search Results page with filtering
 - [ ] Add Profile page and Profile Menu to Header (include Sign In/Sign Out, Profile, etc)
 - [ ] Integrate with some API (Ex. [Comet API](https://github.com/MetroStar/comet-api))
 - [ ] Integrate with some Identity Provider to support Single Sign-On (SSO)
