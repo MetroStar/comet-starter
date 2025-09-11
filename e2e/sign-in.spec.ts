@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { basicSignIn } from './helpers';
 
 test.describe('Sign In Page', () => {
   test.beforeEach(async ({ page }) => {
@@ -6,34 +7,10 @@ test.describe('Sign In Page', () => {
   });
 
   test('navigates to home and signs in', async ({ page }) => {
-    // Mock sign-in API
-    await page.route('**/api/auth/signin', async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify({
-          first_name: 'John',
-          last_name: 'Doe',
-        }),
-      });
-    });
+    // Complete sign-in flow
+    await basicSignIn(page);
 
-    // Navigate to Homepage
-    await page.goto('./');
-
-    // Verify Homepage
-    await expect(page.locator('h1')).toContainText('Welcome Guest');
-
-    // Navigate to Sign-in page
-    await page.locator('#auth-link').click();
-
-    // Login
-    await page.locator('input[name="username"]').fill('test');
-    await page.locator('input[name="password"]').fill('12345678');
-    await page.locator('#submit').click();
-
-    // Verify Homepage after signin
+    // Verify successful sign-in to dashboard
     await expect(page.locator('h1')).toContainText('Active Cases');
-    await expect(page.locator('#sign-in-alert')).toBeHidden();
   });
 });
