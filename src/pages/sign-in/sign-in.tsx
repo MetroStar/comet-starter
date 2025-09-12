@@ -6,19 +6,37 @@ import {
   TextInput,
 } from '@metrostar/comet-uswds';
 import { hasSsoConfig } from '@src/utils/auth';
+import { formatFieldError } from '@src/utils/form-utils';
 import { useForm } from '@tanstack/react-form';
 import React, { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { z } from 'zod';
 import useAuth from '../../hooks/use-auth';
+
+interface SignInFormInput {
+  username: string;
+  password: string;
+}
 
 export const SignIn = (): React.ReactElement => {
   const navigate = useNavigate();
   const { signIn, signInWithSso, error } = useAuth();
 
+  const signInSchema = z.object({
+    username: z.string().min(1, 'This field is required.'),
+    password: z
+      .string()
+      .min(1, 'This field is required.')
+      .min(8, 'Password must be at least 8 characters.'),
+  });
+
   const form = useForm({
     defaultValues: {
       username: '',
       password: '',
+    } as SignInFormInput,
+    validators: {
+      onChange: signInSchema,
     },
     onSubmit: async ({ value }) => {
       const response = await signIn(value.username, value.password);
@@ -56,13 +74,7 @@ export const SignIn = (): React.ReactElement => {
               form.handleSubmit();
             }}
           >
-            <form.Field
-              name="username"
-              validators={{
-                onChange: ({ value }) =>
-                  !value ? 'This field is required.' : undefined,
-              }}
-            >
+            <form.Field name="username">
               {(field) => (
                 <TextInput
                   id="username"
@@ -74,24 +86,14 @@ export const SignIn = (): React.ReactElement => {
                   onBlur={field.handleBlur}
                   errors={
                     field.state.meta.errors.length > 0
-                      ? field.state.meta.errors[0]
+                      ? formatFieldError(field.state.meta.errors[0])
                       : undefined
                   }
                   autoFocus
                 />
               )}
             </form.Field>
-            <form.Field
-              name="password"
-              validators={{
-                onChange: ({ value }) => {
-                  if (!value) return 'This field is required.';
-                  if (value.length < 8)
-                    return 'Password must be at least 8 characters.';
-                  return undefined;
-                },
-              }}
-            >
+            <form.Field name="password">
               {(field) => (
                 <TextInput
                   id="password"
@@ -104,7 +106,7 @@ export const SignIn = (): React.ReactElement => {
                   onBlur={field.handleBlur}
                   errors={
                     field.state.meta.errors.length > 0
-                      ? field.state.meta.errors[0]
+                      ? formatFieldError(field.state.meta.errors[0])
                       : undefined
                   }
                 />

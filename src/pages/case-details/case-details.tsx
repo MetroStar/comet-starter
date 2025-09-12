@@ -12,16 +12,42 @@ import {
 } from '@metrostar/comet-uswds';
 import useCasesApi from '@src/hooks/use-cases-api';
 import { Case } from '@src/types';
+import { formatFieldError } from '@src/utils/form-utils';
 import { useForm } from '@tanstack/react-form';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { z } from 'zod';
 import ErrorNotification from '../../components/error-notification/error-notification';
+
+interface CaseFormInput {
+  first_name: string;
+  middle_name: string;
+  last_name: string;
+  ssn: string;
+  date_of_birth: string;
+  gender: string;
+  home_phone: string;
+  mobile_phone: string;
+  email: string;
+}
 
 export const CaseDetails = (): React.ReactElement => {
   const { id } = useParams();
   const [editing, setEditing] = useState(false);
   const { getCase, updateCase } = useCasesApi();
   const { isLoading, data, error, isError } = getCase(Number(id));
+
+  const caseDetailsSchema = z.object({
+    first_name: z.string().min(1, 'This field is required.'),
+    middle_name: z.string().optional(),
+    last_name: z.string().min(1, 'This field is required.'),
+    ssn: z.string().min(1, 'This field is required.'),
+    date_of_birth: z.string().min(1, 'This field is required.'),
+    gender: z.string().optional(),
+    home_phone: z.string().min(1, 'This field is required.'),
+    mobile_phone: z.string().optional(),
+    email: z.string().email('Please enter a valid email address.').optional(),
+  });
 
   const form = useForm({
     defaultValues: {
@@ -34,6 +60,9 @@ export const CaseDetails = (): React.ReactElement => {
       home_phone: data?.applicant.home_phone || '',
       mobile_phone: data?.applicant.mobile_phone || '',
       email: data?.applicant.email || '',
+    } as CaseFormInput,
+    validators: {
+      onChange: caseDetailsSchema,
     },
     onSubmit: async ({ value }) => {
       try {
@@ -165,15 +194,7 @@ export const CaseDetails = (): React.ReactElement => {
                         <div className="grid-row grid-gap">
                           <div className="grid-col-12 tablet:grid-col-6 desktop:grid-col-4 margin-bottom-2">
                             {editing ? (
-                              <form.Field
-                                name="first_name"
-                                validators={{
-                                  onChange: ({ value }) =>
-                                    !value
-                                      ? 'This field is required.'
-                                      : undefined,
-                                }}
-                              >
+                              <form.Field name="first_name">
                                 {(field) => (
                                   <TextInput
                                     id="first_name"
@@ -187,7 +208,9 @@ export const CaseDetails = (): React.ReactElement => {
                                     onBlur={field.handleBlur}
                                     errors={
                                       field.state.meta.errors.length > 0
-                                        ? field.state.meta.errors[0]
+                                        ? formatFieldError(
+                                            field.state.meta.errors[0],
+                                          )
                                         : undefined
                                     }
                                     autoFocus
@@ -216,7 +239,9 @@ export const CaseDetails = (): React.ReactElement => {
                                     onBlur={field.handleBlur}
                                     errors={
                                       field.state.meta.errors.length > 0
-                                        ? field.state.meta.errors[0]
+                                        ? formatFieldError(
+                                            field.state.meta.errors[0],
+                                          )
                                         : undefined
                                     }
                                   />
@@ -253,7 +278,9 @@ export const CaseDetails = (): React.ReactElement => {
                                     onBlur={field.handleBlur}
                                     errors={
                                       field.state.meta.errors.length > 0
-                                        ? field.state.meta.errors[0]
+                                        ? formatFieldError(
+                                            field.state.meta.errors[0],
+                                          )
                                         : undefined
                                     }
                                   />
@@ -290,7 +317,9 @@ export const CaseDetails = (): React.ReactElement => {
                                     onBlur={field.handleBlur}
                                     errors={
                                       field.state.meta.errors.length > 0
-                                        ? field.state.meta.errors[0]
+                                        ? formatFieldError(
+                                            field.state.meta.errors[0],
+                                          )
                                         : undefined
                                     }
                                     mask={'ssn'}
@@ -330,7 +359,9 @@ export const CaseDetails = (): React.ReactElement => {
                                     onBlur={field.handleBlur}
                                     errors={
                                       field.state.meta.errors.length > 0
-                                        ? field.state.meta.errors[0]
+                                        ? formatFieldError(
+                                            field.state.meta.errors[0],
+                                          )
                                         : undefined
                                     }
                                   />
@@ -378,7 +409,9 @@ export const CaseDetails = (): React.ReactElement => {
                                     onBlur={field.handleBlur}
                                     errors={
                                       field.state.meta.errors.length > 0
-                                        ? field.state.meta.errors[0]
+                                        ? formatFieldError(
+                                            field.state.meta.errors[0],
+                                          )
                                         : undefined
                                     }
                                   />
@@ -415,7 +448,9 @@ export const CaseDetails = (): React.ReactElement => {
                                     onBlur={field.handleBlur}
                                     errors={
                                       field.state.meta.errors.length > 0
-                                        ? field.state.meta.errors[0]
+                                        ? formatFieldError(
+                                            field.state.meta.errors[0],
+                                          )
                                         : undefined
                                     }
                                     mask={'phone_number'}
@@ -444,7 +479,9 @@ export const CaseDetails = (): React.ReactElement => {
                                     onBlur={field.handleBlur}
                                     errors={
                                       field.state.meta.errors.length > 0
-                                        ? field.state.meta.errors[0]
+                                        ? formatFieldError(
+                                            field.state.meta.errors[0],
+                                          )
                                         : undefined
                                     }
                                     mask={'phone_number'}
@@ -475,7 +512,9 @@ export const CaseDetails = (): React.ReactElement => {
                                     onBlur={field.handleBlur}
                                     errors={
                                       field.state.meta.errors.length > 0
-                                        ? field.state.meta.errors[0]
+                                        ? formatFieldError(
+                                            field.state.meta.errors[0],
+                                          )
                                         : undefined
                                     }
                                   />

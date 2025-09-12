@@ -5,17 +5,37 @@ import {
   TextArea,
   TextInput,
 } from '@metrostar/comet-uswds';
+import { formatFieldError } from '@src/utils/form-utils';
 import { useForm } from '@tanstack/react-form';
 import React from 'react';
+import { z } from 'zod';
+
+interface ContactFormInput {
+  name: string;
+  email: string;
+  message: string;
+}
 
 export const ContactUs = (): React.ReactElement => {
   const [submitted, setSubmitted] = React.useState(false);
+
+  const contactUsSchema = z.object({
+    name: z.string().min(1, 'This field is required.'),
+    email: z
+      .string()
+      .min(1, 'This field is required.')
+      .email('Please enter a valid email address.'),
+    message: z.string().min(1, 'This field is required.'),
+  });
 
   const form = useForm({
     defaultValues: {
       name: '',
       email: '',
       message: '',
+    } as ContactFormInput,
+    validators: {
+      onChange: contactUsSchema,
     },
     onSubmit: async ({ value }) => {
       // eslint-disable-next-line no-console
@@ -48,13 +68,7 @@ export const ContactUs = (): React.ReactElement => {
               form.handleSubmit();
             }}
           >
-            <form.Field
-              name="name"
-              validators={{
-                onChange: ({ value }) =>
-                  !value ? 'This field is required.' : undefined,
-              }}
-            >
+            <form.Field name="name">
               {(field) => (
                 <TextInput
                   id="name"
@@ -66,25 +80,14 @@ export const ContactUs = (): React.ReactElement => {
                   onBlur={field.handleBlur}
                   errors={
                     field.state.meta.errors.length > 0
-                      ? field.state.meta.errors[0]
+                      ? formatFieldError(field.state.meta.errors[0])
                       : undefined
                   }
                   autoFocus
                 />
               )}
             </form.Field>
-            <form.Field
-              name="email"
-              validators={{
-                onChange: ({ value }) => {
-                  if (!value) return 'This field is required.';
-                  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                  if (!emailRegex.test(value))
-                    return 'Please enter a valid email address.';
-                  return undefined;
-                },
-              }}
-            >
+            <form.Field name="email">
               {(field) => (
                 <TextInput
                   id="email"
@@ -97,19 +100,13 @@ export const ContactUs = (): React.ReactElement => {
                   onBlur={field.handleBlur}
                   errors={
                     field.state.meta.errors.length > 0
-                      ? field.state.meta.errors[0]
+                      ? formatFieldError(field.state.meta.errors[0])
                       : undefined
                   }
                 />
               )}
             </form.Field>
-            <form.Field
-              name="message"
-              validators={{
-                onChange: ({ value }) =>
-                  !value ? 'This field is required.' : undefined,
-              }}
-            >
+            <form.Field name="message">
               {(field) => (
                 <TextArea
                   id="message"
@@ -122,7 +119,7 @@ export const ContactUs = (): React.ReactElement => {
                   onBlur={field.handleBlur}
                   errors={
                     field.state.meta.errors.length > 0
-                      ? field.state.meta.errors[0]
+                      ? formatFieldError(field.state.meta.errors[0])
                       : undefined
                   }
                 />
