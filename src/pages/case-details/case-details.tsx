@@ -263,15 +263,7 @@ export const CaseDetails = (): React.ReactElement => {
                           </div>
                           <div className="grid-col-12 tablet:grid-col-6 desktop:grid-col-4 margin-bottom-2">
                             {editing ? (
-                              <form.Field
-                                name="last_name"
-                                validators={{
-                                  onChange: ({ value }) =>
-                                    !value
-                                      ? 'This field is required.'
-                                      : undefined,
-                                }}
-                              >
+                              <form.Field name="last_name">
                                 {(field) => (
                                   <TextInput
                                     id="last_name"
@@ -302,15 +294,7 @@ export const CaseDetails = (): React.ReactElement => {
                           </div>
                           <div className="grid-col-12 tablet:grid-col-6 desktop:grid-col-4 margin-bottom-2">
                             {editing ? (
-                              <form.Field
-                                name="ssn"
-                                validators={{
-                                  onChange: ({ value }) =>
-                                    !value
-                                      ? 'This field is required.'
-                                      : undefined,
-                                }}
-                              >
+                              <form.Field name="ssn">
                                 {(field) => (
                                   <TextInput
                                     id="ssn"
@@ -342,15 +326,7 @@ export const CaseDetails = (): React.ReactElement => {
                           </div>
                           <div className="grid-col-12 tablet:grid-col-6 desktop:grid-col-4 margin-bottom-2">
                             {editing ? (
-                              <form.Field
-                                name="date_of_birth"
-                                validators={{
-                                  onChange: ({ value }) =>
-                                    !value
-                                      ? 'This field is required.'
-                                      : undefined,
-                                }}
-                              >
+                              <form.Field name="date_of_birth">
                                 {(field) => (
                                   <DatePicker
                                     id="date_of_birth"
@@ -389,15 +365,7 @@ export const CaseDetails = (): React.ReactElement => {
                           </div>
                           <div className="grid-col-12 tablet:grid-col-6 desktop:grid-col-4 margin-bottom-2">
                             {editing ? (
-                              <form.Field
-                                name="gender"
-                                validators={{
-                                  onChange: ({ value }) =>
-                                    !value
-                                      ? 'This field is required.'
-                                      : undefined,
-                                }}
-                              >
+                              <form.Field name="gender">
                                 {(field) => (
                                   <Select
                                     id="gender"
@@ -433,15 +401,7 @@ export const CaseDetails = (): React.ReactElement => {
                           </div>
                           <div className="grid-col-12 tablet:grid-col-6 desktop:grid-col-4 margin-bottom-2">
                             {editing ? (
-                              <form.Field
-                                name="home_phone"
-                                validators={{
-                                  onChange: ({ value }) =>
-                                    !value
-                                      ? 'This field is required.'
-                                      : undefined,
-                                }}
-                              >
+                              <form.Field name="home_phone">
                                 {(field) => (
                                   <TextInput
                                     id="home_phone"
