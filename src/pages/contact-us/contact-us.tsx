@@ -19,12 +19,15 @@ interface ContactFormInput {
 export const ContactUs = (): React.ReactElement => {
   const [submitted, setSubmitted] = React.useState(false);
 
-  const contactUsSchema = z.object({
+  const formSchema = z.object({
     name: z.string().min(1, 'This field is required.'),
     email: z
       .string()
       .min(1, 'This field is required.')
-      .email('Please enter a valid email address.'),
+      .regex(
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        'Please enter a valid email address.',
+      ),
     message: z.string().min(1, 'This field is required.'),
   });
 
@@ -35,7 +38,7 @@ export const ContactUs = (): React.ReactElement => {
       message: '',
     } as ContactFormInput,
     validators: {
-      onChange: contactUsSchema,
+      onChange: formSchema,
     },
     onSubmit: async ({ value }) => {
       // eslint-disable-next-line no-console

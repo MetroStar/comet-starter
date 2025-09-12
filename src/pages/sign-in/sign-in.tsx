@@ -22,7 +22,7 @@ export const SignIn = (): React.ReactElement => {
   const navigate = useNavigate();
   const { signIn, signInWithSso, error } = useAuth();
 
-  const signInSchema = z.object({
+  const formSchema = z.object({
     username: z.string().min(1, 'This field is required.'),
     password: z
       .string()
@@ -36,7 +36,7 @@ export const SignIn = (): React.ReactElement => {
       password: '',
     } as SignInFormInput,
     validators: {
-      onChange: signInSchema,
+      onChange: formSchema,
     },
     onSubmit: async ({ value }) => {
       const response = await signIn(value.username, value.password);

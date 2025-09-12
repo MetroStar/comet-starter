@@ -21,14 +21,14 @@ import ErrorNotification from '../../components/error-notification/error-notific
 
 interface CaseFormInput {
   first_name: string;
-  middle_name: string;
+  middle_name?: string;
   last_name: string;
   ssn: string;
   date_of_birth: string;
-  gender: string;
+  gender?: string;
   home_phone: string;
-  mobile_phone: string;
-  email: string;
+  mobile_phone?: string;
+  email?: string;
 }
 
 export const CaseDetails = (): React.ReactElement => {
@@ -37,7 +37,7 @@ export const CaseDetails = (): React.ReactElement => {
   const { getCase, updateCase } = useCasesApi();
   const { isLoading, data, error, isError } = getCase(Number(id));
 
-  const caseDetailsSchema = z.object({
+  const formSchema = z.object({
     first_name: z.string().min(1, 'This field is required.'),
     middle_name: z.string().optional(),
     last_name: z.string().min(1, 'This field is required.'),
@@ -46,7 +46,14 @@ export const CaseDetails = (): React.ReactElement => {
     gender: z.string().optional(),
     home_phone: z.string().min(1, 'This field is required.'),
     mobile_phone: z.string().optional(),
-    email: z.string().email('Please enter a valid email address.').optional(),
+    email: z
+      .string()
+      .regex(
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        'Please enter a valid email address.',
+      )
+      .optional()
+      .or(z.literal('')),
   });
 
   const form = useForm({
@@ -62,7 +69,7 @@ export const CaseDetails = (): React.ReactElement => {
       email: data?.applicant.email || '',
     } as CaseFormInput,
     validators: {
-      onChange: caseDetailsSchema,
+      onChange: formSchema,
     },
     onSubmit: async ({ value }) => {
       try {
