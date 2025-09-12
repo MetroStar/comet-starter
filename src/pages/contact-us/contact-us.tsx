@@ -58,6 +58,7 @@ export const ContactUs = (): React.ReactElement => {
               {(field) => (
                 <TextInput
                   id="name"
+                  name="name"
                   label="Name"
                   autoComplete="name"
                   value={field.state.value}
@@ -87,6 +88,7 @@ export const ContactUs = (): React.ReactElement => {
               {(field) => (
                 <TextInput
                   id="email"
+                  name="email"
                   type="email"
                   label="Email"
                   autoComplete="email"
@@ -111,6 +113,7 @@ export const ContactUs = (): React.ReactElement => {
               {(field) => (
                 <TextArea
                   id="message"
+                  name="message"
                   label="Message"
                   autoComplete="message"
                   rows={3}

@@ -177,6 +177,7 @@ export const CaseDetails = (): React.ReactElement => {
                                 {(field) => (
                                   <TextInput
                                     id="first_name"
+                                    name="first_name"
                                     label="First Name"
                                     required
                                     value={field.state.value}
@@ -206,6 +207,7 @@ export const CaseDetails = (): React.ReactElement => {
                                 {(field) => (
                                   <TextInput
                                     id="middle_name"
+                                    name="middle_name"
                                     label="Middle Name"
                                     value={field.state.value}
                                     onChange={(e) =>
@@ -241,6 +243,7 @@ export const CaseDetails = (): React.ReactElement => {
                                 {(field) => (
                                   <TextInput
                                     id="last_name"
+                                    name="last_name"
                                     label="Last Name"
                                     required
                                     value={field.state.value}
@@ -277,6 +280,7 @@ export const CaseDetails = (): React.ReactElement => {
                                 {(field) => (
                                   <TextInput
                                     id="ssn"
+                                    name="ssn"
                                     label="SSN"
                                     required
                                     value={field.state.value}
@@ -314,6 +318,7 @@ export const CaseDetails = (): React.ReactElement => {
                                 {(field) => (
                                   <DatePicker
                                     id="date_of_birth"
+                                    name="date_of_birth"
                                     label="Date of Birth"
                                     required
                                     defaultValue={field.state.value}
@@ -358,6 +363,7 @@ export const CaseDetails = (): React.ReactElement => {
                                 {(field) => (
                                   <Select
                                     id="gender"
+                                    name="gender"
                                     label="Gender"
                                     required
                                     options={[
@@ -399,6 +405,7 @@ export const CaseDetails = (): React.ReactElement => {
                                 {(field) => (
                                   <TextInput
                                     id="home_phone"
+                                    name="home_phone"
                                     label="Home Phone"
                                     required
                                     value={field.state.value}
@@ -428,6 +435,7 @@ export const CaseDetails = (): React.ReactElement => {
                                 {(field) => (
                                   <TextInput
                                     id="mobile_phone"
+                                    name="mobile_phone"
                                     label="Mobile Phone"
                                     value={field.state.value}
                                     onChange={(e) =>
@@ -458,6 +466,7 @@ export const CaseDetails = (): React.ReactElement => {
                                 {(field) => (
                                   <TextInput
                                     id="email"
+                                    name="email"
                                     label="Email"
                                     value={field.state.value}
                                     onChange={(e) =>

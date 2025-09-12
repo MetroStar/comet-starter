@@ -66,6 +66,7 @@ export const SignIn = (): React.ReactElement => {
               {(field) => (
                 <TextInput
                   id="username"
+                  name="username"
                   label="Username"
                   autoComplete="username"
                   value={field.state.value}
@@ -94,6 +95,7 @@ export const SignIn = (): React.ReactElement => {
               {(field) => (
                 <TextInput
                   id="password"
+                  name="password"
                   type="password"
                   label="Password"
                   autoComplete="current-password"
