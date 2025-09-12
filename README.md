@@ -9,7 +9,7 @@ The goal of this project is to provide a React with TypeScript starter applicati
 - Global State Management: [Jotai](https://jotai.org/)
 - Asynchronous State Management: [Tanstack Query](https://tanstack.com/query/v3/)
 - API Support: [Axios](https://axios-http.com/)
-- Form Validation: [TanStack Form](https://tanstack.com/form/latest)
+- Form Validation: [TanStack Form](https://tanstack.com/form/latest) with [Zod](https://zod.dev/)
 - Unit Testing: [Vitest](https://vitest.dev/) with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 - Code Analysis: [ESLint](https://eslint.org/)
 - Code Formatting: [Prettier](https://prettier.io/)
