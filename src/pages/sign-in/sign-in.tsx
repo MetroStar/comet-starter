@@ -6,13 +6,11 @@ import {
   TextInput,
 } from '@metrostar/comet-uswds';
 import { hasSsoConfig } from '@src/utils/auth';
-import {
-  PASSWORD_RULES,
-  REQUIRED_FORM_FIELDS_RULES,
-} from '@src/utils/constants';
+import { formatFieldError } from '@src/utils/form-utils';
+import { useForm } from '@tanstack/react-form';
 import React, { FormEvent } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { z } from 'zod';
 import useAuth from '../../hooks/use-auth';
 
 interface SignInFormInput {
@@ -23,24 +21,30 @@ interface SignInFormInput {
 export const SignIn = (): React.ReactElement => {
   const navigate = useNavigate();
   const { signIn, signInWithSso, error } = useAuth();
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SignInFormInput>({
+
+  const formSchema = z.object({
+    username: z.string().min(1, 'This field is required.'),
+    password: z
+      .string()
+      .min(1, 'This field is required.')
+      .min(8, 'Password must be at least 8 characters.'),
+  });
+
+  const form = useForm({
     defaultValues: {
       username: '',
       password: '',
+    } as SignInFormInput,
+    validators: {
+      onChange: formSchema,
     },
-  });
-
-  const onSubmit: SubmitHandler<SignInFormInput> = (formData) => {
-    signIn(formData.username, formData.password).then((response) => {
+    onSubmit: async ({ value }) => {
+      const response = await signIn(value.username, value.password);
       if (response.status === 200) {
         navigate('/dashboard');
       }
-    });
-  };
+    },
+  });
 
   const handleCancel = (event: FormEvent): void => {
     event.preventDefault();
@@ -64,58 +68,64 @@ export const SignIn = (): React.ReactElement => {
           <Form
             id="login-form"
             className="maxw-mobile-lg"
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              form.handleSubmit();
+            }}
           >
-            <Controller
-              name="username"
-              control={control}
-              rules={REQUIRED_FORM_FIELDS_RULES}
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              render={({ field: { ref: _, ...field } }) => (
+            <form.Field name="username">
+              {(field) => (
                 <TextInput
-                  {...field}
                   id="username"
+                  name="username"
                   label="Username"
                   autoComplete="username"
+                  value={field.state.value}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  onBlur={field.handleBlur}
                   errors={
-                    errors.username?.message
-                      ? errors.username.message
+                    field.state.meta.errors.length > 0
+                      ? formatFieldError(field.state.meta.errors[0])
                       : undefined
                   }
                   autoFocus
                 />
               )}
-            />
-            <Controller
-              name="password"
-              control={control}
-              rules={PASSWORD_RULES}
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              render={({ field: { ref: _, ...field } }) => (
+            </form.Field>
+            <form.Field name="password">
+              {(field) => (
                 <TextInput
-                  {...field}
                   id="password"
+                  name="password"
                   type="password"
                   label="Password"
                   autoComplete="current-password"
+                  value={field.state.value}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  onBlur={field.handleBlur}
                   errors={
-                    errors.password?.message
-                      ? errors.password.message
+                    field.state.meta.errors.length > 0
+                      ? formatFieldError(field.state.meta.errors[0])
                       : undefined
                   }
                 />
               )}
-            />
+            </form.Field>
             <ButtonGroup>
-              <Button
-                id="submit"
-                type="submit"
-                disabled={
-                  !!errors.username?.message || !!errors.password?.message
-                }
+              <form.Subscribe
+                selector={(state) => [state.canSubmit, state.isSubmitting]}
               >
-                Sign In
-              </Button>
+                {([canSubmit, isSubmitting]) => (
+                  <Button
+                    id="submit"
+                    type="submit"
+                    disabled={isSubmitting || !canSubmit}
+                  >
+                    Sign In
+                  </Button>
+                )}
+              </form.Subscribe>
               <Button
                 id="cancel"
                 type="button"

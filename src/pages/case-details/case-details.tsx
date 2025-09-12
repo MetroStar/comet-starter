@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import { Spinner } from '@metrostar/comet-extras';
 import {
   Button,
@@ -14,22 +12,23 @@ import {
 } from '@metrostar/comet-uswds';
 import useCasesApi from '@src/hooks/use-cases-api';
 import { Case } from '@src/types';
-import { REQUIRED_FORM_FIELDS_RULES } from '@src/utils/constants';
-import React, { useState } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { formatFieldError } from '@src/utils/form-utils';
+import { useForm } from '@tanstack/react-form';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { z } from 'zod';
 import ErrorNotification from '../../components/error-notification/error-notification';
 
 interface CaseFormInput {
   first_name: string;
-  middle_name: string;
+  middle_name?: string;
   last_name: string;
   ssn: string;
   date_of_birth: string;
-  gender: string;
+  gender?: string;
   home_phone: string;
-  mobile_phone: string;
-  email: string;
+  mobile_phone?: string;
+  email?: string;
 }
 
 export const CaseDetails = (): React.ReactElement => {
@@ -38,47 +37,95 @@ export const CaseDetails = (): React.ReactElement => {
   const { getCase, updateCase } = useCasesApi();
   const { isLoading, data, error, isError } = getCase(Number(id));
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<CaseFormInput>({
-    values: {
+  const formSchema = z.object({
+    first_name: z.string().min(1, 'This field is required.'),
+    middle_name: z.string().optional(),
+    last_name: z.string().min(1, 'This field is required.'),
+    ssn: z.string().min(1, 'This field is required.'),
+    date_of_birth: z.string().min(1, 'This field is required.'),
+    gender: z.string().optional(),
+    home_phone: z.string().min(1, 'This field is required.'),
+    mobile_phone: z.string().optional(),
+    email: z
+      .string()
+      .regex(
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        'Please enter a valid email address.',
+      )
+      .optional()
+      .or(z.literal('')),
+  });
+
+  const form = useForm({
+    defaultValues: {
       first_name: data?.applicant.first_name || '',
       middle_name: data?.applicant.middle_name || '',
       last_name: data?.applicant.last_name || '',
       ssn: data?.applicant.ssn || '',
-      date_of_birth: data?.applicant.date_of_birth
-        ? new Date(data.applicant.date_of_birth).toLocaleDateString('en-US')
-        : '',
+      date_of_birth: '',
       gender: data?.applicant.gender || '',
       home_phone: data?.applicant.home_phone || '',
       mobile_phone: data?.applicant.mobile_phone || '',
       email: data?.applicant.email || '',
+    } as CaseFormInput,
+    validators: {
+      onChange: formSchema,
+    },
+    onSubmit: async ({ value }) => {
+      try {
+        await updateCase.mutateAsync({
+          applicant: {
+            first_name: value.first_name,
+            middle_name: value.middle_name,
+            last_name: value.last_name,
+            ssn: value.ssn,
+            date_of_birth: new Date(value.date_of_birth),
+            gender: value.gender,
+            home_phone: value.home_phone,
+            mobile_phone: value.mobile_phone,
+            email: value.email,
+            ...data?.applicant,
+          },
+          status: 'In Progress',
+          updated_at: new Date(),
+          ...data,
+        } as Case);
+        // Reset the form to view state
+        setEditing(false);
+      } catch {
+        // Error will be handled by the mutation error state
+        // Keep form in editing state so user can retry
+      }
     },
   });
 
-  const onSubmit: SubmitHandler<CaseFormInput> = (formData) => {
-    updateCase.mutate({
-      applicant: {
-        first_name: formData.first_name,
-        middle_name: formData.middle_name,
-        last_name: formData.last_name,
-        ssn: formData.ssn,
-        date_of_birth: new Date(formData.date_of_birth),
-        gender: formData.gender,
-        home_phone: formData.home_phone,
-        mobile_phone: formData.mobile_phone,
-        email: formData.email,
-        ...data?.applicant,
-      },
-      status: 'In Progress',
-      updated_at: new Date(),
-      ...data,
-    } as Case);
-    // Reset the form to view state
-    setEditing(false);
-  };
+  // Update form values when data changes
+  useEffect(() => {
+    if (data) {
+      form.setFieldValue('first_name', data.applicant.first_name || '');
+      form.setFieldValue('middle_name', data.applicant.middle_name || '');
+      form.setFieldValue('last_name', data.applicant.last_name || '');
+      form.setFieldValue('ssn', data.applicant.ssn || '');
+      form.setFieldValue(
+        'date_of_birth',
+        data.applicant.date_of_birth
+          ? new Date(data.applicant.date_of_birth).toLocaleDateString('en-US')
+          : '',
+      );
+      form.setFieldValue('gender', data.applicant.gender || '');
+      form.setFieldValue('home_phone', data.applicant.home_phone || '');
+      form.setFieldValue('mobile_phone', data.applicant.mobile_phone || '');
+      form.setFieldValue('email', data.applicant.email || '');
+    }
+  }, [data, form]);
+
+  useEffect(() => {
+    if (editing && data) {
+      // Focus the first input when entering edit mode
+      const firstInput = document.getElementById('first_name');
+      firstInput?.focus();
+    }
+  }, [editing, data]);
 
   return (
     <div className="grid-container">
@@ -92,15 +139,21 @@ export const CaseDetails = (): React.ReactElement => {
               </div>
               <div className="display-flex flex-align-start margin-top-3">
                 <ButtonGroup>
-                  <Button
-                    id="save-case-button"
-                    type="submit"
-                    variant="default"
-                    form="case-details-form"
-                    disabled={!editing}
+                  <form.Subscribe
+                    selector={(state) => [state.canSubmit, state.isSubmitting]}
                   >
-                    Save Case
-                  </Button>
+                    {([canSubmit, isSubmitting]) => (
+                      <Button
+                        id="save-case-button"
+                        type="submit"
+                        variant="default"
+                        form="case-details-form"
+                        disabled={!editing || isSubmitting || !canSubmit}
+                      >
+                        {isSubmitting ? 'Saving...' : 'Save Case'}
+                      </Button>
+                    )}
+                  </form.Subscribe>
                   <Button
                     id="edit-case-button"
                     type="button"
@@ -134,8 +187,13 @@ export const CaseDetails = (): React.ReactElement => {
               <Card id="details-card">
                 <CardBody>
                   <Form
+                    key={`case-form-${data.id}`}
                     id="case-details-form"
-                    onSubmit={handleSubmit(onSubmit)}
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      form.handleSubmit();
+                    }}
                     style={{ maxWidth: '100%' }}
                   >
                     <div className="grid-row grid-gap-2">
@@ -143,25 +201,29 @@ export const CaseDetails = (): React.ReactElement => {
                         <div className="grid-row grid-gap">
                           <div className="grid-col-12 tablet:grid-col-6 desktop:grid-col-4 margin-bottom-2">
                             {editing ? (
-                              <Controller
-                                name="first_name"
-                                control={control}
-                                rules={REQUIRED_FORM_FIELDS_RULES}
-                                render={({ field: { ref: _, ...field } }) => (
+                              <form.Field name="first_name">
+                                {(field) => (
                                   <TextInput
-                                    {...field}
                                     id="first_name"
+                                    name="first_name"
                                     label="First Name"
                                     required
+                                    value={field.state.value}
+                                    onChange={(e) =>
+                                      field.handleChange(e.target.value)
+                                    }
+                                    onBlur={field.handleBlur}
                                     errors={
-                                      errors.first_name?.message
-                                        ? errors.first_name.message
+                                      field.state.meta.errors.length > 0
+                                        ? formatFieldError(
+                                            field.state.meta.errors[0],
+                                          )
                                         : undefined
                                     }
                                     autoFocus
                                   />
                                 )}
-                              />
+                              </form.Field>
                             ) : (
                               <>
                                 <Label className="text-bold">First Name</Label>
@@ -171,17 +233,27 @@ export const CaseDetails = (): React.ReactElement => {
                           </div>
                           <div className="grid-col-12 tablet:grid-col-6 desktop:grid-col-4 margin-bottom-2">
                             {editing ? (
-                              <Controller
-                                name="middle_name"
-                                control={control}
-                                render={({ field: { ref: _, ...field } }) => (
+                              <form.Field name="middle_name">
+                                {(field) => (
                                   <TextInput
-                                    {...field}
                                     id="middle_name"
+                                    name="middle_name"
                                     label="Middle Name"
+                                    value={field.state.value}
+                                    onChange={(e) =>
+                                      field.handleChange(e.target.value)
+                                    }
+                                    onBlur={field.handleBlur}
+                                    errors={
+                                      field.state.meta.errors.length > 0
+                                        ? formatFieldError(
+                                            field.state.meta.errors[0],
+                                          )
+                                        : undefined
+                                    }
                                   />
                                 )}
-                              />
+                              </form.Field>
                             ) : (
                               <>
                                 <Label className="text-bold">Middle Name</Label>
@@ -191,24 +263,28 @@ export const CaseDetails = (): React.ReactElement => {
                           </div>
                           <div className="grid-col-12 tablet:grid-col-6 desktop:grid-col-4 margin-bottom-2">
                             {editing ? (
-                              <Controller
-                                name="last_name"
-                                control={control}
-                                rules={REQUIRED_FORM_FIELDS_RULES}
-                                render={({ field: { ref: _, ...field } }) => (
+                              <form.Field name="last_name">
+                                {(field) => (
                                   <TextInput
-                                    {...field}
                                     id="last_name"
+                                    name="last_name"
                                     label="Last Name"
                                     required
+                                    value={field.state.value}
+                                    onChange={(e) =>
+                                      field.handleChange(e.target.value)
+                                    }
+                                    onBlur={field.handleBlur}
                                     errors={
-                                      errors.last_name?.message
-                                        ? errors.last_name.message
+                                      field.state.meta.errors.length > 0
+                                        ? formatFieldError(
+                                            field.state.meta.errors[0],
+                                          )
                                         : undefined
                                     }
                                   />
                                 )}
-                              />
+                              </form.Field>
                             ) : (
                               <>
                                 <Label className="text-bold">Last Name</Label>
@@ -218,25 +294,29 @@ export const CaseDetails = (): React.ReactElement => {
                           </div>
                           <div className="grid-col-12 tablet:grid-col-6 desktop:grid-col-4 margin-bottom-2">
                             {editing ? (
-                              <Controller
-                                name="ssn"
-                                control={control}
-                                rules={REQUIRED_FORM_FIELDS_RULES}
-                                render={({ field: { ref: _, ...field } }) => (
+                              <form.Field name="ssn">
+                                {(field) => (
                                   <TextInput
-                                    {...field}
                                     id="ssn"
+                                    name="ssn"
                                     label="SSN"
                                     required
+                                    value={field.state.value}
+                                    onChange={(e) =>
+                                      field.handleChange(e.target.value)
+                                    }
+                                    onBlur={field.handleBlur}
                                     errors={
-                                      errors.ssn?.message
-                                        ? errors.ssn.message
+                                      field.state.meta.errors.length > 0
+                                        ? formatFieldError(
+                                            field.state.meta.errors[0],
+                                          )
                                         : undefined
                                     }
                                     mask={'ssn'}
                                   />
                                 )}
-                              />
+                              </form.Field>
                             ) : (
                               <>
                                 <Label className="text-bold">SSN</Label>
@@ -246,27 +326,30 @@ export const CaseDetails = (): React.ReactElement => {
                           </div>
                           <div className="grid-col-12 tablet:grid-col-6 desktop:grid-col-4 margin-bottom-2">
                             {editing ? (
-                              <Controller
-                                name="date_of_birth"
-                                control={control}
-                                rules={REQUIRED_FORM_FIELDS_RULES}
-                                render={({
-                                  field: { ref: _, value, ...field },
-                                }) => (
+                              <form.Field name="date_of_birth">
+                                {(field) => (
                                   <DatePicker
-                                    {...field}
                                     id="date_of_birth"
+                                    name="date_of_birth"
                                     label="Date of Birth"
                                     required
-                                    defaultValue={value}
+                                    defaultValue={field.state.value}
+                                    onChange={(e) =>
+                                      field.handleChange(
+                                        (e.target as HTMLInputElement).value,
+                                      )
+                                    }
+                                    onBlur={field.handleBlur}
                                     errors={
-                                      errors.date_of_birth?.message
-                                        ? errors.date_of_birth.message
+                                      field.state.meta.errors.length > 0
+                                        ? formatFieldError(
+                                            field.state.meta.errors[0],
+                                          )
                                         : undefined
                                     }
                                   />
                                 )}
-                              />
+                              </form.Field>
                             ) : (
                               <>
                                 <Label className="text-bold">
@@ -282,16 +365,11 @@ export const CaseDetails = (): React.ReactElement => {
                           </div>
                           <div className="grid-col-12 tablet:grid-col-6 desktop:grid-col-4 margin-bottom-2">
                             {editing ? (
-                              <Controller
-                                name="gender"
-                                control={control}
-                                rules={REQUIRED_FORM_FIELDS_RULES}
-                                render={({
-                                  field: { ref: _, value, ...field },
-                                }) => (
+                              <form.Field name="gender">
+                                {(field) => (
                                   <Select
-                                    {...field}
                                     id="gender"
+                                    name="gender"
                                     label="Gender"
                                     required
                                     options={[
@@ -299,15 +377,21 @@ export const CaseDetails = (): React.ReactElement => {
                                       { label: 'Female', value: 'Female' },
                                       { label: 'Other', value: 'Other' },
                                     ]}
-                                    defaultValue={value}
+                                    defaultValue={field.state.value}
+                                    onChange={(e) =>
+                                      field.handleChange(e.target.value)
+                                    }
+                                    onBlur={field.handleBlur}
                                     errors={
-                                      errors.gender?.message
-                                        ? errors.gender.message
+                                      field.state.meta.errors.length > 0
+                                        ? formatFieldError(
+                                            field.state.meta.errors[0],
+                                          )
                                         : undefined
                                     }
                                   />
                                 )}
-                              />
+                              </form.Field>
                             ) : (
                               <>
                                 <Label className="text-bold">Gender</Label>
@@ -317,25 +401,29 @@ export const CaseDetails = (): React.ReactElement => {
                           </div>
                           <div className="grid-col-12 tablet:grid-col-6 desktop:grid-col-4 margin-bottom-2">
                             {editing ? (
-                              <Controller
-                                name="home_phone"
-                                control={control}
-                                rules={REQUIRED_FORM_FIELDS_RULES}
-                                render={({ field: { ref: _, ...field } }) => (
+                              <form.Field name="home_phone">
+                                {(field) => (
                                   <TextInput
-                                    {...field}
                                     id="home_phone"
+                                    name="home_phone"
                                     label="Home Phone"
                                     required
+                                    value={field.state.value}
+                                    onChange={(e) =>
+                                      field.handleChange(e.target.value)
+                                    }
+                                    onBlur={field.handleBlur}
                                     errors={
-                                      errors.home_phone?.message
-                                        ? errors.home_phone.message
+                                      field.state.meta.errors.length > 0
+                                        ? formatFieldError(
+                                            field.state.meta.errors[0],
+                                          )
                                         : undefined
                                     }
                                     mask={'phone_number'}
                                   />
                                 )}
-                              />
+                              </form.Field>
                             ) : (
                               <>
                                 <Label className="text-bold">Home Phone</Label>
@@ -345,18 +433,28 @@ export const CaseDetails = (): React.ReactElement => {
                           </div>
                           <div className="grid-col-12 tablet:grid-col-6 desktop:grid-col-4 margin-bottom-2">
                             {editing ? (
-                              <Controller
-                                name="mobile_phone"
-                                control={control}
-                                render={({ field: { ref: _, ...field } }) => (
+                              <form.Field name="mobile_phone">
+                                {(field) => (
                                   <TextInput
-                                    {...field}
                                     id="mobile_phone"
+                                    name="mobile_phone"
                                     label="Mobile Phone"
+                                    value={field.state.value}
+                                    onChange={(e) =>
+                                      field.handleChange(e.target.value)
+                                    }
+                                    onBlur={field.handleBlur}
+                                    errors={
+                                      field.state.meta.errors.length > 0
+                                        ? formatFieldError(
+                                            field.state.meta.errors[0],
+                                          )
+                                        : undefined
+                                    }
                                     mask={'phone_number'}
                                   />
                                 )}
-                              />
+                              </form.Field>
                             ) : (
                               <>
                                 <Label className="text-bold">
@@ -368,17 +466,27 @@ export const CaseDetails = (): React.ReactElement => {
                           </div>
                           <div className="grid-col-12 tablet:grid-col-6 desktop:grid-col-4 margin-bottom-2">
                             {editing ? (
-                              <Controller
-                                name="email"
-                                control={control}
-                                render={({ field: { ref: _, ...field } }) => (
+                              <form.Field name="email">
+                                {(field) => (
                                   <TextInput
-                                    {...field}
                                     id="email"
+                                    name="email"
                                     label="Email"
+                                    value={field.state.value}
+                                    onChange={(e) =>
+                                      field.handleChange(e.target.value)
+                                    }
+                                    onBlur={field.handleBlur}
+                                    errors={
+                                      field.state.meta.errors.length > 0
+                                        ? formatFieldError(
+                                            field.state.meta.errors[0],
+                                          )
+                                        : undefined
+                                    }
                                   />
                                 )}
-                              />
+                              </form.Field>
                             ) : (
                               <>
                                 <Label className="text-bold">Email</Label>
