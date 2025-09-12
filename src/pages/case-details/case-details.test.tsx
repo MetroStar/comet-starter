@@ -163,36 +163,25 @@ describe('CaseDetails', () => {
       expect(baseElement.querySelector('input#first_name')).toBeDefined();
     });
 
-    // Change a field value
+    // Clear required fields to trigger validation errors
     const firstNameInput = baseElement.querySelector(
       'input#first_name',
     ) as HTMLInputElement;
     fireEvent.change(firstNameInput, { target: { value: '' } });
+
     const lastNameInput = baseElement.querySelector(
       'input#last_name',
     ) as HTMLInputElement;
     fireEvent.change(lastNameInput, { target: { value: '' } });
-    const ssnInput = baseElement.querySelector('input#ssn') as HTMLInputElement;
-    fireEvent.change(ssnInput, { target: { value: '' } });
-    const dobInput = baseElement.querySelector(
-      'input#date_of_birth',
-    ) as HTMLInputElement;
-    fireEvent.change(dobInput, { target: { value: '' } });
-    const genderInput = baseElement.querySelector(
-      'select#gender',
-    ) as HTMLSelectElement;
-    fireEvent.change(genderInput, { target: { value: '' } });
-    const homePhoneInput = baseElement.querySelector(
-      'input#home_phone',
-    ) as HTMLInputElement;
-    fireEvent.change(homePhoneInput, { target: { value: '' } });
 
-    // Save changes
+    // Try to save - this should fail validation and keep the form in edit mode
     const saveButton = getByText('Save Case');
     fireEvent.click(saveButton);
 
-    // Verify form is back to view mode
-    expect(editButton.textContent).not.toEqual('Edit Case');
+    // Verify form stays in edit mode due to validation errors
+    await waitFor(() => {
+      expect(getByText('Cancel Edit')).toBeDefined();
+    });
   });
 
   test('should render with error', async () => {

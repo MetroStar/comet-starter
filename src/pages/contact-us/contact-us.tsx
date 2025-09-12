@@ -5,36 +5,25 @@ import {
   TextArea,
   TextInput,
 } from '@metrostar/comet-uswds';
-import { REQUIRED_FORM_FIELDS_RULES } from '@src/utils/constants';
+import { useForm } from '@tanstack/react-form';
 import React from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-
-interface ContactFormInput {
-  name: string;
-  email: string;
-  message: string;
-}
 
 export const ContactUs = (): React.ReactElement => {
   const [submitted, setSubmitted] = React.useState(false);
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ContactFormInput>({
+
+  const form = useForm({
     defaultValues: {
       name: '',
       email: '',
       message: '',
     },
+    onSubmit: async ({ value }) => {
+      // eslint-disable-next-line no-console
+      console.log('Form submitted:', value);
+      // TODO: update to send form data to a server or API
+      setSubmitted(true);
+    },
   });
-
-  const onSubmit: SubmitHandler<ContactFormInput> = (formData) => {
-    // eslint-disable-next-line no-console
-    console.log('Form submitted:', formData);
-    // TODO: update to send form data to a server or API
-    setSubmitted(true);
-  };
 
   return (
     <div className="grid-container">
@@ -51,75 +40,104 @@ export const ContactUs = (): React.ReactElement => {
             </Alert>
           )}
           <Form
-            id="login-form"
+            id="contact-form"
             className="maxw-mobile-lg"
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              form.handleSubmit();
+            }}
           >
-            <Controller
+            <form.Field
               name="name"
-              control={control}
-              rules={REQUIRED_FORM_FIELDS_RULES}
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              render={({ field: { ref: _, ...field } }) => (
+              validators={{
+                onChange: ({ value }) =>
+                  !value ? 'This field is required.' : undefined,
+              }}
+            >
+              {(field) => (
                 <TextInput
-                  {...field}
                   id="name"
                   label="Name"
                   autoComplete="name"
+                  value={field.state.value}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  onBlur={field.handleBlur}
                   errors={
-                    errors.name?.message ? errors.name.message : undefined
+                    field.state.meta.errors.length > 0
+                      ? field.state.meta.errors[0]
+                      : undefined
                   }
                   autoFocus
                 />
               )}
-            />
-            <Controller
+            </form.Field>
+            <form.Field
               name="email"
-              control={control}
-              rules={REQUIRED_FORM_FIELDS_RULES}
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              render={({ field: { ref: _, ...field } }) => (
+              validators={{
+                onChange: ({ value }) => {
+                  if (!value) return 'This field is required.';
+                  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                  if (!emailRegex.test(value))
+                    return 'Please enter a valid email address.';
+                  return undefined;
+                },
+              }}
+            >
+              {(field) => (
                 <TextInput
-                  {...field}
                   id="email"
                   type="email"
                   label="Email"
                   autoComplete="email"
+                  value={field.state.value}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  onBlur={field.handleBlur}
                   errors={
-                    errors.email?.message ? errors.email.message : undefined
+                    field.state.meta.errors.length > 0
+                      ? field.state.meta.errors[0]
+                      : undefined
                   }
                 />
               )}
-            />
-            <Controller
+            </form.Field>
+            <form.Field
               name="message"
-              control={control}
-              rules={REQUIRED_FORM_FIELDS_RULES}
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              render={({ field: { ref: _, ...field } }) => (
+              validators={{
+                onChange: ({ value }) =>
+                  !value ? 'This field is required.' : undefined,
+              }}
+            >
+              {(field) => (
                 <TextArea
-                  {...field}
                   id="message"
                   label="Message"
                   autoComplete="message"
                   rows={3}
+                  value={field.state.value}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  onBlur={field.handleBlur}
                   errors={
-                    errors.message?.message ? errors.message.message : undefined
+                    field.state.meta.errors.length > 0
+                      ? field.state.meta.errors[0]
+                      : undefined
                   }
                 />
               )}
-            />
-            <Button
-              id="submit"
-              type="submit"
-              disabled={
-                !!errors.name?.message ||
-                !!errors.email?.message ||
-                !!errors.message?.message
-              }
+            </form.Field>
+            <form.Subscribe
+              selector={(state) => [state.canSubmit, state.isSubmitting]}
             >
-              Submit
-            </Button>
+              {([canSubmit, isSubmitting]) => (
+                <Button
+                  id="submit"
+                  type="submit"
+                  disabled={isSubmitting || !canSubmit}
+                >
+                  Submit
+                </Button>
+              )}
+            </form.Subscribe>
           </Form>
         </div>
       </div>
