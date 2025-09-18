@@ -42,6 +42,8 @@ This project is built using the following tools and libraries:
 - Use USWDS utility classes where possible.
 - Use USWDS grid system for layout.
 - Use USWDS flex system for flexbox layouts.
+- Do attempt to add custom styling to override USWDS styles.
+- Ensure cards used for data visualizations sized appropriately for the content.
 
 ## Unit Testing
 
@@ -63,7 +65,5 @@ This project is built using the following tools and libraries:
 ## Important Copilot Instructions
 
 - The app already contains a header, footer, and search component. No need to add these again.
-- Do attempt to add custom styling to override USWDS styles.
-- Ensure cards used for data visualizations sized appropriately for the content.
 - No need to add or update tests unless specifically requested.
 - Wait until work is complete before trying to fix formatting issues.
