@@ -42,6 +42,8 @@ This project is built using the following tools and libraries:
 - Use USWDS utility classes where possible.
 - Use USWDS grid system for layout.
 - Use USWDS flex system for flexbox layouts.
+- Do attempt to add custom styling to override USWDS styles.
+- Ensure cards used for data visualizations sized appropriately for the content.
 
 ## Unit Testing
 

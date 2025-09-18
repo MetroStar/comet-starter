@@ -11,7 +11,7 @@ export const Footer = (): React.ReactElement => {
 
   return (
     <footer className="usa-footer">
-      <div className="grid-container usa-footer__return-to-top">
+      <div className="grid-container usa-footer__return-to-top display-none">
         <a
           href="/#"
           onClick={(event) => {
