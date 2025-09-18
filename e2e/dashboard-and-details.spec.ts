@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { basicSignIn } from './helpers';
 
 test.describe('Dashboard and Details Page', () => {
   test.beforeEach(async ({ page }) => {
@@ -6,32 +7,10 @@ test.describe('Dashboard and Details Page', () => {
   });
 
   test('verifies access to dashboard after signing in', async ({ page }) => {
-    // Mock sign-in API
-    await page.route('**/api/auth/signin', async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify({
-          first_name: 'John',
-          last_name: 'Doe',
-        }),
-      });
-    });
+    // Complete sign-in flow
+    await basicSignIn(page);
 
-    // Navigate to Homepage
-    await page.goto('./');
-
-    // Verify Homepage
-    await expect(page.locator('h1')).toContainText('Welcome Guest');
-
-    // Sign In
-    await page.click('#auth-link');
-    await page.fill('input[name="username"]', 'test');
-    await page.fill('input[name="password"]', '12345678');
-    await page.click('#submit');
-
-    // Navigate to Dashboard
-    await page.click('#dashboard-link');
+    // Verify successful sign-in to dashboard
     await expect(page.locator('h1')).toContainText('Active Cases');
 
     // Click on table item and verify details

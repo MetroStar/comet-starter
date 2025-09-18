@@ -12,7 +12,7 @@ This project is built using the following tools and libraries:
 - React Router for routing
 - React Query and Axios to support making API calls
 - Jotai for Global State Management
-- React Hook Forms for Form Validation
+- Tanstack Form with Zod for Form Validation
 
 ## Development Guidelines
 

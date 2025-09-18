@@ -1,4 +1,4 @@
-import { mockData } from '@src/data/case';
+import { caseData } from '@src/data/cases';
 import axios from '@src/utils/axios';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { fireEvent, render, waitFor } from '@testing-library/react';
@@ -51,8 +51,8 @@ describe('CaseDetails', () => {
   });
 
   test('should render successfully', async () => {
-    mock.onGet(new RegExp('/cases/*')).reply(200, mockData.items[1]);
-    queryClient.setQueryData(['cases', caseId], mockData.items[1]);
+    mock.onGet(new RegExp('/cases/*')).reply(200, caseData.items[1]);
+    queryClient.setQueryData(['cases', caseId], caseData.items[1]);
 
     const { baseElement } = render(componentWrapper);
     expect(baseElement).toBeTruthy();
@@ -61,7 +61,7 @@ describe('CaseDetails', () => {
     );
     await waitFor(async () => {
       expect(baseElement.querySelector('h2')?.textContent).toEqual(
-        `Status: ${mockData.items[1].status}`,
+        `Status: ${caseData.items[1].status}`,
       );
     });
   });
@@ -71,7 +71,7 @@ describe('CaseDetails', () => {
     mock.onGet(new RegExp('/cases/*')).reply(200, () => {
       return new Promise((resolve) => {
         // Don't resolve immediately to ensure loading state is shown
-        setTimeout(() => resolve([200, mockData.items[1]]), 100);
+        setTimeout(() => resolve([200, caseData.items[1]]), 100);
       });
     });
 
@@ -90,8 +90,8 @@ describe('CaseDetails', () => {
   });
 
   test('should allow editing fields when edit button is clicked', async () => {
-    mock.onGet(new RegExp('/cases/*')).reply(200, mockData.items[1]);
-    queryClient.setQueryData(['cases', caseId], mockData.items[1]);
+    mock.onGet(new RegExp('/cases/*')).reply(200, caseData.items[1]);
+    queryClient.setQueryData(['cases', caseId], caseData.items[1]);
 
     const { baseElement, getByText } = render(componentWrapper);
 
@@ -147,9 +147,9 @@ describe('CaseDetails', () => {
   });
 
   test('should not save when empty fields', async () => {
-    mock.onGet(new RegExp('/cases/*')).reply(200, mockData.items[1]);
-    mock.onPut(new RegExp('/cases/*')).reply(200, mockData.items[1]);
-    queryClient.setQueryData(['cases', caseId], mockData.items[1]);
+    mock.onGet(new RegExp('/cases/*')).reply(200, caseData.items[1]);
+    mock.onPut(new RegExp('/cases/*')).reply(200, caseData.items[1]);
+    queryClient.setQueryData(['cases', caseId], caseData.items[1]);
 
     const { baseElement, getByText } = render(componentWrapper);
     expect(baseElement).toBeTruthy();
@@ -163,36 +163,25 @@ describe('CaseDetails', () => {
       expect(baseElement.querySelector('input#first_name')).toBeDefined();
     });
 
-    // Change a field value
+    // Clear required fields to trigger validation errors
     const firstNameInput = baseElement.querySelector(
       'input#first_name',
     ) as HTMLInputElement;
     fireEvent.change(firstNameInput, { target: { value: '' } });
+
     const lastNameInput = baseElement.querySelector(
       'input#last_name',
     ) as HTMLInputElement;
     fireEvent.change(lastNameInput, { target: { value: '' } });
-    const ssnInput = baseElement.querySelector('input#ssn') as HTMLInputElement;
-    fireEvent.change(ssnInput, { target: { value: '' } });
-    const dobInput = baseElement.querySelector(
-      'input#date_of_birth',
-    ) as HTMLInputElement;
-    fireEvent.change(dobInput, { target: { value: '' } });
-    const genderInput = baseElement.querySelector(
-      'select#gender',
-    ) as HTMLSelectElement;
-    fireEvent.change(genderInput, { target: { value: '' } });
-    const homePhoneInput = baseElement.querySelector(
-      'input#home_phone',
-    ) as HTMLInputElement;
-    fireEvent.change(homePhoneInput, { target: { value: '' } });
 
-    // Save changes
+    // Try to save - this should fail validation and keep the form in edit mode
     const saveButton = getByText('Save Case');
     fireEvent.click(saveButton);
 
-    // Verify form is back to view mode
-    expect(editButton.textContent).not.toEqual('Edit Case');
+    // Verify form stays in edit mode due to validation errors
+    await waitFor(() => {
+      expect(getByText('Cancel Edit')).toBeDefined();
+    });
   });
 
   test('should render with error', async () => {

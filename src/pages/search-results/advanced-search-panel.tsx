@@ -6,7 +6,7 @@ import {
   DatePicker,
   TextInput,
 } from '@metrostar/comet-uswds';
-import { CaseSearchFilters } from '@src/types/case';
+import { CaseSearchFilters } from '@src/types';
 import React, { useEffect, useState } from 'react';
 import './advanced-search-panel.scss';
 

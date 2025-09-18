@@ -1,5 +1,5 @@
-import { userData } from '@src/data/user';
-import { User } from '@src/types/user';
+import { userData } from '@src/data/users';
+import { User } from '@src/types';
 import { getDisplayName, getSignInRedirectUrl, hasSsoConfig } from './auth';
 
 describe('Auth Helpers', () => {

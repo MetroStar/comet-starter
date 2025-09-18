@@ -1,4 +1,4 @@
-import { User } from '@src/types/user';
+import { User } from '@src/types';
 
 export const getDisplayName = (user: User): string => {
   if (user.displayName) {

@@ -32,7 +32,7 @@
       "@src/features/*": ["src/features/*"],
       "@src/hooks/*": ["src/hooks/*"],
       "@src/pages/*": ["src/pages/*"],
-      "@src/types/*": ["src/types/*"],
+      "@src/types": ["src/types.ts"],
       "@src/utils/*": ["src/utils/*"]
     }
   },

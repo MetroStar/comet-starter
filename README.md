@@ -9,7 +9,7 @@ The goal of this project is to provide a React with TypeScript starter applicati
 - Global State Management: [Jotai](https://jotai.org/)
 - Asynchronous State Management: [Tanstack Query](https://tanstack.com/query/v3/)
 - API Support: [Axios](https://axios-http.com/)
-- Form Validation: [React Hook Form](https://react-hook-form.com/)
+- Form Validation: [TanStack Form](https://tanstack.com/form/latest) with [Zod](https://zod.dev/)
 - Unit Testing: [Vitest](https://vitest.dev/) with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 - Code Analysis: [ESLint](https://eslint.org/)
 - Code Formatting: [Prettier](https://prettier.io/)
@@ -37,11 +37,7 @@ The goal of this project is to provide a React with TypeScript starter applicati
 npm install
 ```
 
-2. To install the [Comet CLI](https://github.com/MetroStar/comet/tree/main/packages/comet-cli#example-commands), run the following (optional):
-
-```sh
-npm install -g @metrostar/comet-cli
-```
+2. Install the [Comet MCP](https://github.com/MetroStar/comet/tree/main/packages/comet-mcp) (optional):
 
 3. Install Recommended VS Code Extensions (optional)
 
@@ -152,7 +148,6 @@ The following provides a short list of tasks which are potential next steps for 
 - [ ] Apply/clean-up basic branding (title, header, footer, logo, favicon, etc)
 - [ ] Add/Update Dashboard, About, Contact Us pages with applicable content
 - [ ] Enhance Dashboard table functionality (filter, search, paging)
-- [ ] Enhance Search Results page with filtering
 - [ ] Add Profile page and Profile Menu to Header (include Sign In/Sign Out, Profile, etc)
 - [ ] Integrate with some API (Ex. [Comet API](https://github.com/MetroStar/comet-api))
 - [ ] Integrate with some Identity Provider to support Single Sign-On (SSO)

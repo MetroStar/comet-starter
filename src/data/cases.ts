@@ -1,6 +1,6 @@
-import { Case, CaseItems } from '@src/types/case';
+import { Case, CaseItems } from '@src/types';
 
-const data: Case[] = [
+const items: Case[] = [
   {
     id: 1000001,
     applicant: {
@@ -416,9 +416,9 @@ const data: Case[] = [
   },
 ];
 
-export const mockData: CaseItems = {
-  items: data,
-  item_count: data.length,
+export const caseData: CaseItems = {
+  items: items,
+  item_count: items.length,
   page_count: 2,
   prev_page: null,
   next_page: null,

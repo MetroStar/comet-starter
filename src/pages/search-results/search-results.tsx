@@ -2,7 +2,7 @@ import { Spinner } from '@metrostar/comet-extras';
 import { Card, CardBody } from '@metrostar/comet-uswds';
 import ErrorNotification from '@src/components/error-notification/error-notification';
 import useCasesApi from '@src/hooks/use-cases-api';
-import { CaseSearchFilters } from '@src/types/case';
+import { CaseSearchFilters } from '@src/types';
 import React, { useEffect, useState } from 'react';
 import { NavLink, useSearchParams } from 'react-router-dom';
 import { AdvancedSearchPanel } from './advanced-search-panel';

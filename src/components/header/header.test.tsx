@@ -2,10 +2,10 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 
+import { User } from '@src/types';
 import { Provider } from 'jotai';
 import { AuthProvider } from 'react-oidc-context';
 import * as useAuthMock from '../../hooks/use-auth';
-import { User } from '../../types/user';
 import { Header } from './header';
 
 describe('Header', () => {

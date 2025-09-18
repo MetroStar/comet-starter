@@ -1,5 +1,5 @@
-import { mockData } from '@src/data/case';
-import { Case, CaseSearchFilters } from '@src/types/case';
+import { caseData } from '@src/data/cases';
+import { Case, CaseSearchFilters } from '@src/types';
 import axios from '@src/utils/axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -8,7 +8,7 @@ const getCases = async (): Promise<Case[]> => {
   // return response.data.items;
 
   return Promise.resolve(
-    mockData.items.filter(
+    caseData.items.filter(
       (item) => item.status !== 'Approved' && item.status !== 'Denied',
     ),
   );
@@ -16,7 +16,7 @@ const getCases = async (): Promise<Case[]> => {
 
 const searchCases = async (filters: CaseSearchFilters): Promise<Case[]> => {
   return Promise.resolve(
-    mockData.items.filter((item) => {
+    caseData.items.filter((item) => {
       // Simple search logic
       if (filters.q) {
         const q = filters.q.toLowerCase();
@@ -64,7 +64,7 @@ const getCase = async (id: number): Promise<Case> => {
   // const response = await axios.get(`/cases/${id}`);
   // return response.data;
 
-  return Promise.resolve(mockData.items.filter((item) => item.id === id)[0]);
+  return Promise.resolve(caseData.items.filter((item) => item.id === id)[0]);
 };
 
 const createCase = async (newUser: Case): Promise<Case> => {

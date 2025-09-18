@@ -2,12 +2,12 @@ import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 
+import { User } from '@src/types';
 import axios from '@src/utils/axios';
 import MockAdapter from 'axios-mock-adapter';
 import { Provider } from 'jotai';
 import { AuthProvider } from 'react-oidc-context';
 import * as useAuthMock from '../../hooks/use-auth';
-import { User } from '../../types/user';
 import { SignIn } from './sign-in';
 
 describe('SignIn', () => {
