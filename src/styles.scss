@@ -14,7 +14,10 @@ body {
 #mainSection {
   display: unset;
   flex: 1;
-  background-color: #f0f0f0;
+
+  .dashboard {
+    background-color: #f0f0f0;
+  }
 }
 
 .usa-footer {
