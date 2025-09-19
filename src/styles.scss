@@ -14,10 +14,6 @@ body {
 #mainSection {
   display: unset;
   flex: 1;
-
-  .dashboard {
-    background-color: #f0f0f0;
-  }
 }
 
 .usa-footer {
@@ -25,7 +21,7 @@ body {
 }
 
 .usa-section {
-  padding-top: 1em;
+  padding-top: 0;
 }
 
 .usa-form .usa-button {

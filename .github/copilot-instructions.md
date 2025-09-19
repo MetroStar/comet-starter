@@ -23,6 +23,8 @@ This project is built using the following tools and libraries:
 - Use the Comet Icon component for icons.
 - All comet-uswds and comet-extras components should include an `id` attribute.
 - Use comet-data-viz components for BarGraph, AreaGraph, LineGraph, PolarAxis, PieChart, ScatterGraph, StackGraph.
+- Dashboard pages should include all code in a single component, no need to break out into multiple components.
+- Dashboard pages do not need unit tests unless specifically requested.
 - Use arrow functions for components and hooks.
 - Use functional components instead of class components.
 - Use PascalCase for component names.
