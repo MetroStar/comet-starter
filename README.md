@@ -37,18 +37,16 @@ The goal of this project is to provide a React with TypeScript starter applicati
 npm install
 ```
 
-2. Install the [Comet MCP](https://github.com/MetroStar/comet/tree/main/packages/comet-mcp) (optional):
+2. Install Recommended VS Code Extensions (optional)
 
-3. Install Recommended VS Code Extensions (optional)
-
-4. To run locally with SSO, add a file called `.env.local` to the `comet-starter` directory. Copy and paste the template below and replace the placeholder values with your own (optional):
+3. To run locally with SSO, add a file called `.env.local` to the `comet-starter` directory. Copy and paste the template below and replace the placeholder values with your own (optional):
 
 ```
 VITE_SSO_AUTHORITY=[SOME_KEYCLOAK_REALM_URL] # Ex: http://localhost:8088/realms/dev
 VITE_SSO_CLIENT_ID=[SOME_CLIENT_ID] # Ex: dev-client
 ```
 
-5. To start the app, run the following:
+4. To start the app, run the following:
 
 ```sh
 npm run dev

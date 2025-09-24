@@ -1,0 +1,8 @@
+{
+  "servers": {
+    "comet": {
+      "command": "npx",
+      "args": ["@metrostar/comet-mcp"]
+    }
+  }
+}

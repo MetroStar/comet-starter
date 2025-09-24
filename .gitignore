@@ -21,6 +21,7 @@ node_modules
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+!.vscode/mcp.json
 
 # Coverage directory used by tools like istanbul
 *.lcov
