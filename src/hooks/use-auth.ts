@@ -67,7 +67,6 @@ const useAuth = () => {
     username: string,
     password: string,
   ): Promise<AxiosResponse> => {
-    auth.error = undefined;
     return axios
       .post('/auth/signin', {
         username,

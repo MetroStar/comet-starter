@@ -5,14 +5,25 @@ import hooksPlugin from 'eslint-plugin-react-hooks';
 import tseslint from 'typescript-eslint';
 
 export default [
+  // Ignore patterns
+  {
+    ignores: [
+      'dist/**',
+      'coverage/**',
+      'e2e-results/**',
+      '**/.unlighthouse/**',
+      'node_modules/**',
+    ],
+  },
   // Flat Configs
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   prettierRecommended,
   reactPlugin.configs.flat.recommended,
+  hooksPlugin.configs.flat.recommended,
   // Default Configs
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ['**/*.{ts,tsx,js,jsx}'],
     settings: {
       react: {
         version: 'detect',
@@ -24,9 +35,6 @@ export default [
           jsx: true,
         },
       },
-    },
-    plugins: {
-      'react-hooks': hooksPlugin,
     },
     rules: {
       // Base Warnings
@@ -46,8 +54,8 @@ export default [
       ],
 
       // React
-      ...hooksPlugin.configs.recommended.rules,
       'react-hooks/exhaustive-deps': 'off',
+      'react-hooks/set-state-in-effect': 'off',
       'react/react-in-jsx-scope': 'off',
     },
   },
