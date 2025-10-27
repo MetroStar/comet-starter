@@ -82,7 +82,7 @@ describe('Header', () => {
   test('should display menu when button is clicked', async () => {
     vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
     const { baseElement } = render(headerComponent);
-    global.innerWidth = 500;
+    window.innerWidth = 500;
     window.dispatchEvent(new Event('resize'));
 
     const button = screen.getByText('Menu');
