@@ -48,6 +48,7 @@ yarn-error.log
 testem.log
 /typings
 *.local
+.env
 .puppeteer_data
 
 # Test Results
