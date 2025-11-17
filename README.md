@@ -37,14 +37,13 @@ The goal of this project is to provide a React with TypeScript starter applicati
 npm install
 ```
 
-2. Install Recommended VS Code Extensions (optional)
+2. Copy the environment sample file to create your local environment configuration (update as needed):
 
-3. To run locally with SSO, add a file called `.env.local` to the `comet-starter` directory. Copy and paste the template below and replace the placeholder values with your own (optional):
+```sh
+cp .env.sample .env
+```
 
-```
-VITE_SSO_AUTHORITY=[SOME_KEYCLOAK_REALM_URL] # Ex: http://localhost:8088/realms/dev
-VITE_SSO_CLIENT_ID=[SOME_CLIENT_ID] # Ex: dev-client
-```
+3. Install Recommended VS Code Extensions (optional)
 
 4. To start the app, run the following:
 
