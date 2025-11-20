@@ -1,14 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /// <reference types="unlighthouse" />
 import dotenv from 'dotenv';
-// import { Page } from 'puppeteer-core';
+import { Page } from 'puppeteer-core';
 import { defineUnlighthouseConfig } from 'unlighthouse/config';
 
 // Include dotenv to load environment variables from .env.local
-dotenv.config({ path: '.env.local' });
+dotenv.config({ path: '.env' });
 
 // Store authentication state in cookie to support puppeteer
-// let authCookies: any[] = [];
-// let authLocalStorage: Record<string, string> = {};
+let authCookies: any[] = [];
+let authLocalStorage: Record<string, string> = {};
 
 export default defineUnlighthouseConfig({
   root: './src',
@@ -41,82 +42,93 @@ export default defineUnlighthouseConfig({
     sitemap: false,
     throttle: true,
     samples: 3,
-    // include: [
-    //   '/',
-    //   '/about',
-    //   '/contact-us',
-    //   '/signin',
-    //   '/dashboard',
-    //   '/cases/1000002',
-    // ],
+    include: [
+      '/',
+      '/about',
+      '/contact-us',
+      '/signin',
+      '/dashboard',
+      '/cases/1000002',
+    ],
   },
-  // hooks: {
-  //   async authenticate(page: Page) {
-  //     const authEnabled = (process.env.LIGHTHOUSE_AUTH_ENABLED || '0') === '1';
-  //     console.log('Authentication enabled:', authEnabled);
+  hooks: {
+    async authenticate(page: Page) {
+      const authEnabled = (process.env.LIGHTHOUSE_AUTH_ENABLED || '0') === '1';
+      console.log('Authentication enabled:', authEnabled);
 
-  //     if (authEnabled) {
-  //       const baseUrl = process.env.VITE_BASE_URL || 'http://localhost:8080';
-  //       await page.goto(baseUrl + '/signin');
-  //       await page.locator('#sign-in-sso').click();
-  //       await page.waitForSelector('#kc-login');
+      if (authEnabled) {
+        const baseUrl = process.env.VITE_BASE_URL || 'http://localhost:8080';
+        const username = process.env.USER_USERNAME || '';
+        const password = process.env.USER_PASSWORD || '';
+        if (!username || !password) {
+          console.warn(
+            'USER_USERNAME or USER_PASSWORD environment variables are not set. Skipping authentication.',
+          );
+          return;
+        }
 
-  //       const usernameInput = await page.$('input[name="username"]');
-  //       await usernameInput?.type(process.env.user_username || '');
-  //       const passwordInput = await page.$('input[name="password"]');
-  //       await passwordInput?.type(process.env.user_password || '');
+        console.log('Navigating to sign-in page...');
 
-  //       console.log('Submitting login form...');
-  //       await Promise.all([
-  //         page.$eval('#kc-form-login', (form: any) => form.submit()),
-  //         page.waitForNavigation({ waitUntil: 'networkidle0' }),
-  //       ]);
+        await page.goto(baseUrl + '/signin');
+        await page.locator('#sign-in-sso').click();
+        await page.waitForSelector('#kc-login');
 
-  //       console.log('Login successful.');
+        const usernameInput = await page.$('input[name="username"]');
+        await usernameInput?.type(username);
+        const passwordInput = await page.$('input[name="password"]');
+        await passwordInput?.type(password);
 
-  //       await page.goto(baseUrl + '/dashboard', { waitUntil: 'networkidle0' });
-  //       await page.waitForSelector('a[id*="job-link-"]', { timeout: 10000 });
+        console.log('Submitting login form...');
+        await Promise.all([
+          page.$eval('#kc-form-login', (form: any) => form.submit()),
+          page.waitForNavigation({ waitUntil: 'networkidle0' }),
+        ]);
 
-  //       console.log('Capturing authentication state...');
-  //       authCookies = await page.cookies();
-  //       authLocalStorage = await page.evaluate(() => {
-  //         const items: Record<string, string> = {};
-  //         for (let i = 0; i < localStorage.length; i++) {
-  //           const key = localStorage.key(i);
-  //           if (key) {
-  //             items[key] = localStorage.getItem(key) || '';
-  //           }
-  //         }
-  //         return items;
-  //       });
+        console.log('Login successful.');
 
-  //       console.log('Auth cookies captured:', authCookies.length);
-  //       console.log(
-  //         'Auth localStorage captured:',
-  //         Object.keys(authLocalStorage),
-  //       );
-  //     }
-  //   },
+        await page.goto(baseUrl + '/dashboard', { waitUntil: 'networkidle0' });
+        await page.waitForSelector('a[id*="case-link-"]', { timeout: 10000 });
 
-  //   'puppeteer:before-goto': async (page: Page) => {
-  //     // Restore authentication state before each page visit
-  //     if (authCookies.length > 0) {
-  //       console.log('Restoring auth cookies...');
-  //       await page.setCookie(...authCookies);
-  //     }
+        console.log('Capturing authentication state...');
+        authCookies = await page.cookies();
+        authLocalStorage = await page.evaluate(() => {
+          const items: Record<string, string> = {};
+          for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key) {
+              items[key] = localStorage.getItem(key) || '';
+            }
+          }
+          return items;
+        });
 
-  //     // Restore localStorage auth tokens if we have them
-  //     if (Object.keys(authLocalStorage).length > 0) {
-  //       console.log('Restoring auth localStorage...');
-  //       await page
-  //         .evaluate((storage) => {
-  //           for (const [key, value] of Object.entries(storage)) {
-  //             localStorage.setItem(key, value);
-  //           }
-  //           return true;
-  //         }, authLocalStorage)
-  //         .catch((e) => console.error('Error setting localStorage:', e));
-  //     }
-  //   },
-  // },
+        console.log('Auth cookies captured:', authCookies.length);
+        console.log(
+          'Auth localStorage captured:',
+          Object.keys(authLocalStorage),
+        );
+      }
+    },
+
+    'puppeteer:before-goto': async (page: Page) => {
+      // Restore authentication state before each page visit
+      if (authCookies.length > 0) {
+        // console.log('Restoring auth cookies...');
+        await page.setCookie(...authCookies);
+      }
+
+      // Restore localStorage auth tokens if we have them
+      if (Object.keys(authLocalStorage).length > 0) {
+        // console.log('Restoring auth localStorage...');
+        await page
+          .evaluate((storage) => {
+            for (const [key, value] of Object.entries(storage)) {
+              localStorage.setItem(key, value);
+            }
+            return true;
+          }, authLocalStorage)
+          .catch((e) => console.error('Error setting localStorage:', e));
+      }
+    },
+  },
 });
