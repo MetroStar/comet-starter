@@ -96,7 +96,7 @@ You can also see the `.vscode/settings.json` file to find how to enable auto-for
 
 Note: running E2E tests requires a deployed or running app.
 
-1. To run against a deployed app, add the following to your .env.local (optional):
+1. To run against a deployed app, add the following to your .env (optional):
 
 ```
 VITE_BASE_URL=SOME_URL # Ex: 'https://metrostar.github.io/comet-starter/'
@@ -118,7 +118,7 @@ npm run e2e
 
 Note: running accessibility tests requires a deployed or running app.
 
-1. To run against a deployed app, add the following to your .env.local (optional):
+1. To run against a deployed app, add the following to your .env (optional):
 
 ```
 VITE_BASE_URL=SOME_URL # Ex: 'https://metrostar.github.io/comet-starter/'
