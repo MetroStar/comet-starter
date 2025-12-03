@@ -94,8 +94,6 @@ You can also see the `.vscode/settings.json` file to find how to enable auto-for
 
 ## Running End-to-End (E2E) Tests
 
-Note: running E2E tests requires a deployed or running app.
-
 1. To run against a deployed app, add the following to your .env (optional):
 
 ```

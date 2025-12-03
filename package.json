@@ -25,7 +25,7 @@
     "test:coverage": "vitest --run --coverage",
     "e2e": "npx playwright test --ui",
     "e2e:ci": "npx playwright test",
-    "a11y": "unlighthouse --config-file .unlighthouse.config.ts --site http://localhost:8080",
+    "a11y": "unlighthouse --config-file .unlighthouse.config.ts --site http://localhost:5173",
     "a11y:ci": "unlighthouse --config-file .unlighthouse.config.ts --headless",
     "predeploy": "vite build --base=/comet-starter/",
     "deploy": "gh-pages -d dist"
