@@ -57,7 +57,7 @@ export default defineUnlighthouseConfig({
       console.log('Authentication enabled:', authEnabled);
 
       if (authEnabled) {
-        const baseUrl = process.env.VITE_BASE_URL || 'http://localhost:8080';
+        const baseUrl = process.env.VITE_BASE_URL || 'http://localhost:5173';
         const username = process.env.USER_USERNAME || '';
         const password = process.env.USER_PASSWORD || '';
         if (!username || !password) {
