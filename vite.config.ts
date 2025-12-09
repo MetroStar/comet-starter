@@ -44,7 +44,7 @@ export default defineConfig({
     proxy: {
       // Provides mocked signin for local development
       '/api/auth/signin': {
-        target: 'http://0.0.0.0:5000',
+        target: 'http://0.0.0.0:8000',
         bypass: (req, res) => {
           res.setHeader('Content-Type', 'application/json');
           let data = '';
@@ -73,7 +73,7 @@ export default defineConfig({
         },
       },
       '/api': {
-        target: 'http://0.0.0.0:5000',
+        target: 'http://0.0.0.0:8000',
         rewrite: (path) => path.replace(/^\/api/, ''),
         changeOrigin: true,
       },

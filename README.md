@@ -62,10 +62,10 @@ docker build . -t comet-starter
 2. To run the container, run the following:
 
 ```sh
-docker run -p 8080:8080 --name comet-starter comet-starter
+docker run -p 3000:3000 --name comet-starter comet-starter
 ```
 
-3. Access the app by navigating to: `http://localhost:8080`
+3. Access the app by navigating to: `http://localhost:3000`
 
 ## Running Unit Tests
 

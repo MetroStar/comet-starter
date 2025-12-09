@@ -25,12 +25,12 @@ COPY --from=build /app/dist /usr/share/nginx/html
 # Copy the default Nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Expose port 8080
-EXPOSE 8080
+# Expose port 3000
+EXPOSE 3000
 
 # Healthcheck with wget
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
-  CMD wget -qO- http://127.0.0.1:8080/health || exit 1
+  CMD wget -qO- http://127.0.0.1:3000/health || exit 1
 
 # Start Nginx when the container starts
 CMD ["nginx", "-g", "daemon off;"]
