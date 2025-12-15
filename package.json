@@ -76,7 +76,7 @@
     "unlighthouse": "0.17.4",
     "vite": "^6.4.1",
     "vite-plugin-environment": "1.1.3",
-    "vite-tsconfig-paths": "5.1.4",
+    "vite-tsconfig-paths": "6.0.1",
     "vitest": "^4.0.4"
   },
   "optionalDependencies": {
