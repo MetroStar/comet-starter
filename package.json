@@ -34,7 +34,7 @@
     "@metrostar/comet-data-viz": "1.2.2",
     "@metrostar/comet-extras": "1.8.1",
     "@metrostar/comet-uswds": "3.8.0",
-    "@tanstack/react-form": "^1.27.4",
+    "@tanstack/react-form": "^1.27.6",
     "@tanstack/react-query": "5.90.12",
     "axios": "1.13.2",
     "axios-mock-adapter": "2.1.0",
@@ -43,8 +43,8 @@
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "react-oidc-context": "^3.3.0",
-    "react-router-dom": "7.10.1",
-    "zod": "^4.2.0"
+    "react-router-dom": "7.11.0",
+    "zod": "^4.2.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
@@ -55,7 +55,7 @@
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "5.1.2",
-    "@vitest/coverage-v8": "^4.0.15",
+    "@vitest/coverage-v8": "^4.0.16",
     "autoprefixer": "^10.4.23",
     "axe-core": "4.11.0",
     "dotenv": "^17.2.3",
@@ -68,15 +68,15 @@
     "jsdom": "^27.3.0",
     "prettier": "3.7.4",
     "prettier-plugin-organize-imports": "4.3.0",
-    "puppeteer": "^24.33.0",
-    "sass": "1.96.0",
+    "puppeteer": "^24.34.0",
+    "sass": "1.97.1",
     "tsconfig-paths": "4.2.0",
     "typescript": "5.9.3",
-    "typescript-eslint": "^8.49.0",
+    "typescript-eslint": "^8.50.0",
     "unlighthouse": "0.17.4",
     "vite": "^6.4.1",
     "vite-plugin-environment": "1.1.3",
-    "vite-tsconfig-paths": "6.0.1",
+    "vite-tsconfig-paths": "6.0.3",
     "vitest": "^4.0.4"
   },
   "optionalDependencies": {
