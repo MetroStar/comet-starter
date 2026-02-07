@@ -2,7 +2,7 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "pflannery.vscode-versionlens",
+    "legalfina.npm-version-lens",
     "vitest.explorer"
   ]
 }
