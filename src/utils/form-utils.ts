@@ -23,9 +23,7 @@ export const formatFieldError = (error: unknown): string | undefined => {
     }
 
     // Handle Zod-style error with issues array
-    if (
-      'issues' in error
-    ) {
+    if ('issues' in error) {
       const zodError = error as { issues: { message?: string }[] };
       const issues = zodError.issues;
       if (Array.isArray(issues) && issues.length > 0 && issues[0].message) {
