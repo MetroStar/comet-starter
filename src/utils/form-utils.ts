@@ -10,10 +10,11 @@ export const formatFieldError = (error: unknown): string | undefined => {
   }
 
   // Handle Zod error objects
-  if (typeof error === 'object') {
+  if (typeof error === 'object' && error !== null) {
     // Check if it has a message property
-    if ('message' in error && typeof error.message === 'string') {
-      return error.message;
+    const errorWithMessage = error as { message?: unknown };
+    if ('message' in error && typeof errorWithMessage.message === 'string') {
+      return errorWithMessage.message;
     }
 
     // Handle arrays of errors (take the first one)
@@ -23,11 +24,11 @@ export const formatFieldError = (error: unknown): string | undefined => {
 
     // Handle Zod-style error with issues array
     if (
-      'issues' in error &&
-      Array.isArray((error as { issues: unknown[] }).issues)
+      'issues' in error
     ) {
-      const issues = (error as { issues: { message?: string }[] }).issues;
-      if (issues.length > 0 && issues[0].message) {
+      const zodError = error as { issues: { message?: string }[] };
+      const issues = zodError.issues;
+      if (Array.isArray(issues) && issues.length > 0 && issues[0].message) {
         return issues[0].message;
       }
     }
