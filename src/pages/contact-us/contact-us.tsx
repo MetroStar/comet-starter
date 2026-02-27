@@ -25,7 +25,7 @@ export const ContactUs = (): React.ReactElement => {
       .string()
       .min(1, 'This field is required.')
       .regex(
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
         'Please enter a valid email address.',
       ),
     message: z.string().min(1, 'This field is required.'),
