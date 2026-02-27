@@ -10,7 +10,7 @@ export const formatFieldError = (error: unknown): string | undefined => {
   }
 
   // Handle Zod error objects
-  if (typeof error === 'object' && error !== null) {
+  if (error !== null && typeof error === 'object') {
     // Check if it has a message property
     if ('message' in error && typeof error.message === 'string') {
       return error.message;
