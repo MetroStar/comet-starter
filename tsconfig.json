@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "rootDir": "./src",
     "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
     "esModuleInterop": true,
+    "ignoreDeprecations": "6.0",
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -27,13 +28,13 @@
 
     /* Paths */
     "paths": {
-      "@src/components/*": ["src/components/*"],
-      "@src/data/*": ["src/data/*"],
-      "@src/features/*": ["src/features/*"],
-      "@src/hooks/*": ["src/hooks/*"],
-      "@src/pages/*": ["src/pages/*"],
-      "@src/types": ["src/types.ts"],
-      "@src/utils/*": ["src/utils/*"]
+      "@src/components/*": ["./src/components/*"],
+      "@src/data/*": ["./src/data/*"],
+      "@src/features/*": ["./src/features/*"],
+      "@src/hooks/*": ["./src/hooks/*"],
+      "@src/pages/*": ["./src/pages/*"],
+      "@src/types": ["./src/types.ts"],
+      "@src/utils/*": ["./src/utils/*"]
     }
   },
   "include": ["src"],

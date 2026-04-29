@@ -3,7 +3,7 @@
   Additional design token settings can be found here: https://designsystem.digital.gov/documentation/settings/.
   Spacing Units can be found here: https://designsystem.digital.gov/design-tokens/spacing-units/.
 */
-@use 'uswds-core' with (
+@use '@uswds/uswds/scss/uswds-core' with (
   // General settings
   $theme-show-notifications: false,
   $theme-font-path: '~uswds/dist/fonts',
