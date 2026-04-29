@@ -13,6 +13,9 @@
     "open source"
   ],
   "type": "module",
+  "engines": {
+    "node": ">=22.22.2"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
