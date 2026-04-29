@@ -4,15 +4,15 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { defineConfig } from 'vite';
 import EnvironmentPlugin from 'vite-plugin-environment';
-import tsconfigPaths from 'vite-tsconfig-paths';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), tsconfigPaths(), EnvironmentPlugin('all')],
+  plugins: [react(), EnvironmentPlugin('all')],
   resolve: {
+    tsconfigPaths: true,
     alias: {
       '~uswds': path.resolve(__dirname, 'node_modules/@uswds/uswds'),
     },
@@ -20,15 +20,15 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        api: 'legacy',
-        includePaths: ['node_modules/@uswds/uswds/packages'],
+        loadPaths: ['node_modules/@uswds/uswds/packages'],
         // Silence warnings coming from USWDS SCSS
         quietDeps: true,
         logger: {
-          warn: (msg) => {
+          warn: (msg: string) => {
             if (msg.includes('legacy-js-api')) {
               return;
             }
+            // eslint-disable-next-line no-console
             console.warn(msg);
           },
         },
@@ -46,6 +46,7 @@ export default defineConfig({
       '/api/auth/signin': {
         target: 'http://0.0.0.0:8000',
         bypass: (req, res) => {
+          if (!res) return;
           res.setHeader('Content-Type', 'application/json');
           let data = '';
 

@@ -2,7 +2,7 @@
 @forward './uswds-settings.scss';
 
 // Point to the USWDS source code (required)
-@forward '~uswds/packages/uswds';
+@forward '@uswds/uswds/scss/uswds';
 
 // Include your project's custom Sass (optional)
 // @forward "project-custom.scss";
