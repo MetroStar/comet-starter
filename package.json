@@ -72,7 +72,7 @@
     "puppeteer": "^24.40.0",
     "sass": "1.98.0",
     "tsconfig-paths": "4.2.0",
-    "typescript": "6.0.2",
+    "typescript": "6.0.3",
     "typescript-eslint": "^8.58.0",
     "unlighthouse": "0.17.7",
     "vite": "^8.0.7",
