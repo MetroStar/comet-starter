@@ -72,7 +72,7 @@
     "jsdom": "^29.1.1",
     "prettier": "3.8.3",
     "prettier-plugin-organize-imports": "4.3.0",
-    "puppeteer": "^24.40.0",
+    "puppeteer": "^25.1.0",
     "sass": "1.100.0",
     "tsconfig-paths": "4.2.0",
     "typescript": "6.0.3",
