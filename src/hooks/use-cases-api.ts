@@ -20,14 +20,12 @@ const searchCases = async (filters: CaseSearchFilters): Promise<Case[]> => {
       // Simple search logic
       if (filters.q) {
         const q = filters.q.toLowerCase();
-        if (
-          !(
-            item.id.toString().includes(q) ||
-            item.applicant.last_name.toLowerCase().includes(q) ||
-            item.applicant.first_name.toLowerCase().includes(q) ||
-            item.applicant.email?.toLowerCase().includes(q)
-          )
-        ) {
+        if (!(
+          item.id.toString().includes(q) ||
+          item.applicant.last_name.toLowerCase().includes(q) ||
+          item.applicant.first_name.toLowerCase().includes(q) ||
+          item.applicant.email?.toLowerCase().includes(q)
+        )) {
           return false;
         }
       }
