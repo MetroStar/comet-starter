@@ -64,24 +64,6 @@ describe('useAuth', () => {
   });
 
   it('should set isSignedIn to true when authenticated and with profile', async () => {
-    vi.mock('react-oidc-context', () => ({
-      useAuth: () => ({
-        isAuthenticated: true,
-        isLoading: false,
-        user: {
-          profile: {
-            firstName: 'John',
-            lastName: 'Doe',
-            displayName: 'John Doe',
-            emailAddress: 'jdoe@test.com',
-            phoneNumber: '1234567890',
-          },
-        },
-        signinRedirect: vi.fn(),
-        signoutRedirect: vi.fn(),
-      }),
-    }));
-
     const { result } = renderHook(() => useAuth(), {
       wrapper: contextWrapper,
     });
