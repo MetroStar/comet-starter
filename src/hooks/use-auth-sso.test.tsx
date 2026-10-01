@@ -6,12 +6,25 @@ interface ContextWrapperProps {
   children: React.ReactNode;
 }
 
+interface MockProfile {
+  email?: string;
+  given_name?: string;
+  family_name?: string;
+  name?: string;
+  phone_number?: string;
+}
+
+// Hoisted mutable state for mock configuration
+const mockAuthState: { profile: MockProfile | undefined } = {
+  profile: undefined,
+};
+
 vi.mock('react-oidc-context', () => ({
   useAuth: () => ({
     isAuthenticated: true,
     isLoading: false,
     user: {
-      profile: undefined,
+      profile: mockAuthState.profile,
     },
     signinRedirect: vi.fn(),
     signoutRedirect: vi.fn(),
@@ -21,6 +34,7 @@ vi.mock('react-oidc-context', () => ({
 describe('useAuth', () => {
   afterEach(() => {
     vi.clearAllMocks();
+    mockAuthState.profile = undefined; // Reset after each test
   });
 
   const contextWrapper = ({ children }: ContextWrapperProps) => (
@@ -64,6 +78,15 @@ describe('useAuth', () => {
   });
 
   it('should set isSignedIn to true when authenticated and with profile', async () => {
+    // Configure mock with profile data for this test
+    mockAuthState.profile = {
+      email: 'test@example.com',
+      given_name: 'Test',
+      family_name: 'User',
+      name: 'Test User',
+      phone_number: '+1-555-0123',
+    };
+
     const { result } = renderHook(() => useAuth(), {
       wrapper: contextWrapper,
     });
@@ -73,5 +96,13 @@ describe('useAuth', () => {
     });
 
     expect(result.current.isSignedIn).toBe(true);
+    // Assert the profile-to-currentUserData mapping
+    expect(result.current.currentUserData).toEqual({
+      firstName: 'Test',
+      lastName: 'User',
+      displayName: 'Test User',
+      emailAddress: 'test@example.com',
+      phoneNumber: '+1-555-0123',
+    });
   });
 });
