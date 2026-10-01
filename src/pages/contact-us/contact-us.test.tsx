@@ -1,9 +1,9 @@
+/// <reference types="@testing-library/jest-dom/vitest" />
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'jotai';
 import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
-import { describe, expect } from 'vitest';
 import { ContactUs } from './contact-us';
 
 describe('ContactUs', () => {
